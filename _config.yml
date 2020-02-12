@@ -17,3 +17,4 @@ github_username: pdqnguyen
 
 # Build settings
 markdown: kramdown
+theme: cayman
