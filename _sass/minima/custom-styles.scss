@@ -1,9 +1,30 @@
+/* Scroll wheel for dataframes */
 .table-wrapper {
   overflow-x: scroll;
 }
 
-.highlight pre { background-color: #2e203b; }
-.highlight .hll { background-color: #2e203b; }
+/* Transparent code output blocks */
+.code-output {
+  background-color: $background-color;
+  border: 0px;
+  color: $text-color;
+}
+
+details > summary { font-weight: bold }
+
+details {
+  border-radius: 10px 10px 10px 10px;
+  background-color: lighten($background-color, 12%);
+  padding: 2px 6px;
+  margin: 0;
+  box-shadow: 3px 3px 4px #292929;
+}
+
+img {background-color: lighten($background-color, 25%)}
+
+/* Monokai python theme from jekyll-pygments-theme */
+.highlight pre { background-color: $code-background-color; }
+.highlight .hll { background-color: $code-background-color; }
 .highlight .c { color: #75715e } /* Comment */
 .highlight .err { color: #960050; background-color: #1e0010 } /* Error */
 .highlight .k { color: #f92672} /* Keyword */

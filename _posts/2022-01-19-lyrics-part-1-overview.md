@@ -1,42 +1,55 @@
 ---
-layout: page
+layout: post
+title: "Analysis of heavy metal lyrics - Part 1: Overview"
 categories: jekyll update
-permalink: /pages/lyrics-part-1-overview
+permalink: '/pages/lyrics-part-1-overview'
+hidden: true
 ---
 
-# Song lyrics - Part 1: Overview
+<pre style="margin-left: 50px; margin-right: 50px; font-size: 13px">
+Explicit/NSFW content warning: this project features examples of heavy metal lyrics, song/album/band names.
+These often contain words and themes that some may find offensive/inappropriate.
+</pre>
 
-This is the first of several notebooks examining the song lyrics dataset. This notebook explores some basic properties of the dataset, while also tidying up the data for analysis in the following notebooks.
+# Summary and insights
 
-### Imports
+This article provides a top-level overview of the song lyrics dataset.
+We will do a little data cleaning and explore some basic properties of the dataset.
+I've put together a [dashboard](https://metal-lyrics-feature-plots.herokuapp.com/)
+to visualize the complete dataset using the metrics discussed here and in the other articles.
+Since I did the analyses here before building the dashboard, some plots will look different.
+If you're interested in seeing more of the code, check out the original
+[notebook](https://github.com/pdqnguyen/metallyrics/blob/master/analyses/lyrics/markdown/lyrics0.md).
+In the [next article](/pages/lyrics-part-1-overview.html) we'll dive much deeper into evaluating lyrical complexity
+using various lexical diversity measures.
 
-<!--
-{% highlight python %}
-from sklearn.metrics import confusion_matrix as cm
+**Things we'll do:**
 
-class SomeThing(object):
-    def __init__(self, n, m):
-        """some docstring"""
-        self.n = n
-        self.m = m
+* Use basic statistics to compare heavy metal lyrics at the song, album, and band levels.
+* Rank songs, albums, and bands by words per song, unique words per song, words per second, and unique words per second.
+* Produce a swarm plot in the style of [Matt Daniels' hip hop lyrics analysis](https://pudding.cool/projects/vocabulary/index.html)
+* Compare lyrical statistics between different heavy metal genres.
 
-    @property
-    def area(self):
-        # A comment block
-        # a comment block
-        return self.n * self.m   # inline comment
+**Conclusions:**
+* <span style="color:#ebc634; font-weight:bold">Lyrical datasets can be much more varied in structure than typical text datasets!</span>
+Different lyrical styles make conventional methods of text comparison difficult.
+Heavy metal lyrics can range from no words at all, to spoken word passages over a thousand words long.  
+* Due to the stylistic diversity in the data, small changes in the methods used to quantify vocabulary can lead
+to noticeably different outcomes.
+* Bands with the highest overall word counts typically belong to the less "extreme" genres like (traditional) heavy metal and power metal.
+This is due to having long, word-dense songs, often with a focus on narrative, coupled with higher album output.
+* Short pieces by grindcore and death metal bands often provide the highest density of unique words.
+* Using Matt Daniels' metric (unique words in first X words), a few bands make up the top end of the distribution:
+Cryptopsy, Napalm Death, Cattle Decapitation, Cradle of Filth, Deeds of Flesh, Dying Fetus, and Exhumed.
+(The plot here has fewer bands shown than in the dashboard, in order to fit all the names on the figure.)
+* <span style="color:#ebc634; font-weight:bold">Word count distributions are correlated with genres in the way you'd expect, but the stylistic diversity in each
+genre blurs that correlation, suggesting that attempts at lyrics-based genre classification are going to be a challenge.</span>
 
-for i in range(10):
-    thing = SomeThing(i, i ** 2)
-    print(thing.area)
-    try:
-        print(f"Is {i} even? {i % 2 == 0}")
-    except ValueError:
-        break
-{% endhighlight %}
--->
+# Module imports
 
 
+<details>
+<summary>Show code</summary>
 {% highlight python %}
 import re
 import sys
@@ -59,8 +72,9 @@ sys.path.append('../scripts/')
 
 from nlp import tokenize
 {% endhighlight %}
+</details>
 
-### Data
+# Dataset
 
 The dataset used here is the table of artist/album/song info and lyrics for every song in the core dataset.
 
@@ -71,29 +85,31 @@ df = df[~df.song_darklyrics.isnull()]
 df = df[df.song_darklyrics.str.strip().apply(len) > 0]
 print(df.columns)
 {% endhighlight %}
+<pre class="output">
+Index(['band_name', 'band_id', 'band_url', 'band_country_of_origin',
+       'band_location', 'band_status', 'band_formed_in', 'band_genre',
+       'band_lyrical_themes', 'band_last_label', 'band_years_active',
+       'album_name', 'album_type', 'album_year', 'album_review_num',
+       'album_review_avg', 'album_url', 'album_reviews_url', 'song_name',
+       'song_length', 'song_url', 'song_darklyrics', 'song_darklyrics_url',
+       'band_current_label'],
+      dtype='object')
+</pre>
 
-    Index(['band_name', 'band_id', 'band_url', 'band_country_of_origin',
-           'band_location', 'band_status', 'band_formed_in', 'band_genre',
-           'band_lyrical_themes', 'band_last_label', 'band_years_active',
-           'album_name', 'album_type', 'album_year', 'album_review_num',
-           'album_review_avg', 'album_url', 'album_reviews_url', 'song_name',
-           'song_length', 'song_url', 'song_darklyrics', 'song_darklyrics_url',
-           'band_current_label'],
-          dtype='object')
-    
 
-### Cleanup song lyrics
+# Cleanup song lyrics
 
-There were some issues when parsing lyrics. They are handled here since it isn't quite worth it to rescrape all of darklyrics again with a new scraper.
-
+<details>
+<summary>Show section</summary>
+<br>
+There were some issues when parsing lyrics.
+They are handled here since it isn't quite worth it to rescrape all of darklyrics again with a new scraper.
 
 {% highlight python %}
 print('Number of songs', len(df))
 {% endhighlight %}
 
-    Number of songs 60964
-    
-
+<pre class="code-output">Number of songs 60964</pre>
 
 {% highlight python %}
 # Remove songs that are mostly non-English
@@ -115,9 +131,7 @@ df = pd.DataFrame(rows, columns=df.columns)
 df['song_words'] = song_words
 {% endhighlight %}
 
-    Non-English songs removed:  2724
-    
-
+<pre class="code-output">Non-English songs removed:  2724</pre>
 
 {% highlight python %}
 # Remove songs that were copyright claimed
@@ -127,16 +141,35 @@ print('Songs with lyrics removed: ', len(df[copyrighted]))
 df = df[~copyrighted]
 {% endhighlight %}
 
-    Songs with lyrics removed:  66
-    
+<pre class="code-output">Songs with lyrics removed:  66</pre>
 
-### Reduced dataset
-
-For lyrical analyses the data is reduced to just a column of lyrics (which will become the feature vector upon some transformation to a quantitative representation) for each song and columns for the most popular genres (the target/label vectors). These are the genres that appear at least once in isolation, i.e. not accompanied by any other genre, and that appear in some minimum percentage of songs. For example, the "black" metal label can appear on bands with or without other genres, but a label like "atmospheric" never appears on its own despite being fairly popular, usually because it is more of an adjective to denote subgenres like atmospheric black metal; thus "black" is included in the reduced label space but "atmospheric" is not. This reduces the genres to a more manageable set: five genres if the minimum occurrence requirement is set to 10%, and thirteen if set to 1%.
-
-A five-genre set would be easier to handle but leaves quite a few holes in the label space, because doom metal, metalcore, folk metal, and many other fairly popular genres are being omitted that may not be covered by any of the five labels. The larger label set covers just about all the most important genres, but because eight of them occur in fewer than 10% of all songs, they will force greater class imbalance which will adversely affect attempts at applying binary classification models later on. For the sake of comparison, both reduced datasets are saved here, but the rest of this exploratory analysis only looks at the 1% dataset, while the 10% dataset is reserved for modeling. Each dataset is saved in its raw form and in a truncated (ML-ready) form containing only the lyrics and genre columns.
+</details>
 
 
+# Reduced dataset
+
+For lyrical analyses the data is reduced to just a column of lyrics
+(which will become the feature vector upon some transformation to a quantitative representation)
+for each song and columns for the most popular genres (the target/label vectors).
+These are the genres that appear at least once in isolation, i.e. not accompanied by any other genre,
+and that appear in some minimum percentage of songs.
+For example, the "black" metal label can appear on bands with or without other genres,
+but a label like "atmospheric" never appears on its own despite being fairly popular,
+usually because it is more of an adjective to denote subgenres like atmospheric black metal;
+thus "black" is included in the reduced label space but "atmospheric" is not.
+This reduces the genres to a more manageable set: five genres if the minimum occurrence requirement is set to 10%,
+and thirteen if set to 1%.
+
+A five-genre set would be easier to handle but leaves quite a few holes in the label space, because doom metal,
+metalcore, folk metal, and many other fairly popular genres are being omitted that may not be covered by any of 
+the five labels. The larger label set covers just about all the most important genres, but because eight of them
+occur in fewer than 10% of all songs, they will force greater class imbalance which will adversely affect attempts
+at applying binary classification models later on. For the sake of comparison, both reduced datasets are saved here,
+but the rest of this exploratory analysis only looks at the 1% dataset, while the 10% dataset is reserved for modeling.
+Each dataset is saved in its raw form and in a truncated (ML-ready) form containing only the lyrics and genre columns.
+
+<details>
+<summary>Show code</summary>
 {% highlight python %}
 def process_genre(genre):
     # Find words (including hyphenated words) not in parentheses
@@ -176,8 +209,9 @@ df_r_ml['lyrics'] = df['song_darklyrics'].reset_index(drop=True)
 df_r_ml[top_genres_1pct] = df[[f"genre_{genre}" for genre in top_genres_1pct]].reset_index(drop=True)
 {% endhighlight %}
 
-    ['black', 'death', 'deathcore', 'doom', 'folk', 'gothic', 'grindcore', 'heavy', 'metalcore', 'power', 'progressive', 'symphonic', 'thrash']
-    
+<pre class="code-output">['black', 'death', 'deathcore', 'doom', 'folk', 'gothic', 'grindcore', 'heavy', 'metalcore', 'power', 'progressive', 'symphonic',
+ 'thrash']
+</pre>
 
 
 {% highlight python %}
@@ -193,7 +227,7 @@ df_rr_ml['lyrics'] = df['song_darklyrics'].reset_index(drop=True)
 df_rr_ml[top_genres_10pct] = df[[f"genre_{genre}" for genre in top_genres_10pct]].reset_index(drop=True)
 {% endhighlight %}
 
-    ['black', 'death', 'heavy', 'power', 'thrash']
+<pre class="code-output">['black', 'death', 'heavy', 'power', 'thrash']</pre>
     
 
 
@@ -207,19 +241,46 @@ df_rr['song_words'] = df_rr['song_words'].apply(literal_eval)
 top_genres_10pct = [c for c in df_rr.columns if 'genre_' in c]
 {% endhighlight %}
 
-# Basic lyrical properties
+</details>
 
-This section compares looks at word counts and unique word counts, in absolute counts as well as counts per minute, between different songs, albums, bands, and genres. [Part 3](./lyrics2.ipynb) dives much deeper into evaluating lyrical complexity using various lexical diversity measures from the literature.
-
-Song lyrics are tokenized using a custom `tokenize()` function in `nlp.py`.
 
 # Word counts by song
 
-
+<details>
+<summary>Show code</summary>
 {% highlight python %}
 song_word_counts = df_r.song_words.apply(len)
 song_unique_word_counts = df_r.song_words.apply(lambda x: len(set(x)))
 
+def to_seconds(data):
+    """Convert a time string (MM:ss or HH:MM:ss) to seconds
+    """
+    out = pd.Series(index=data.index, dtype=int)
+    for i, x in data.song_length.items():
+        if isinstance(x, str):
+            xs = x.split(':')
+            if len(xs) < 3:
+                xs = [0] + xs
+            seconds = int(xs[0]) * 3600 + int(xs[1]) * 60 + int(xs[2])
+        else:
+            seconds = 0
+        out[i] = seconds
+    return out
+
+song_seconds = to_seconds(df_r)
+song_words_per_second = song_word_counts / song_seconds
+song_words_per_second[song_words_per_second == np.inf] = 0
+song_unique_words_per_second = song_unique_word_counts / song_seconds
+song_unique_words_per_second[song_unique_words_per_second == np.inf] = 0
+
+df_r_songs = df_r[['band_name', 'album_name', 'song_name', 'band_genre']].copy()
+df_r_songs['song_word_count'] = song_word_counts
+df_r_songs['song_unique_word_count'] = song_unique_word_counts
+df_r_songs['song_seconds'] = song_seconds
+df_r_songs['song_unique_words_per_second'] = song_unique_words_per_second
+{% endhighlight %}
+
+{% highlight python %}
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
 
 song_word_counts.hist(bins=np.logspace(1, 3, 30), ax=ax1)
@@ -237,62 +298,35 @@ ax2.set_title("Unique words per song")
 
 plt.show()
 {% endhighlight %}
+</details>
+<br>
 
-
-    
-![png](output_17_0.png)
-    
-
-
-
-{% highlight python %}
-def to_seconds(data):
-    """Convert a time string (MM:ss or HH:MM:ss) to seconds
-    """
-    out = pd.Series(index=data.index, dtype=int)
-    for i, x in data.song_length.items():
-        if isinstance(x, str):
-            xs = x.split(':')
-            if len(xs) < 3:
-                xs = [0] + xs
-            seconds = int(xs[0]) * 3600 + int(xs[1]) * 60 + int(xs[2])
-        else:
-            seconds = 0
-        out[i] = seconds
-    return out
-{% endhighlight %}
-
-
-{% highlight python %}
-song_seconds = to_seconds(df_r)
-song_words_per_second = song_word_counts / song_seconds
-song_words_per_second[song_words_per_second == np.inf] = 0
-song_unique_words_per_second = song_unique_word_counts / song_seconds
-song_unique_words_per_second[song_unique_words_per_second == np.inf] = 0
-
-df_r_songs = df_r[['band_name', 'album_name', 'song_name', 'band_genre']].copy()
-df_r_songs['song_word_count'] = song_word_counts
-df_r_songs['song_unique_word_count'] = song_unique_word_counts
-df_r_songs['song_seconds'] = song_seconds
-df_r_songs['song_unique_words_per_second'] = song_unique_words_per_second
-{% endhighlight %}
+![png](/assets/images/heavy-metal-lyrics/word_count_histogram.png)
 
 ### Songs with highest word counts
 
-The honor of highest word count in a single song goes to the [Bal-Sagoth's "The Obsidian Crown Unbound"](https://youtu.be/xizMG4nI2dk) at over two thousand words. However, most of those words are not sung in the actual song: Bal-Sagoth lyrics typically include the massive collection of narrative text that accompanies their songs. Although the lyrics they sing are still plentiful, there are nowhere near two thousand words spoken in the six-minute symphonic black metal track.
+The honor of highest word count in a single song goes to the
+[Bal-Sagoth's "The Obsidian Crown Unbound"](https://youtu.be/xizMG4nI2dk) at over two thousand words.
+However, most of those words are not sung in the actual song:
+Bal-Sagoth lyrics typically include the massive collection of narrative text that accompanies their songs.
+Although the lyrics they sing are still plentiful, there are nowhere near two thousand words spoken in the six-minute
+symphonic black metal track.
 
-This makes the forty-minute prog metal epic [Crimson by Edge of Sanity](https://youtu.be/St6lJaiHYIc) a better contender for most verbose song. Still, such a claim might be challenged by the fact that the digital edition of the album, which a listener would find on Spotify for instance, divides the single-track album into eight parts. That said, DarkLyrics keeps the original one-track format.
+This makes the forty-minute prog metal epic [Crimson by Edge of Sanity](https://youtu.be/St6lJaiHYIc)
+a better contender for most verbose song.
+Still, such a claim might be challenged by the fact that the digital edition of the album,
+which a listener would find on Spotify for instance, divides the single-track album into eight parts.
+That said, DarkLyrics keeps the original one-track format.
 
-At third place is another multi-part song, [Mirror of Souls](https://youtu.be/y6n1kMsLbc8) by the Christian progressive/power metal group Theocracy. This is less contentious since the official track listing considers this a single track.
+At third place is another multi-part song, [Mirror of Souls](https://youtu.be/y6n1kMsLbc8)
+by the Christian progressive/power metal group Theocracy.
+This is less contentious since the official track listing considers this a single track.
 
 
-{% highlight python %}
-df_r_songs.sort_values('song_word_count')[:-10:-1]
-{% endhighlight %}
+### Songs with highest word counts
 
-
-
-
+<details>
+<summary>Show table</summary>
 <div class="table-wrapper" markdown="block">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -414,18 +448,12 @@ df_r_songs.sort_values('song_word_count')[:-10:-1]
   </tbody>
 </table>
 </div>
-
-
+</details>
 
 ### Songs with highest unique word counts
 
-
-{% highlight python %}
-df_r_songs.sort_values('song_unique_word_count')[:-10:-1]
-{% endhighlight %}
-
-
-
+<details>
+<summary>Show table</summary>
 <div class="table-wrapper" markdown="block">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -557,21 +585,17 @@ df_r_songs.sort_values('song_unique_word_count')[:-10:-1]
   </tbody>
 </table>
 </div>
-
-
+</details>
 
 ### Songs with highest word density
 
-Again "The Obsidian Crown Unbound" tops the charts for highest number of words per second, however at second place, is ["The Ghosts of Christmas Eve"](https://youtu.be/bT4ruFp5U2w), the two-minute intro track to The Christmas Attic by Trans-Siberian Orchestra. Most of the other tracks on this table are short, typically less than a minute.
+Again "The Obsidian Crown Unbound" tops the charts for highest number of words per second, however at second place
+is ["The Ghosts of Christmas Eve"](https://youtu.be/bT4ruFp5U2w),
+the two-minute intro track to The Christmas Attic by Trans-Siberian Orchestra.
+Most of the other tracks on this table are short, typically less than a minute.
 
-
-{% highlight python %}
-df_r_songs.sort_values('song_words_per_second')[:-10:-1]
-{% endhighlight %}
-
-
-
-
+<details>
+<summary>Show table</summary>
 <div class="table-wrapper" markdown="block">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -693,19 +717,12 @@ df_r_songs.sort_values('song_words_per_second')[:-10:-1]
   </tbody>
 </table>
 </div>
-
-
+</details>
 
 ### Songs with highest unique word density
 
-
-{% highlight python %}
-df_r_songs.sort_values('song_unique_words_per_second')[:-10:-1]
-{% endhighlight %}
-
-
-
-
+<details>
+<summary>Show table</summary>
 <div class="table-wrapper" markdown="block">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -837,62 +854,23 @@ df_r_songs.sort_values('song_unique_words_per_second')[:-10:-1]
   </tbody>
 </table>
 </div>
-
+</details>
 
 
 # Word counts by album
 
-Grouping song lyrics by album shows Blind Guardian's 75-minute [Twilight Orchestra: Legacy of the Dark Lands](https://en.wikipedia.org/wiki/Legacy_of_the_Dark_Lands) coming out on top, even outstripping all of Bal-Sagoth's albums on raw word counts. The list of highest word counts per second mostly consists of Bal-Sagoth and very short albums, with [Waste 'Em All](https://en.wikipedia.org/wiki/Waste_%27Em_All) by Municipal Waste topping the chart. Savatage's [The Wake of Magellan] is the most word-dense album that is anywhere near an hour long.
-
-
-{% highlight python %}
-df_r_albums = pd.concat((
-    df_r_songs.groupby(['band_name', 'album_name']).first()[['band_genre']],
-    df_r_songs.groupby(['band_name', 'album_name'])[['song_word_count', 'song_unique_word_count', 'song_seconds']].sum()
-), axis=1).reset_index()
-df_r_albums.columns = ['band_name', 'album_name', 'band_genre', 'album_word_count', 'album_unique_word_count', 'album_seconds']
-df_r_albums['album_words_per_second'] = df_r_albums.album_word_count / df_r_albums.album_seconds
-df_r_albums.loc[df_r_albums['album_words_per_second'] == np.inf, 'album_words_per_second'] = 0
-df_r_albums['album_unique_words_per_second'] = df_r_albums.album_unique_word_count / df_r_albums.album_seconds
-df_r_albums.loc[df_r_albums['album_unique_words_per_second'] == np.inf, 'album_unique_words_per_second'] = 0
-{% endhighlight %}
-
-
-{% highlight python %}
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
-
-df_r_albums.album_word_count.hist(bins=np.logspace(2, 4, 30), ax=ax1)
-ax1.set_xscale('log')
-ax1.xaxis.set_major_formatter(ScalarFormatter())
-ax1.set_xlabel("word count")
-ax1.set_ylabel("number of albums")
-ax1.set_title("Words per album")
-
-df_r_albums.album_unique_word_count.hist(bins=np.logspace(2, 4, 30), ax=ax2)
-ax2.set_xscale('log')
-ax2.xaxis.set_major_formatter(ScalarFormatter())
-ax2.set_xlabel("unique word count")
-ax2.set_title("Unique words per album")
-
-plt.show()
-{% endhighlight %}
-
-
-    
-![png](output_30_0.png)
-    
+Grouping song lyrics by album shows Blind Guardian's 75-minute
+[Twilight Orchestra: Legacy of the Dark Lands](https://en.wikipedia.org/wiki/Legacy_of_the_Dark_Lands)
+coming out on top, even outstripping all of Bal-Sagoth's albums on raw word counts.
+The list of highest word counts per second mostly consists of Bal-Sagoth and very short albums,
+with [Waste 'Em All](https://en.wikipedia.org/wiki/Waste_%27Em_All) by Municipal Waste topping the chart.
+Savatage's [The Wake of Magellan] is the most word-dense album that is anywhere near an hour long.
 
 
 ### Albums with highest word counts
 
-
-{% highlight python %}
-df_r_albums.sort_values('album_word_count')[:-10:-1]
-{% endhighlight %}
-
-
-
-
+<details>
+<summary>Show table</summary>
 <div class="table-wrapper" markdown="block">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1024,19 +1002,13 @@ df_r_albums.sort_values('album_word_count')[:-10:-1]
   </tbody>
 </table>
 </div>
-
+</details>
 
 
 ### Albums with highest unique word counts
 
-
-{% highlight python %}
-df_r_albums.sort_values('album_unique_word_count')[:-10:-1]
-{% endhighlight %}
-
-
-
-
+<details>
+<summary>Show table</summary>
 <div class="table-wrapper" markdown="block">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1168,19 +1140,13 @@ df_r_albums.sort_values('album_unique_word_count')[:-10:-1]
   </tbody>
 </table>
 </div>
-
+</details>
 
 
 ### Albums with highest word density
 
-
-{% highlight python %}
-df_r_albums.sort_values('album_words_per_second')[:-10:-1]
-{% endhighlight %}
-
-
-
-
+<details>
+<summary>Show table</summary>
 <div class="table-wrapper" markdown="block">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1312,19 +1278,13 @@ df_r_albums.sort_values('album_words_per_second')[:-10:-1]
   </tbody>
 </table>
 </div>
-
+</details>
 
 
 ### Albums with highest unique word density
 
-
-{% highlight python %}
-df_r_albums.sort_values('album_unique_words_per_second')[:-10:-1]
-{% endhighlight %}
-
-
-
-
+<details>
+<summary>Show table</summary>
 <div class="table-wrapper" markdown="block">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1456,62 +1416,22 @@ df_r_albums.sort_values('album_unique_words_per_second')[:-10:-1]
   </tbody>
 </table>
 </div>
-
+</details>
 
 
 # Word counts by band
 
-Surprisingly, Bal-Sagoth's inflated lyric counts do not matter much when comparing entire bands, perhaps due to how short their discography is. The bands with the highest word counts typically have massive discographies, and are usually power metal or heavy metal bands. Again, thrash and grindcore bands with short songs comprise most of the highest words-per-second list.
-
-
-{% highlight python %}
-df_r_bands = pd.concat((
-    df_r_songs.groupby('band_name').first()['band_genre'],
-    df_r_songs.groupby('band_name')[['song_word_count', 'song_unique_word_count', 'song_seconds']].sum()
-), axis=1).reset_index()
-df_r_bands.columns = ['band_name', 'band_genre', 'band_word_count', 'band_unique_word_count', 'band_seconds']
-df_r_bands['band_words_per_second'] = df_r_bands.band_word_count / df_r_bands.band_seconds
-df_r_bands.loc[df_r_bands['band_words_per_second'] == np.inf, 'band_words_per_second'] = 0
-df_r_bands['band_unique_words_per_second'] = df_r_bands.band_unique_word_count / df_r_bands.band_seconds
-df_r_bands.loc[df_r_bands['band_unique_words_per_second'] == np.inf, 'band_unique_words_per_second'] = 0
-{% endhighlight %}
-
-
-{% highlight python %}
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
-
-df_r_bands.band_word_count.hist(bins=np.logspace(2, 4, 30), ax=ax1)
-ax1.set_xscale('log')
-ax1.xaxis.set_major_formatter(ScalarFormatter())
-ax1.set_xlabel("word count")
-ax1.set_ylabel("number of bands")
-ax1.set_title("Words per band")
-
-df_r_bands.band_unique_word_count.hist(bins=np.logspace(2, 4, 30), ax=ax2)
-ax2.set_xscale('log')
-ax2.xaxis.set_major_formatter(ScalarFormatter())
-ax2.set_xlabel("unique word count")
-ax2.set_title("Unique words per band")
-
-plt.show()
-{% endhighlight %}
-
-
-    
-![png](output_41_0.png)
-    
+Surprisingly, Bal-Sagoth's inflated lyric counts do not matter much when comparing entire bands,
+perhaps due to how short their discography is.
+The bands with the highest word counts typically have massive discographies,
+and are usually power metal or heavy metal bands.
+Again, thrash and grindcore bands with short songs comprise most of the highest words-per-second list.
 
 
 ### Bands with highest word counts
 
-
-{% highlight python %}
-df_r_bands.sort_values('band_word_count')[:-10:-1]
-{% endhighlight %}
-
-
-
-
+<details>
+<summary>Show table</summary>
 <div class="table-wrapper" markdown="block">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1633,19 +1553,13 @@ df_r_bands.sort_values('band_word_count')[:-10:-1]
   </tbody>
 </table>
 </div>
-
+</details>
 
 
 ### Bands with highest unique word counts
 
-
-{% highlight python %}
-df_r_bands.sort_values('band_unique_word_count')[:-10:-1]
-{% endhighlight %}
-
-
-
-
+<details>
+<summary>Show table</summary>
 <div class="table-wrapper" markdown="block">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1767,19 +1681,13 @@ df_r_bands.sort_values('band_unique_word_count')[:-10:-1]
   </tbody>
 </table>
 </div>
-
+</details>
 
 
 ### Bands with highest word density
 
-
-{% highlight python %}
-df_r_bands.sort_values('band_words_per_second')[:-10:-1]
-{% endhighlight %}
-
-
-
-
+<details>
+<summary>Show table</summary>
 <div class="table-wrapper" markdown="block">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1901,19 +1809,13 @@ df_r_bands.sort_values('band_words_per_second')[:-10:-1]
   </tbody>
 </table>
 </div>
-
+</details>
 
 
 ### Bands with highest unique word density
 
-
-{% highlight python %}
-df_r_bands.sort_values('band_unique_words_per_second')[:-10:-1]
-{% endhighlight %}
-
-
-
-
+<details>
+<summary>Show table</summary>
 <div class="table-wrapper" markdown="block">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2035,10 +1937,21 @@ df_r_bands.sort_values('band_unique_words_per_second')[:-10:-1]
   </tbody>
 </table>
 </div>
+</details>
 
 
+# Word counts among the most popular bands
 
+To pick out the most popular bands, we can filter out artists with fewer than a certain number of reviews.
+Plotting out their full-discography unique word counts, we find that there is a generally linear relationship
+between the number of unique words and overall discography length, which is not surprising. Cradle of Filth,
+however, is a huge outlier, with about twice as many words and unique words in their lyrics than expected.
+Opeth seems like an outlier on the flip side, probably due their songs being very heavily instrumental
+(Dream Theater probably incorporates more instrumentals but the narrative nature of their lyrics results
+in them falling much more in line with heavy/power metal bands). 
 
+<details>
+<summary>Show code</summary>
 {% highlight python %}
 min_reviews = 20
 
@@ -2069,14 +1982,15 @@ plt.ylabel('Total word count (thousands)')
 plt.legend(fontsize=14)
 plt.show()
 {% endhighlight %}
-
-
+</details>
+<br>
     
-![png](output_50_0.png)
-    
+![png](/assets/images/heavy-metal-lyrics/words_vs_length.png)
+<br>
+<br>
 
-
-
+<details>
+<summary>Show code</summary>
 {% highlight python %}
 plt.figure(figsize=(14, 8))
 xlist, ylist = [], []
@@ -2102,14 +2016,28 @@ plt.ylabel('Unique word count (thousands)')
 plt.legend(fontsize=14)
 plt.show()
 {% endhighlight %}
-
-
+</details>
+<br>
     
-![png](output_51_0.png)
-    
+![png](/assets/images/heavy-metal-lyrics/unique_words_vs_length.png)
 
 
+# Ranking artists by the number of unique words in their first 15,000 words
 
+A few years ago, Matt Daniels of The Pudding wrote up [an article](https://pudding.cool/projects/vocabulary/index.html)
+comparing the number of unique words used by several famous rappers in their first 35,000 words.
+A similar comparison can be done with the metal lyrics here,
+although since heavy metal tends to have more instrumentals and metal musicians don't put out as many songs as rappers do,
+I chose to look at each artist's first 10,000 words.
+Here, the top 100 bands by number of album reviews are shown.
+(The [dashboard](https://metal-lyrics-feature-plots.herokuapp.com/) shows the top 200.)
+Interestingly, there's a gap between the cluster of highest unique words and the main field of artists.
+Every band in the outlier cluster is associated with death metal, hinting at a correlation in genre.
+On the dashboard you can filter by genres to see where on the swarm plot those bands lie.
+
+
+<details>
+<summary>Show code</summary>
 {% highlight python %}
 """Copied from https://stackoverflow.com/questions/55005272/get-bounding-boxes-of-individual-elements-of-a-pathcollection-from-plt-scatter
 """
@@ -2158,7 +2086,7 @@ def getbb(sc, ax):
 
 {% highlight python %}
 def plot_swarm(data, names):
-    fig = plt.figure(figsize=(25, 10))
+    fig = plt.figure(figsize=(25, 12))
     ax = sns.swarmplot(x=data, size=30, zorder=1)
 
     # Get bounding boxes of scatter points
@@ -2203,10 +2131,10 @@ band_words.columns = ['name', 'reviews', 'words']
 
 
 {% highlight python %}
-min_reviews = 0
-num_words = 15000
+num_bands = 100
+num_words = 10000
 
-band_filt_words = band_words[(band_words['reviews'] > min_reviews) & (band_words['words'].apply(len) > num_words)].copy()
+band_filt_words = band_words[band_words['words'].apply(len) > num_words].sort_values('reviews')[-num_bands:]
 band_filt_words['unique_first_words'] = band_filt_words['words'].apply(lambda x: len(set(x[:num_words])))
 band_filt_words = band_filt_words.sort_values('unique_first_words')
 print(len(band_filt_words))
@@ -2215,107 +2143,26 @@ fig = plot_swarm(band_filt_words['unique_first_words'], band_filt_words['name'])
 fig.suptitle(f"# of unique words in first {num_words:,.0f} of artist's lyrics", fontsize=25)
 plt.show()
 {% endhighlight %}
+<pre class="code-output">123</pre>
+</details>
 
-    123
-    
+<br>
 
-
-    
-![png](output_55_1.png)
-    
-
-
-
-{% highlight python %}
-def avg_unique_words(x, n_iter=100, seglen=100):
-    counts = np.zeros(n_iter)
-    idices = range(len(x) - seglen)
-    for i in range(n_iter):
-        k = np.random.choice(idices)
-        seg = x[k: k + seglen]
-        counts[i] = len(set(seg))
-    out = counts.mean()
-    return out
-
-# min_reviews = 50
-# num_words = 1000
-
-# band_filt_words = band_words[(band_words['reviews'] > min_reviews) & (band_words['words'].apply(len) > num_words)].copy()
-
-num_bands = 150
-band_filt_words = band_words.loc[band_words.sort_values('reviews')['name'][-num_bands:].index]
-print(len(band_filt_words))
-
-band_filt_words['avg_unique_words'] = band_filt_words['words'].apply(avg_unique_words)
-band_filt_words = band_filt_words.sort_values('avg_unique_words')
-
-fig = plot_swarm(band_filt_words['avg_unique_words'], band_filt_words['name'])
-fig.suptitle('Average number of unique words per 100-word segment', fontsize=25)
-plt.show()
-{% endhighlight %}
-
-    150
-    
-
-
-    
-![png](output_56_1.png)
-    
-
-
-
-{% highlight python %}
-band_filt_words['avg_word_len'] = band_filt_words['words'].apply(lambda x: np.mean(list(map(len, x))))
-band_filt_words = band_filt_words.sort_values('avg_word_len')
-
-fig = plot_swarm(band_filt_words['avg_word_len'], band_filt_words['name'])
-fig.suptitle('Average word length', fontsize=25)
-plt.show()
-{% endhighlight %}
-
-    C:\Users\philippe\Anaconda3\envs\metallyrics\lib\site-packages\seaborn\categorical.py:1296: UserWarning: 91.3% of the points cannot be placed; you may want to decrease the size of the markers or use stripplot.
-      warnings.warn(msg, UserWarning)
-    
-
-
-    
-![png](output_57_1.png)
-    
-
-
-
-{% highlight python %}
-def avg_unique_words_len_weighted(x, n_iter=100, seglen=100):
-    counts = np.zeros(n_iter)
-    idices = range(len(x) - seglen)
-    for i in range(n_iter):
-        k = np.random.choice(idices)
-        seg = x[k: k + seglen]
-        uniq = set(seg)
-        avg_len = np.mean(list(map(len, uniq)))
-        counts[i] = len(uniq) * avg_len
-    out = counts.mean()
-    return out
-
-band_filt_words['avg_unique_words_len_weighted'] = band_filt_words['words'].apply(avg_unique_words)
-band_filt_words = band_filt_words.sort_values('avg_unique_words_len_weighted')
-
-fig = plot_swarm(band_filt_words['avg_unique_words_len_weighted'], band_filt_words['name'])
-fig.suptitle('Lyrical complexity score (count times length of unique words per 100-word segment)', fontsize=25)
-plt.show()
-{% endhighlight %}
-
-
-    
-![png](output_58_0.png)
-    
+![png](/assets/images/heavy-metal-lyrics/swarm_2.png)
 
 
 # Word counts by genre
 
-Although there are some noticeable trends in the word counts of genres, overall the distributions of word counts and song lengths per genre are quite broad, perhaps overlapping too much to be of any use for predictions later on.
+Although there are some noticeable trends in the word counts of genres,
+overall the distributions of word counts and song lengths per genre are quite broad.
+The overlap means lyrical complexity is likely not a sufficient means of distinguishing between genres.
+In the next article we'll expand on this, using more sophisticated lexical diversity measures
+to quantify the complexity of different genres.
 
+### Words per song
 
+<details>
+<summary>Show code</summary>
 {% highlight python %}
 df_genre_songs = df_r[['band_name', 'album_name', 'song_name'] + [f"genre_{genre}" for genre in top_genres_1pct]].copy()
 df_genre_songs['song_word_count'] = df_r_songs.song_word_count
@@ -2334,53 +2181,16 @@ ax.set_title("Words per song")
 ax.set_xlabel("word count")
 plt.show()
 {% endhighlight %}
+</details>
+<br>
+
+![png](/assets/images/heavy-metal-lyrics/word_count_genre.png)
+
+### Words per second
 
 
-    
-![png](output_60_0.png)
-    
-
-
-
-{% highlight python %}
-df_genre_songs = df_r[['band_name', 'album_name', 'song_name'] + [f"genre_{genre}" for genre in top_genres_1pct]].copy()
-df_genre_songs['song_word_count'] = df_r_songs.song_word_count
-df_genre_songs['song_seconds'] = df_r_songs.song_seconds
-
-fig, ax = plt.subplots(1, 1, figsize=(8, 8))
-violindata = []
-for genre in top_genres_1pct:
-    df_genre = df_genre_songs[df_genre_songs['genre_' + genre] == 1]
-    violindata.append((genre, df_genre['song_word_count'].values))
-violindata.sort(key=lambda x: -np.median(x[1]))
-sns.boxplot(data=[x[1] for x in violindata], orient='h', showfliers=False)
-ax.set_yticklabels([x[0] for x in violindata])
-ax.set_xlim
-# ax.set_xlim(0, 500)
-ax.set_title("Words per song")
-ax.set_xlabel("word count")
-plt.show()
-{% endhighlight %}
-
-
-    
-![png](output_61_0.png)
-    
-
-
-
-{% highlight python %}
-np.percentile(violindata[0][1], 75)
-{% endhighlight %}
-
-
-
-
-    221.0
-
-
-
-
+<details>
+<summary>Show code</summary>
 {% highlight python %}
 fig, ax = plt.subplots(1, 1, figsize=(8, 8))
 violindata = []
@@ -2396,14 +2206,15 @@ ax.set_title("Words per second")
 ax.set_xlabel("word count")
 plt.show()
 {% endhighlight %}
+</details>
+<br>
 
-
+![png](/assets/images/heavy-metal-lyrics/word_rate_genre.png)
     
-![png](output_63_0.png)
-    
+### Scatter plot
 
-
-
+<details>
+<summary>Show code</summary>
 {% highlight python %}
 plt.figure(figsize=(14, 8))
 xlist, ylist = [], []
@@ -2422,55 +2233,7 @@ plt.xlabel('Average song length (minutes)')
 plt.ylabel('Average words per song')
 plt.show()
 {% endhighlight %}
+</details>
+<br>
 
-
-    
-![png](output_64_0.png)
-    
-
-
-### 95% contours for top-five genres
-
-
-{% highlight python %}
-df_genre_10pct_songs = df_rr[['band_name', 'album_name', 'song_name'] + [f"genre_{genre}" for genre in top_genres_10pct]].copy()
-df_genre_10pct_songs['song_word_count'] = df_rr.song_words.apply(len)
-df_genre_10pct_songs['song_seconds'] = to_seconds(df_rr)
-{% endhighlight %}
-
-
-{% highlight python %}
-plt.figure(figsize=(14, 8))
-ax = plt.gca()
-colors = sns.color_palette()
-handles = []
-for i, genre in enumerate(top_genres_10pct):
-    df_genre = df_genre_10pct_songs[df_genre_10pct_songs['genre_' + genre] == 1].copy()
-    x = np.log10(df_genre['song_seconds'] / 60.0)
-    y = np.log10(df_genre['song_word_count'])
-    pos = (x > 0) & (y > 0)
-    sns.kdeplot(x=x[pos], y=y[pos], levels=[0.05, 1], ax=ax)
-    handles.append(Patch(facecolor=colors[i % len(colors)], label=genre))
-ax.set_xticklabels([f"{10**tick:.0f}" for tick in ax.get_xticks()])
-ax.set_yticklabels([f"{10**tick:.0f}" for tick in ax.get_yticks()])
-ax.set_xlabel('Song length (minutes)')
-ax.set_ylabel('Word count per song')
-ax.legend(handles=handles)
-plt.show()
-{% endhighlight %}
-
-    C:\Users\philippe\Anaconda3\envs\metallyrics\lib\site-packages\pandas\core\series.py:726: RuntimeWarning: divide by zero encountered in log10
-      result = getattr(ufunc, method)(*inputs, **kwargs)
-    C:\Users\philippe\Anaconda3\envs\metallyrics\lib\site-packages\pandas\core\series.py:726: RuntimeWarning: divide by zero encountered in log10
-      result = getattr(ufunc, method)(*inputs, **kwargs)
-    C:\Users\philippe\Anaconda3\envs\metallyrics\lib\site-packages\ipykernel_launcher.py:12: UserWarning: FixedFormatter should only be used together with FixedLocator
-      if sys.path[0] == '':
-    C:\Users\philippe\Anaconda3\envs\metallyrics\lib\site-packages\ipykernel_launcher.py:13: UserWarning: FixedFormatter should only be used together with FixedLocator
-      del sys.path[0]
-    
-
-
-    
-![png](output_67_1.png)
-    
-
+![png](/assets/images/heavy-metal-lyrics/words_vs_length_genre.png)
