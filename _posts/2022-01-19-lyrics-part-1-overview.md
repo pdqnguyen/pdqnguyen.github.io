@@ -2,29 +2,45 @@
 layout: post
 title: "Analysis of heavy metal lyrics - Part 1: Overview"
 categories: jekyll update
-permalink: '/pages/lyrics-part-1-overview'
 hidden: true
 ---
 
 <pre style="margin-left: 50px; margin-right: 50px; font-size: 13px">
-Explicit/NSFW content warning: this project features examples of heavy metal lyrics, song/album/band names.
+Explicit/NSFW content warning: this project features examples of heavy metal lyrics and song/album/band names.
 These often contain words and themes that some may find offensive/inappropriate.
 </pre>
 
-# Summary and insights
 
-This article provides a top-level overview of the song lyrics dataset.
-We will do a little data cleaning and explore some basic properties of the dataset.
-I've put together a [dashboard](https://metal-lyrics-feature-plots.herokuapp.com/)
+This article is a part of my [heavy metal lyrics project](/jekyll/update/2022/01/19/heavy-metal-lyrics.html).
+It provides a top-level overview of the song lyrics dataset.
+Below is a dashboard I've put together
+([click here for full-size version](https://metal-lyrics-feature-plots.herokuapp.com/){:target="_blank"})
 to visualize the complete dataset using the metrics discussed here and in the other articles.
 Since I did the analyses here before building the dashboard, some plots will look different.
-If you're interested in seeing more of the code, check out the original
-[notebook](https://github.com/pdqnguyen/metallyrics/blob/master/analyses/lyrics/markdown/lyrics0.md).
-In the [next article](/pages/lyrics-part-1-overview.html) we'll dive much deeper into evaluating lyrical complexity
-using various lexical diversity measures.
+If you're interested in seeing the full code (a lot is omitted here), check out the
+[original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/lyrics/notebooks/lyrics-part-1-overview.ipynb).
+In the [next article](/jekyll/update/2022/01/19/lyrics-part-2-lexical-diversity.html)
+we'll dive much deeper into evaluating lyrical complexity using various lexical diversity measures.
+
+<span style="font-size: 14px">Note: Dashboard may take a minute to load</span>
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+  }
+</script>
+
+<div style="overflow: scroll; width:100%; height:800px">
+<iframe src="https://metal-lyrics-feature-plots.herokuapp.com" title="Dataset dashboard" scrolling="no" 
+style="width: 1600px; height: 1200px; border: 0px"></iframe>
+</div>
+
+
+## Summary
 
 **Things we'll do:**
 
+* Clean the data and prepare it for analyses here and elsewhere.
 * Use basic statistics to compare heavy metal lyrics at the song, album, and band levels.
 * Rank songs, albums, and bands by words per song, unique words per song, words per second, and unique words per second.
 * Produce a swarm plot in the style of [Matt Daniels' hip hop lyrics analysis](https://pudding.cool/projects/vocabulary/index.html)
@@ -45,7 +61,8 @@ Cryptopsy, Napalm Death, Cattle Decapitation, Cradle of Filth, Deeds of Flesh, D
 * <span style="color:#ebc634; font-weight:bold">Word count distributions are correlated with genres in the way you'd expect, but the stylistic diversity in each
 genre blurs that correlation, suggesting that attempts at lyrics-based genre classification are going to be a challenge.</span>
 
-# Module imports
+
+## Module imports
 
 
 <details>
@@ -74,7 +91,7 @@ from nlp import tokenize
 {% endhighlight %}
 </details>
 
-# Dataset
+## Dataset
 
 The dataset used here is the table of artist/album/song info and lyrics for every song in the core dataset.
 
@@ -97,7 +114,7 @@ Index(['band_name', 'band_id', 'band_url', 'band_country_of_origin',
 </pre>
 
 
-# Cleanup song lyrics
+## Cleanup song lyrics
 
 <details>
 <summary>Show section</summary>
@@ -146,7 +163,7 @@ df = df[~copyrighted]
 </details>
 
 
-# Reduced dataset
+## Reduced dataset
 
 For lyrical analyses the data is reduced to just a column of lyrics
 (which will become the feature vector upon some transformation to a quantitative representation)
@@ -244,7 +261,7 @@ top_genres_10pct = [c for c in df_rr.columns if 'genre_' in c]
 </details>
 
 
-# Word counts by song
+## Word counts by song
 
 <details>
 <summary>Show code</summary>
@@ -303,7 +320,7 @@ plt.show()
 
 ![png](/assets/images/heavy-metal-lyrics/word_count_histogram.png)
 
-### Songs with highest word counts
+#### Songs with highest word counts
 
 The honor of highest word count in a single song goes to the
 [Bal-Sagoth's "The Obsidian Crown Unbound"](https://youtu.be/xizMG4nI2dk) at over two thousand words.
@@ -312,7 +329,7 @@ Bal-Sagoth lyrics typically include the massive collection of narrative text tha
 Although the lyrics they sing are still plentiful, there are nowhere near two thousand words spoken in the six-minute
 symphonic black metal track.
 
-This makes the forty-minute prog metal epic [Crimson by Edge of Sanity](https://youtu.be/St6lJaiHYIc)
+This makes the forty-minute prog metal epic ["Crimson" by Edge of Sanity](https://youtu.be/St6lJaiHYIc)
 a better contender for most verbose song.
 Still, such a claim might be challenged by the fact that the digital edition of the album,
 which a listener would find on Spotify for instance, divides the single-track album into eight parts.
@@ -322,8 +339,6 @@ At third place is another multi-part song, [Mirror of Souls](https://youtu.be/y6
 by the Christian progressive/power metal group Theocracy.
 This is less contentious since the official track listing considers this a single track.
 
-
-### Songs with highest word counts
 
 <details>
 <summary>Show table</summary>
@@ -450,7 +465,7 @@ This is less contentious since the official track listing considers this a singl
 </div>
 </details>
 
-### Songs with highest unique word counts
+#### Songs with highest unique word counts
 
 <details>
 <summary>Show table</summary>
@@ -587,7 +602,7 @@ This is less contentious since the official track listing considers this a singl
 </div>
 </details>
 
-### Songs with highest word density
+#### Songs with highest word density
 
 Again "The Obsidian Crown Unbound" tops the charts for highest number of words per second, however at second place
 is ["The Ghosts of Christmas Eve"](https://youtu.be/bT4ruFp5U2w),
@@ -719,7 +734,12 @@ Most of the other tracks on this table are short, typically less than a minute.
 </div>
 </details>
 
-### Songs with highest unique word density
+#### Songs with highest unique word density
+
+This metric tends to favor songs with the lowest word counts, hence the prevalence of more
+death/thrash-adjacent styles. The one-second ["You Suffer" by Napalm Death](https://youtu.be/ybGOT4d2Hs8)
+squeezes in four unique words--although you can't convince me they're audible--and paying homage to this
+masterpiece is [Wormrot's "You Suffer But Why Is It My Problem"](https://youtu.be/2SCjTPlMcPw).
 
 <details>
 <summary>Show table</summary>
@@ -857,17 +877,14 @@ Most of the other tracks on this table are short, typically less than a minute.
 </details>
 
 
-# Word counts by album
+## Word counts by album
 
-Grouping song lyrics by album shows Blind Guardian's 75-minute
+Power metal fans rejoice! Grouping song lyrics by album shows Blind Guardian's 75-minute
 [Twilight Orchestra: Legacy of the Dark Lands](https://en.wikipedia.org/wiki/Legacy_of_the_Dark_Lands)
 coming out on top, even outstripping all of Bal-Sagoth's albums on raw word counts.
-The list of highest word counts per second mostly consists of Bal-Sagoth and very short albums,
-with [Waste 'Em All](https://en.wikipedia.org/wiki/Waste_%27Em_All) by Municipal Waste topping the chart.
-Savatage's [The Wake of Magellan] is the most word-dense album that is anywhere near an hour long.
 
 
-### Albums with highest word counts
+#### Albums with highest word counts
 
 <details>
 <summary>Show table</summary>
@@ -1005,7 +1022,7 @@ Savatage's [The Wake of Magellan] is the most word-dense album that is anywhere 
 </details>
 
 
-### Albums with highest unique word counts
+#### Albums with highest unique word counts
 
 <details>
 <summary>Show table</summary>
@@ -1143,7 +1160,7 @@ Savatage's [The Wake of Magellan] is the most word-dense album that is anywhere 
 </details>
 
 
-### Albums with highest word density
+#### Albums with highest word density
 
 <details>
 <summary>Show table</summary>
@@ -1281,7 +1298,11 @@ Savatage's [The Wake of Magellan] is the most word-dense album that is anywhere 
 </details>
 
 
-### Albums with highest unique word density
+#### Albums with highest unique word density
+
+Municipal Waste takes up the top two positions here, with [Waste 'Em All](https://en.wikipedia.org/wiki/Waste_%27Em_All)
+and [Hazardous Mutation](https://en.wikipedia.org/wiki/Hazardous_Mutation).
+All the non-Bal Sagoth albums here are pretty short, none reaching the forty-minute mark.
 
 <details>
 <summary>Show table</summary>
@@ -1419,16 +1440,17 @@ Savatage's [The Wake of Magellan] is the most word-dense album that is anywhere 
 </details>
 
 
-# Word counts by band
+## Word counts by band
 
 Surprisingly, Bal-Sagoth's inflated lyric counts do not matter much when comparing entire bands,
 perhaps due to how short their discography is.
 The bands with the highest word counts typically have massive discographies,
 and are usually power metal or heavy metal bands.
-Again, thrash and grindcore bands with short songs comprise most of the highest words-per-second list.
+That said, Cradle of Filth are a huge outlier, with nearly 42,000 words spanning twelve hours of music,
+setting them well above the rest in both total word count and total unique word count.
 
 
-### Bands with highest word counts
+#### Bands with highest word counts
 
 <details>
 <summary>Show table</summary>
@@ -1556,7 +1578,7 @@ Again, thrash and grindcore bands with short songs comprise most of the highest 
 </details>
 
 
-### Bands with highest unique word counts
+#### Bands with highest unique word counts
 
 <details>
 <summary>Show table</summary>
@@ -1684,7 +1706,11 @@ Again, thrash and grindcore bands with short songs comprise most of the highest 
 </details>
 
 
-### Bands with highest word density
+#### Bands with highest word density
+
+Again, thrash and death metal bands with short, lyric-heavy songs dominate the words-per-second list.
+It's probably not even remotely surprising to tech death fans that [Archspire](https://en.wikipedia.org/wiki/Archspire)
+tops this list, with nearly one-and-a-half words per second throughout their discography.
 
 <details>
 <summary>Show table</summary>
@@ -1812,7 +1838,7 @@ Again, thrash and grindcore bands with short songs comprise most of the highest 
 </details>
 
 
-### Bands with highest unique word density
+#### Bands with highest unique word density
 
 <details>
 <summary>Show table</summary>
@@ -1940,7 +1966,7 @@ Again, thrash and grindcore bands with short songs comprise most of the highest 
 </details>
 
 
-# Word counts among the most popular bands
+## Word counts among the most popular bands
 
 To pick out the most popular bands, we can filter out artists with fewer than a certain number of reviews.
 Plotting out their full-discography unique word counts, we find that there is a generally linear relationship
@@ -2022,15 +2048,15 @@ plt.show()
 ![png](/assets/images/heavy-metal-lyrics/unique_words_vs_length.png)
 
 
-# Ranking artists by the number of unique words in their first 15,000 words
+## Ranking artists by the number of unique words in their first 15,000 words
 
 A few years ago, Matt Daniels of The Pudding wrote up [an article](https://pudding.cool/projects/vocabulary/index.html)
 comparing the number of unique words used by several famous rappers in their first 35,000 words.
 A similar comparison can be done with the metal lyrics here,
 although since heavy metal tends to have more instrumentals and metal musicians don't put out as many songs as rappers do,
 I chose to look at each artist's first 10,000 words.
-Here, the top 100 bands by number of album reviews are shown.
-(The [dashboard](https://metal-lyrics-feature-plots.herokuapp.com/) shows the top 200.)
+Here, for clarity only the top 100 bands by number of album reviews are shown
+but the full plot at the top of the page shows the top 200.
 Interestingly, there's a gap between the cluster of highest unique words and the main field of artists.
 Every band in the outlier cluster is associated with death metal, hinting at a correlation in genre.
 On the dashboard you can filter by genres to see where on the swarm plot those bands lie.
@@ -2151,7 +2177,7 @@ plt.show()
 ![png](/assets/images/heavy-metal-lyrics/swarm_2.png)
 
 
-# Word counts by genre
+## Word counts by genre
 
 Although there are some noticeable trends in the word counts of genres,
 overall the distributions of word counts and song lengths per genre are quite broad.
@@ -2159,7 +2185,7 @@ The overlap means lyrical complexity is likely not a sufficient means of disting
 In the next article we'll expand on this, using more sophisticated lexical diversity measures
 to quantify the complexity of different genres.
 
-### Words per song
+#### Words per song
 
 <details>
 <summary>Show code</summary>
@@ -2186,7 +2212,7 @@ plt.show()
 
 ![png](/assets/images/heavy-metal-lyrics/word_count_genre.png)
 
-### Words per second
+#### Words per second
 
 
 <details>

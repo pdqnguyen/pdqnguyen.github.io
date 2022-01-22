@@ -30,7 +30,7 @@ The analyses below provide insights on the history of heavy metal albums, and li
 > genres. This notebook also provides statistical insights on the sentiments of MA users as expressed through online
 > album reviews.
 
-> [Lyrics data exploration](/pages/lyrics-part-1-overview.html)
+> [Lyrics data exploration](/jekyll/update/2022/01/19/lyrics-part-1-overview)
 > 
 > Brief overview of the lyrics data set.
 
