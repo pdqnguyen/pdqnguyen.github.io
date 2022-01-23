@@ -55,7 +55,7 @@ to noticeably different outcomes.
 * Bands with the highest overall word counts typically belong to the less "extreme" genres like (traditional) heavy metal and power metal.
 This is due to having long, word-dense songs, often with a focus on narrative, coupled with higher album output.
 * Short pieces by grindcore and death metal bands often provide the highest density of unique words.
-* Using Matt Daniels' metric (unique words in first X words), a few bands make up the top end of the distribution:
+* Using Matt Daniels' metric (unique words in first X words), we see a cluster of outliers at the top end of the distribution:
 Cryptopsy, Napalm Death, Cattle Decapitation, Cradle of Filth, Deeds of Flesh, Dying Fetus, and Exhumed.
 (The plot here has fewer bands shown than in the dashboard, in order to fit all the names on the figure.)
 * <span style="color:#ebc634; font-weight:bold">Word count distributions are correlated with genres in the way you'd expect, but the stylistic diversity in each
@@ -342,7 +342,7 @@ This is less contentious since the official track listing considers this a singl
 
 <details>
 <summary>Show table</summary>
-<div class="table-wrapper" markdown="block">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -360,105 +360,137 @@ This is less contentious since the official track listing considers this a singl
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>band_name</th>
-      <th>album_name</th>
-      <th>song_name</th>
-      <th>band_genre</th>
-      <th>song_word_count</th>
-      <th>song_seconds</th>
-      <th>song_words_per_second</th>
+      <th>band</th>
+      <th>album</th>
+      <th>song</th>
+      <th>genre</th>
+      <th>seconds</th>
+      <th>word_count</th>
+      <th>unique_word_count</th>
+      <th>words_per_second</th>
+      <th>unique_words_per_second</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>11862</th>
+      <th>1</th>
       <td>Bal-Sagoth</td>
       <td>The Chthonic Chronicles</td>
       <td>The Obsidian Crown Unbound</td>
       <td>Symphonic/Epic Black Metal</td>
-      <td>2259</td>
       <td>358</td>
-      <td>6.310056</td>
+      <td>2259</td>
+      <td>897</td>
+      <td>6.31</td>
+      <td>2.51</td>
     </tr>
     <tr>
-      <th>35657</th>
+      <th>2</th>
       <td>Edge of Sanity</td>
       <td>Crimson</td>
       <td>Crimson</td>
       <td>Progressive Death Metal</td>
-      <td>1948</td>
       <td>2400</td>
-      <td>0.811667</td>
+      <td>1948</td>
+      <td>658</td>
+      <td>0.81</td>
+      <td>0.27</td>
     </tr>
     <tr>
-      <th>100430</th>
-      <td>Theocracy</td>
-      <td>Mirror of Souls</td>
-      <td>Mirror of Souls</td>
-      <td>Epic Progressive Power Metal</td>
-      <td>1556</td>
-      <td>1346</td>
-      <td>1.156018</td>
-    </tr>
-    <tr>
-      <th>11822</th>
-      <td>Bal-Sagoth</td>
-      <td>Starfire Burning upon the Ice-Veiled Throne of...</td>
-      <td>To Dethrone the Witch-Queen of Mytos K'unn (Th...</td>
-      <td>Symphonic/Epic Black Metal</td>
-      <td>1306</td>
-      <td>405</td>
-      <td>3.224691</td>
-    </tr>
-    <tr>
-      <th>11866</th>
+      <th>3</th>
       <td>Bal-Sagoth</td>
       <td>The Chthonic Chronicles</td>
       <td>Unfettering the Hoary Sentinels of Karnak</td>
       <td>Symphonic/Epic Black Metal</td>
-      <td>1237</td>
       <td>262</td>
-      <td>4.721374</td>
+      <td>1237</td>
+      <td>560</td>
+      <td>4.72</td>
+      <td>2.14</td>
     </tr>
     <tr>
-      <th>11838</th>
+      <th>4</th>
+      <td>Bal-Sagoth</td>
+      <td>Starfire Burning upon the Ice-Veiled Throne of...</td>
+      <td>To Dethrone the Witch-Queen of Mytos K'unn (Th...</td>
+      <td>Symphonic/Epic Black Metal</td>
+      <td>405</td>
+      <td>1306</td>
+      <td>548</td>
+      <td>3.22</td>
+      <td>1.35</td>
+    </tr>
+    <tr>
+      <th>5</th>
       <td>Bal-Sagoth</td>
       <td>Battle Magic</td>
       <td>Blood Slakes the Sand at the Circus Maximus</td>
       <td>Symphonic/Epic Black Metal</td>
-      <td>1186</td>
       <td>533</td>
-      <td>2.225141</td>
+      <td>1186</td>
+      <td>530</td>
+      <td>2.23</td>
+      <td>0.99</td>
     </tr>
     <tr>
-      <th>81809</th>
+      <th>6</th>
+      <td>Theocracy</td>
+      <td>Mirror of Souls</td>
+      <td>Mirror of Souls</td>
+      <td>Epic Progressive Power Metal</td>
+      <td>1346</td>
+      <td>1556</td>
+      <td>457</td>
+      <td>1.16</td>
+      <td>0.34</td>
+    </tr>
+    <tr>
+      <th>7</th>
       <td>Redemption</td>
       <td>Redemption</td>
       <td>Something Wicked This Way Comes</td>
       <td>Progressive Metal</td>
-      <td>1114</td>
       <td>1466</td>
-      <td>0.759891</td>
+      <td>1114</td>
+      <td>439</td>
+      <td>0.76</td>
+      <td>0.3</td>
     </tr>
     <tr>
-      <th>15057</th>
-      <td>Blind Guardian</td>
-      <td>A Night at the Opera</td>
-      <td>And Then There Was Silence</td>
-      <td>Speed Metal (early), Power Metal (later)</td>
-      <td>1037</td>
-      <td>846</td>
-      <td>1.225768</td>
+      <th>8</th>
+      <td>Bal-Sagoth</td>
+      <td>Starfire Burning upon the Ice-Veiled Throne of...</td>
+      <td>The Splendour of a Thousand Swords Gleaming Be...</td>
+      <td>Symphonic/Epic Black Metal</td>
+      <td>363</td>
+      <td>977</td>
+      <td>429</td>
+      <td>2.69</td>
+      <td>1.18</td>
     </tr>
     <tr>
-      <th>45056</th>
-      <td>Green Carnation</td>
-      <td>Light of Day, Day of Darkness</td>
-      <td>Light of Day, Day of Darkness</td>
-      <td>Death Metal (early); Gothic/Progressive Metal/...</td>
-      <td>1028</td>
-      <td>3606</td>
-      <td>0.285080</td>
+      <th>9</th>
+      <td>Bal-Sagoth</td>
+      <td>Starfire Burning upon the Ice-Veiled Throne of...</td>
+      <td>Starfire Burning upon the Ice-Veiled Throne of...</td>
+      <td>Symphonic/Epic Black Metal</td>
+      <td>443</td>
+      <td>1018</td>
+      <td>427</td>
+      <td>2.3</td>
+      <td>0.96</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Bal-Sagoth</td>
+      <td>The Chthonic Chronicles</td>
+      <td>Six Score and Ten Oblations to a Malefic Avatar</td>
+      <td>Symphonic/Epic Black Metal</td>
+      <td>368</td>
+      <td>793</td>
+      <td>415</td>
+      <td>2.15</td>
+      <td>1.13</td>
     </tr>
   </tbody>
 </table>
@@ -469,7 +501,7 @@ This is less contentious since the official track listing considers this a singl
 
 <details>
 <summary>Show table</summary>
-<div class="table-wrapper" markdown="block">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -487,115 +519,137 @@ This is less contentious since the official track listing considers this a singl
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>band_name</th>
-      <th>album_name</th>
-      <th>song_name</th>
-      <th>band_genre</th>
-      <th>song_word_count</th>
-      <th>song_unique_word_count</th>
-      <th>song_seconds</th>
-      <th>song_unique_words_per_second</th>
+      <th>band</th>
+      <th>album</th>
+      <th>song</th>
+      <th>genre</th>
+      <th>seconds</th>
+      <th>word_count</th>
+      <th>unique_word_count</th>
+      <th>words_per_second</th>
+      <th>unique_words_per_second</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>11862</th>
+      <th>1</th>
       <td>Bal-Sagoth</td>
       <td>The Chthonic Chronicles</td>
       <td>The Obsidian Crown Unbound</td>
       <td>Symphonic/Epic Black Metal</td>
+      <td>358</td>
       <td>2259</td>
       <td>897</td>
-      <td>358</td>
-      <td>2.505587</td>
+      <td>6.31</td>
+      <td>2.51</td>
     </tr>
     <tr>
-      <th>35657</th>
+      <th>2</th>
       <td>Edge of Sanity</td>
       <td>Crimson</td>
       <td>Crimson</td>
       <td>Progressive Death Metal</td>
+      <td>2400</td>
       <td>1948</td>
       <td>658</td>
-      <td>2400</td>
-      <td>0.274167</td>
+      <td>0.81</td>
+      <td>0.27</td>
     </tr>
     <tr>
-      <th>11866</th>
+      <th>3</th>
       <td>Bal-Sagoth</td>
       <td>The Chthonic Chronicles</td>
       <td>Unfettering the Hoary Sentinels of Karnak</td>
       <td>Symphonic/Epic Black Metal</td>
+      <td>262</td>
       <td>1237</td>
       <td>560</td>
-      <td>262</td>
-      <td>2.137405</td>
+      <td>4.72</td>
+      <td>2.14</td>
     </tr>
     <tr>
-      <th>11822</th>
+      <th>4</th>
       <td>Bal-Sagoth</td>
       <td>Starfire Burning upon the Ice-Veiled Throne of...</td>
       <td>To Dethrone the Witch-Queen of Mytos K'unn (Th...</td>
       <td>Symphonic/Epic Black Metal</td>
+      <td>405</td>
       <td>1306</td>
       <td>548</td>
-      <td>405</td>
-      <td>1.353086</td>
+      <td>3.22</td>
+      <td>1.35</td>
     </tr>
     <tr>
-      <th>11838</th>
+      <th>5</th>
       <td>Bal-Sagoth</td>
       <td>Battle Magic</td>
       <td>Blood Slakes the Sand at the Circus Maximus</td>
       <td>Symphonic/Epic Black Metal</td>
+      <td>533</td>
       <td>1186</td>
       <td>530</td>
-      <td>533</td>
-      <td>0.994371</td>
+      <td>2.23</td>
+      <td>0.99</td>
     </tr>
     <tr>
-      <th>100430</th>
+      <th>6</th>
       <td>Theocracy</td>
       <td>Mirror of Souls</td>
       <td>Mirror of Souls</td>
       <td>Epic Progressive Power Metal</td>
+      <td>1346</td>
       <td>1556</td>
       <td>457</td>
-      <td>1346</td>
-      <td>0.339525</td>
+      <td>1.16</td>
+      <td>0.34</td>
     </tr>
     <tr>
-      <th>81809</th>
+      <th>7</th>
       <td>Redemption</td>
       <td>Redemption</td>
       <td>Something Wicked This Way Comes</td>
       <td>Progressive Metal</td>
+      <td>1466</td>
       <td>1114</td>
       <td>439</td>
-      <td>1466</td>
-      <td>0.299454</td>
+      <td>0.76</td>
+      <td>0.3</td>
     </tr>
     <tr>
-      <th>11826</th>
+      <th>8</th>
       <td>Bal-Sagoth</td>
       <td>Starfire Burning upon the Ice-Veiled Throne of...</td>
       <td>The Splendour of a Thousand Swords Gleaming Be...</td>
       <td>Symphonic/Epic Black Metal</td>
+      <td>363</td>
       <td>977</td>
       <td>429</td>
-      <td>363</td>
-      <td>1.181818</td>
+      <td>2.69</td>
+      <td>1.18</td>
     </tr>
     <tr>
-      <th>11824</th>
+      <th>9</th>
       <td>Bal-Sagoth</td>
       <td>Starfire Burning upon the Ice-Veiled Throne of...</td>
       <td>Starfire Burning upon the Ice-Veiled Throne of...</td>
       <td>Symphonic/Epic Black Metal</td>
+      <td>443</td>
       <td>1018</td>
       <td>427</td>
-      <td>443</td>
-      <td>0.963883</td>
+      <td>2.3</td>
+      <td>0.96</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Bal-Sagoth</td>
+      <td>The Chthonic Chronicles</td>
+      <td>Six Score and Ten Oblations to a Malefic Avatar</td>
+      <td>Symphonic/Epic Black Metal</td>
+      <td>368</td>
+      <td>793</td>
+      <td>415</td>
+      <td>2.15</td>
+      <td>1.13</td>
     </tr>
   </tbody>
 </table>
@@ -611,7 +665,7 @@ Most of the other tracks on this table are short, typically less than a minute.
 
 <details>
 <summary>Show table</summary>
-<div class="table-wrapper" markdown="block">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -629,105 +683,137 @@ Most of the other tracks on this table are short, typically less than a minute.
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>band_name</th>
-      <th>album_name</th>
-      <th>song_name</th>
-      <th>band_genre</th>
-      <th>song_word_count</th>
-      <th>song_seconds</th>
-      <th>song_words_per_second</th>
+      <th>band</th>
+      <th>album</th>
+      <th>song</th>
+      <th>genre</th>
+      <th>seconds</th>
+      <th>word_count</th>
+      <th>unique_word_count</th>
+      <th>words_per_second</th>
+      <th>unique_words_per_second</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>11862</th>
+      <th>1</th>
       <td>Bal-Sagoth</td>
       <td>The Chthonic Chronicles</td>
       <td>The Obsidian Crown Unbound</td>
       <td>Symphonic/Epic Black Metal</td>
-      <td>2259</td>
       <td>358</td>
-      <td>6.310056</td>
+      <td>2259</td>
+      <td>897</td>
+      <td>6.31</td>
+      <td>2.51</td>
     </tr>
     <tr>
-      <th>103209</th>
+      <th>2</th>
       <td>Trans-Siberian Orchestra</td>
       <td>The Christmas Attic</td>
       <td>The Ghosts of Christmas Eve</td>
       <td>Orchestral/Progressive Rock/Metal</td>
-      <td>815</td>
       <td>135</td>
-      <td>6.037037</td>
+      <td>815</td>
+      <td>311</td>
+      <td>6.04</td>
+      <td>2.3</td>
     </tr>
     <tr>
-      <th>61709</th>
+      <th>3</th>
       <td>Macabre</td>
       <td>Gloom</td>
       <td>I Need to Kill</td>
       <td>Thrash/Death Metal/Grindcore</td>
-      <td>199</td>
       <td>36</td>
-      <td>5.527778</td>
+      <td>199</td>
+      <td>77</td>
+      <td>5.53</td>
+      <td>2.14</td>
     </tr>
     <tr>
-      <th>11866</th>
+      <th>4</th>
       <td>Bal-Sagoth</td>
       <td>The Chthonic Chronicles</td>
       <td>Unfettering the Hoary Sentinels of Karnak</td>
       <td>Symphonic/Epic Black Metal</td>
-      <td>1237</td>
       <td>262</td>
-      <td>4.721374</td>
+      <td>1237</td>
+      <td>560</td>
+      <td>4.72</td>
+      <td>2.14</td>
     </tr>
     <tr>
-      <th>80005</th>
+      <th>5</th>
       <td>Putrid Pile</td>
       <td>Paraphiliac Perversions</td>
       <td>Toxic Shock Therapy</td>
       <td>Brutal Death Metal</td>
-      <td>18</td>
       <td>4</td>
-      <td>4.500000</td>
+      <td>18</td>
+      <td>3</td>
+      <td>4.5</td>
+      <td>0.75</td>
     </tr>
     <tr>
-      <th>84364</th>
+      <th>6</th>
       <td>S.O.D.</td>
       <td>Bigger than the Devil</td>
       <td>Charlie Don't Cheat</td>
       <td>Hardcore/Crossover/Thrash Metal</td>
-      <td>105</td>
       <td>25</td>
-      <td>4.200000</td>
+      <td>105</td>
+      <td>74</td>
+      <td>4.2</td>
+      <td>2.96</td>
     </tr>
     <tr>
-      <th>70012</th>
+      <th>7</th>
       <td>Napalm Death</td>
       <td>Scum</td>
       <td>You Suffer</td>
       <td>Hardcore Punk (early), Grindcore/Death Metal (...</td>
-      <td>4</td>
       <td>1</td>
-      <td>4.000000</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4.0</td>
+      <td>4.0</td>
     </tr>
     <tr>
-      <th>85949</th>
+      <th>8</th>
       <td>Savatage</td>
       <td>The Wake of Magellan</td>
       <td>Welcome</td>
       <td>Heavy/Power Metal, Progressive Metal/Rock</td>
-      <td>490</td>
       <td>131</td>
-      <td>3.740458</td>
+      <td>490</td>
+      <td>230</td>
+      <td>3.74</td>
+      <td>1.76</td>
     </tr>
     <tr>
-      <th>23586</th>
+      <th>9</th>
       <td>Circle of Dead Children</td>
       <td>Human Harvest</td>
       <td>White Trash Headache</td>
       <td>Brutal Death Metal, Grindcore</td>
-      <td>21</td>
       <td>6</td>
-      <td>3.500000</td>
+      <td>21</td>
+      <td>20</td>
+      <td>3.5</td>
+      <td>3.33</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Suicidal Tendencies</td>
+      <td>Free Your Soul... and Save My Mind</td>
+      <td>Cyco Speak</td>
+      <td>Thrash Metal/Crossover, Hardcore Punk</td>
+      <td>183</td>
+      <td>640</td>
+      <td>224</td>
+      <td>3.5</td>
+      <td>1.22</td>
     </tr>
   </tbody>
 </table>
@@ -743,7 +829,7 @@ masterpiece is [Wormrot's "You Suffer But Why Is It My Problem"](https://youtu.b
 
 <details>
 <summary>Show table</summary>
-<div class="table-wrapper" markdown="block">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -761,115 +847,137 @@ masterpiece is [Wormrot's "You Suffer But Why Is It My Problem"](https://youtu.b
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>band_name</th>
-      <th>album_name</th>
-      <th>song_name</th>
-      <th>band_genre</th>
-      <th>song_word_count</th>
-      <th>song_unique_word_count</th>
-      <th>song_seconds</th>
-      <th>song_unique_words_per_second</th>
+      <th>band</th>
+      <th>album</th>
+      <th>song</th>
+      <th>genre</th>
+      <th>seconds</th>
+      <th>word_count</th>
+      <th>unique_word_count</th>
+      <th>words_per_second</th>
+      <th>unique_words_per_second</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>70012</th>
+      <th>1</th>
       <td>Napalm Death</td>
       <td>Scum</td>
       <td>You Suffer</td>
       <td>Hardcore Punk (early), Grindcore/Death Metal (...</td>
-      <td>4</td>
-      <td>4</td>
       <td>1</td>
-      <td>4.000000</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4.0</td>
+      <td>4.0</td>
     </tr>
     <tr>
-      <th>111972</th>
+      <th>2</th>
       <td>Wormrot</td>
       <td>Dirge</td>
       <td>You Suffer but Why Is It My Problem</td>
       <td>Grindcore</td>
-      <td>14</td>
-      <td>14</td>
       <td>4</td>
-      <td>3.500000</td>
+      <td>14</td>
+      <td>14</td>
+      <td>3.5</td>
+      <td>3.5</td>
     </tr>
     <tr>
-      <th>23586</th>
+      <th>3</th>
       <td>Circle of Dead Children</td>
       <td>Human Harvest</td>
       <td>White Trash Headache</td>
       <td>Brutal Death Metal, Grindcore</td>
+      <td>6</td>
       <td>21</td>
       <td>20</td>
-      <td>6</td>
-      <td>3.333333</td>
+      <td>3.5</td>
+      <td>3.33</td>
     </tr>
     <tr>
-      <th>84364</th>
+      <th>4</th>
       <td>S.O.D.</td>
       <td>Bigger than the Devil</td>
       <td>Charlie Don't Cheat</td>
       <td>Hardcore/Crossover/Thrash Metal</td>
+      <td>25</td>
       <td>105</td>
       <td>74</td>
-      <td>25</td>
-      <td>2.960000</td>
+      <td>4.2</td>
+      <td>2.96</td>
     </tr>
     <tr>
-      <th>68940</th>
+      <th>5</th>
       <td>Municipal Waste</td>
       <td>Waste 'Em All</td>
       <td>I Want to Kill the President</td>
       <td>Thrash Metal/Crossover</td>
+      <td>17</td>
       <td>54</td>
       <td>44</td>
-      <td>17</td>
-      <td>2.588235</td>
+      <td>3.18</td>
+      <td>2.59</td>
     </tr>
     <tr>
-      <th>52038</th>
+      <th>6</th>
       <td>Insect Warfare</td>
       <td>World Extermination</td>
       <td>Street Sweeper</td>
       <td>Grindcore</td>
+      <td>13</td>
       <td>43</td>
       <td>33</td>
-      <td>13</td>
-      <td>2.538462</td>
+      <td>3.31</td>
+      <td>2.54</td>
     </tr>
     <tr>
-      <th>11862</th>
+      <th>7</th>
       <td>Bal-Sagoth</td>
       <td>The Chthonic Chronicles</td>
       <td>The Obsidian Crown Unbound</td>
       <td>Symphonic/Epic Black Metal</td>
+      <td>358</td>
       <td>2259</td>
       <td>897</td>
-      <td>358</td>
-      <td>2.505587</td>
+      <td>6.31</td>
+      <td>2.51</td>
     </tr>
     <tr>
-      <th>24474</th>
+      <th>8</th>
       <td>Corrosion of Conformity</td>
       <td>Eye for an Eye</td>
       <td>No Drunk</td>
       <td>Crossover/Sludge/Southern Metal</td>
+      <td>22</td>
       <td>74</td>
       <td>52</td>
-      <td>22</td>
-      <td>2.363636</td>
+      <td>3.36</td>
+      <td>2.36</td>
     </tr>
     <tr>
-      <th>30283</th>
+      <th>9</th>
       <td>Deliverance</td>
       <td>What a Joke</td>
       <td>Happy Star</td>
       <td>Speed/Thrash Metal, Industrial</td>
-      <td>7</td>
-      <td>7</td>
       <td>3</td>
-      <td>2.333333</td>
+      <td>7</td>
+      <td>7</td>
+      <td>2.33</td>
+      <td>2.33</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Trans-Siberian Orchestra</td>
+      <td>The Christmas Attic</td>
+      <td>The Ghosts of Christmas Eve</td>
+      <td>Orchestral/Progressive Rock/Metal</td>
+      <td>135</td>
+      <td>815</td>
+      <td>311</td>
+      <td>6.04</td>
+      <td>2.3</td>
     </tr>
   </tbody>
 </table>
@@ -888,7 +996,7 @@ coming out on top, even outstripping all of Bal-Sagoth's albums on raw word coun
 
 <details>
 <summary>Show table</summary>
-<div class="table-wrapper" markdown="block">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -906,115 +1014,126 @@ coming out on top, even outstripping all of Bal-Sagoth's albums on raw word coun
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>band_name</th>
-      <th>album_name</th>
-      <th>band_genre</th>
-      <th>album_word_count</th>
-      <th>album_unique_word_count</th>
-      <th>album_seconds</th>
-      <th>album_words_per_second</th>
-      <th>album_unique_words_per_second</th>
+      <th>band</th>
+      <th>album</th>
+      <th>genre</th>
+      <th>seconds</th>
+      <th>word_count</th>
+      <th>unique_word_count</th>
+      <th>words_per_second</th>
+      <th>unique_words_per_second</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>882</th>
+      <th>1</th>
       <td>Blind Guardian</td>
       <td>Twilight Orchestra: Legacy of the Dark Lands</td>
       <td>Speed Metal (early), Power Metal (later)</td>
-      <td>8812</td>
-      <td>4361</td>
       <td>8210</td>
-      <td>1.073325</td>
-      <td>0.531181</td>
+      <td>8812</td>
+      <td>1010</td>
+      <td>1.07</td>
+      <td>0.12</td>
     </tr>
     <tr>
-      <th>645</th>
+      <th>2</th>
       <td>Bal-Sagoth</td>
       <td>The Chthonic Chronicles</td>
       <td>Symphonic/Epic Black Metal</td>
-      <td>6979</td>
-      <td>3437</td>
       <td>3639</td>
-      <td>1.917835</td>
-      <td>0.944490</td>
+      <td>6979</td>
+      <td>2073</td>
+      <td>1.92</td>
+      <td>0.57</td>
     </tr>
     <tr>
-      <th>644</th>
+      <th>3</th>
       <td>Bal-Sagoth</td>
       <td>Starfire Burning upon the Ice-Veiled Throne of...</td>
       <td>Symphonic/Epic Black Metal</td>
-      <td>6500</td>
-      <td>2959</td>
       <td>3157</td>
-      <td>2.058917</td>
-      <td>0.937282</td>
+      <td>6500</td>
+      <td>1634</td>
+      <td>2.06</td>
+      <td>0.52</td>
     </tr>
     <tr>
-      <th>5257</th>
+      <th>4</th>
       <td>Savatage</td>
       <td>The Wake of Magellan</td>
       <td>Heavy/Power Metal, Progressive Metal/Rock</td>
-      <td>5264</td>
-      <td>2268</td>
       <td>3218</td>
-      <td>1.635799</td>
-      <td>0.704786</td>
+      <td>5264</td>
+      <td>1033</td>
+      <td>1.64</td>
+      <td>0.32</td>
     </tr>
     <tr>
-      <th>628</th>
+      <th>5</th>
       <td>Ayreon</td>
       <td>The Human Equation</td>
       <td>Progressive Metal/Rock</td>
-      <td>4917</td>
-      <td>2057</td>
       <td>5950</td>
-      <td>0.826387</td>
-      <td>0.345714</td>
+      <td>4917</td>
+      <td>805</td>
+      <td>0.83</td>
+      <td>0.14</td>
     </tr>
     <tr>
-      <th>6118</th>
+      <th>6</th>
       <td>Therion</td>
       <td>Beloved Antichrist</td>
       <td>Death Metal (early), Symphonic/Operatic Metal ...</td>
-      <td>4859</td>
-      <td>3026</td>
       <td>9110</td>
-      <td>0.533370</td>
-      <td>0.332162</td>
+      <td>4859</td>
+      <td>1008</td>
+      <td>0.53</td>
+      <td>0.11</td>
     </tr>
     <tr>
-      <th>6250</th>
+      <th>7</th>
       <td>Trans-Siberian Orchestra</td>
       <td>The Christmas Attic</td>
       <td>Orchestral/Progressive Rock/Metal</td>
-      <td>4794</td>
-      <td>2035</td>
       <td>4066</td>
-      <td>1.179046</td>
-      <td>0.500492</td>
+      <td>4794</td>
+      <td>847</td>
+      <td>1.18</td>
+      <td>0.21</td>
     </tr>
     <tr>
-      <th>872</th>
+      <th>8</th>
       <td>Blind Guardian</td>
       <td>A Night at the Opera</td>
       <td>Speed Metal (early), Power Metal (later)</td>
-      <td>4630</td>
-      <td>1730</td>
       <td>4024</td>
-      <td>1.150596</td>
-      <td>0.429920</td>
+      <td>4630</td>
+      <td>879</td>
+      <td>1.15</td>
+      <td>0.22</td>
     </tr>
     <tr>
-      <th>3696</th>
+      <th>9</th>
       <td>Machine Head</td>
       <td>Catharsis</td>
       <td>Groove/Thrash Metal, Nu-Metal</td>
-      <td>4623</td>
-      <td>2077</td>
       <td>4457</td>
-      <td>1.037245</td>
-      <td>0.466009</td>
+      <td>4623</td>
+      <td>1131</td>
+      <td>1.04</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Cage</td>
+      <td>Ancient Evil</td>
+      <td>Heavy/Power Metal</td>
+      <td>4477</td>
+      <td>4569</td>
+      <td>1204</td>
+      <td>1.02</td>
+      <td>0.27</td>
     </tr>
   </tbody>
 </table>
@@ -1026,7 +1145,7 @@ coming out on top, even outstripping all of Bal-Sagoth's albums on raw word coun
 
 <details>
 <summary>Show table</summary>
-<div class="table-wrapper" markdown="block">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1044,115 +1163,126 @@ coming out on top, even outstripping all of Bal-Sagoth's albums on raw word coun
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>band_name</th>
-      <th>album_name</th>
-      <th>band_genre</th>
-      <th>album_word_count</th>
-      <th>album_unique_word_count</th>
-      <th>album_seconds</th>
-      <th>album_words_per_second</th>
-      <th>album_unique_words_per_second</th>
+      <th>band</th>
+      <th>album</th>
+      <th>genre</th>
+      <th>seconds</th>
+      <th>word_count</th>
+      <th>unique_word_count</th>
+      <th>words_per_second</th>
+      <th>unique_words_per_second</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>882</th>
-      <td>Blind Guardian</td>
-      <td>Twilight Orchestra: Legacy of the Dark Lands</td>
-      <td>Speed Metal (early), Power Metal (later)</td>
-      <td>8812</td>
-      <td>4361</td>
-      <td>8210</td>
-      <td>1.073325</td>
-      <td>0.531181</td>
-    </tr>
-    <tr>
-      <th>645</th>
+      <th>1</th>
       <td>Bal-Sagoth</td>
       <td>The Chthonic Chronicles</td>
       <td>Symphonic/Epic Black Metal</td>
-      <td>6979</td>
-      <td>3437</td>
       <td>3639</td>
-      <td>1.917835</td>
-      <td>0.944490</td>
+      <td>6979</td>
+      <td>2073</td>
+      <td>1.92</td>
+      <td>0.57</td>
     </tr>
     <tr>
-      <th>6118</th>
-      <td>Therion</td>
-      <td>Beloved Antichrist</td>
-      <td>Death Metal (early), Symphonic/Operatic Metal ...</td>
-      <td>4859</td>
-      <td>3026</td>
-      <td>9110</td>
-      <td>0.533370</td>
-      <td>0.332162</td>
-    </tr>
-    <tr>
-      <th>644</th>
+      <th>2</th>
       <td>Bal-Sagoth</td>
       <td>Starfire Burning upon the Ice-Veiled Throne of...</td>
       <td>Symphonic/Epic Black Metal</td>
-      <td>6500</td>
-      <td>2959</td>
       <td>3157</td>
-      <td>2.058917</td>
-      <td>0.937282</td>
+      <td>6500</td>
+      <td>1634</td>
+      <td>2.06</td>
+      <td>0.52</td>
     </tr>
     <tr>
-      <th>1988</th>
-      <td>Dream Theater</td>
-      <td>The Astonishing</td>
-      <td>Progressive Metal</td>
-      <td>4366</td>
-      <td>2682</td>
-      <td>7098</td>
-      <td>0.615103</td>
-      <td>0.377853</td>
+      <th>3</th>
+      <td>Cradle of Filth</td>
+      <td>Midian</td>
+      <td>Death Metal (early), Symphonic Black Metal (mi...</td>
+      <td>3217</td>
+      <td>3816</td>
+      <td>1471</td>
+      <td>1.19</td>
+      <td>0.46</td>
     </tr>
     <tr>
-      <th>1020</th>
-      <td>Cage</td>
-      <td>Ancient Evil</td>
-      <td>Heavy/Power Metal</td>
-      <td>4569</td>
-      <td>2551</td>
-      <td>4477</td>
-      <td>1.020549</td>
-      <td>0.569801</td>
-    </tr>
-    <tr>
-      <th>1344</th>
+      <th>4</th>
       <td>Cradle of Filth</td>
       <td>Darkly, Darkly, Venus Aversa</td>
       <td>Death Metal (early), Symphonic Black Metal (mi...</td>
-      <td>4235</td>
-      <td>2394</td>
       <td>3462</td>
-      <td>1.223281</td>
-      <td>0.691508</td>
+      <td>4235</td>
+      <td>1444</td>
+      <td>1.22</td>
+      <td>0.42</td>
     </tr>
     <tr>
-      <th>894</th>
-      <td>Blood Freak</td>
-      <td>Live Fast, Die Young... and Leave a Flesh-Eati...</td>
-      <td>Death Metal/Grindcore</td>
-      <td>3575</td>
-      <td>2353</td>
-      <td>2558</td>
-      <td>1.397576</td>
-      <td>0.919859</td>
+      <th>5</th>
+      <td>Cradle of Filth</td>
+      <td>Godspeed on the Devil's Thunder</td>
+      <td>Death Metal (early), Symphonic Black Metal (mi...</td>
+      <td>4275</td>
+      <td>3646</td>
+      <td>1382</td>
+      <td>0.85</td>
+      <td>0.32</td>
     </tr>
     <tr>
-      <th>1343</th>
+      <th>6</th>
       <td>Cradle of Filth</td>
       <td>Damnation and a Day</td>
       <td>Death Metal (early), Symphonic Black Metal (mi...</td>
-      <td>3836</td>
-      <td>2306</td>
       <td>3995</td>
-      <td>0.960200</td>
-      <td>0.577222</td>
+      <td>3836</td>
+      <td>1381</td>
+      <td>0.96</td>
+      <td>0.35</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Cradle of Filth</td>
+      <td>The Manticore and Other Horrors</td>
+      <td>Death Metal (early), Symphonic Black Metal (mi...</td>
+      <td>3416</td>
+      <td>3498</td>
+      <td>1359</td>
+      <td>1.02</td>
+      <td>0.4</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>The Agonist</td>
+      <td>Prisoners</td>
+      <td>Melodic Death Metal/Metalcore</td>
+      <td>3213</td>
+      <td>3223</td>
+      <td>1265</td>
+      <td>1.0</td>
+      <td>0.39</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Dying Fetus</td>
+      <td>Wrong One to Fuck With</td>
+      <td>Brutal Death Metal/Grindcore</td>
+      <td>3239</td>
+      <td>2731</td>
+      <td>1264</td>
+      <td>0.84</td>
+      <td>0.39</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Exhumed</td>
+      <td>Anatomy Is Destiny</td>
+      <td>Death Metal/Grindcore</td>
+      <td>2346</td>
+      <td>3296</td>
+      <td>1259</td>
+      <td>1.4</td>
+      <td>0.54</td>
     </tr>
   </tbody>
 </table>
@@ -1164,7 +1294,7 @@ coming out on top, even outstripping all of Bal-Sagoth's albums on raw word coun
 
 <details>
 <summary>Show table</summary>
-<div class="table-wrapper" markdown="block">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1182,115 +1312,126 @@ coming out on top, even outstripping all of Bal-Sagoth's albums on raw word coun
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>band_name</th>
-      <th>album_name</th>
-      <th>band_genre</th>
-      <th>album_word_count</th>
-      <th>album_unique_word_count</th>
-      <th>album_seconds</th>
-      <th>album_words_per_second</th>
-      <th>album_unique_words_per_second</th>
+      <th>band</th>
+      <th>album</th>
+      <th>genre</th>
+      <th>seconds</th>
+      <th>word_count</th>
+      <th>unique_word_count</th>
+      <th>words_per_second</th>
+      <th>unique_words_per_second</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>644</th>
+      <th>1</th>
       <td>Bal-Sagoth</td>
       <td>Starfire Burning upon the Ice-Veiled Throne of...</td>
       <td>Symphonic/Epic Black Metal</td>
-      <td>6500</td>
-      <td>2959</td>
       <td>3157</td>
-      <td>2.058917</td>
-      <td>0.937282</td>
+      <td>6500</td>
+      <td>1634</td>
+      <td>2.06</td>
+      <td>0.52</td>
     </tr>
     <tr>
-      <th>3909</th>
+      <th>2</th>
       <td>Melvins</td>
       <td>Prick</td>
       <td>Sludge Metal, Various</td>
+      <td>257</td>
       <td>504</td>
       <td>193</td>
-      <td>257</td>
-      <td>1.961089</td>
-      <td>0.750973</td>
+      <td>1.96</td>
+      <td>0.75</td>
     </tr>
     <tr>
-      <th>645</th>
+      <th>3</th>
       <td>Bal-Sagoth</td>
       <td>The Chthonic Chronicles</td>
       <td>Symphonic/Epic Black Metal</td>
-      <td>6979</td>
-      <td>3437</td>
       <td>3639</td>
-      <td>1.917835</td>
-      <td>0.944490</td>
+      <td>6979</td>
+      <td>2073</td>
+      <td>1.92</td>
+      <td>0.57</td>
     </tr>
     <tr>
-      <th>4144</th>
+      <th>4</th>
       <td>Municipal Waste</td>
       <td>Waste 'Em All</td>
       <td>Thrash Metal/Crossover</td>
-      <td>1615</td>
-      <td>1043</td>
       <td>848</td>
-      <td>1.904481</td>
-      <td>1.229953</td>
+      <td>1615</td>
+      <td>630</td>
+      <td>1.9</td>
+      <td>0.74</td>
     </tr>
     <tr>
-      <th>4561</th>
+      <th>5</th>
       <td>Origin</td>
       <td>Informis Infinitas Inhumanitas</td>
       <td>Technical Brutal Death Metal</td>
-      <td>3022</td>
-      <td>1605</td>
       <td>1712</td>
-      <td>1.765187</td>
-      <td>0.937500</td>
+      <td>3022</td>
+      <td>942</td>
+      <td>1.77</td>
+      <td>0.55</td>
     </tr>
     <tr>
-      <th>428</th>
+      <th>6</th>
       <td>Archspire</td>
       <td>Relentless Mutation</td>
       <td>Technical Death Metal</td>
-      <td>3158</td>
-      <td>1502</td>
       <td>1837</td>
-      <td>1.719107</td>
-      <td>0.817637</td>
+      <td>3158</td>
+      <td>984</td>
+      <td>1.72</td>
+      <td>0.54</td>
     </tr>
     <tr>
-      <th>3410</th>
+      <th>7</th>
       <td>Korpiklaani</td>
       <td>Noita</td>
       <td>Folk Metal</td>
+      <td>178</td>
       <td>293</td>
       <td>90</td>
-      <td>178</td>
-      <td>1.646067</td>
-      <td>0.505618</td>
+      <td>1.65</td>
+      <td>0.51</td>
     </tr>
     <tr>
-      <th>5257</th>
+      <th>8</th>
       <td>Savatage</td>
       <td>The Wake of Magellan</td>
       <td>Heavy/Power Metal, Progressive Metal/Rock</td>
-      <td>5264</td>
-      <td>2268</td>
       <td>3218</td>
-      <td>1.635799</td>
-      <td>0.704786</td>
+      <td>5264</td>
+      <td>1033</td>
+      <td>1.64</td>
+      <td>0.32</td>
     </tr>
     <tr>
-      <th>4140</th>
+      <th>9</th>
       <td>Municipal Waste</td>
       <td>Hazardous Mutation</td>
       <td>Thrash Metal/Crossover</td>
-      <td>2246</td>
-      <td>1453</td>
       <td>1425</td>
-      <td>1.576140</td>
-      <td>1.019649</td>
+      <td>2246</td>
+      <td>840</td>
+      <td>1.58</td>
+      <td>0.59</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Nekrogoblikon</td>
+      <td>Heavy Meta</td>
+      <td>Melodic Death/Folk Metal</td>
+      <td>2151</td>
+      <td>3376</td>
+      <td>780</td>
+      <td>1.57</td>
+      <td>0.36</td>
     </tr>
   </tbody>
 </table>
@@ -1306,7 +1447,7 @@ All the non-Bal Sagoth albums here are pretty short, none reaching the forty-min
 
 <details>
 <summary>Show table</summary>
-<div class="table-wrapper" markdown="block">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1324,115 +1465,126 @@ All the non-Bal Sagoth albums here are pretty short, none reaching the forty-min
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>band_name</th>
-      <th>album_name</th>
-      <th>band_genre</th>
-      <th>album_word_count</th>
-      <th>album_unique_word_count</th>
-      <th>album_seconds</th>
-      <th>album_words_per_second</th>
-      <th>album_unique_words_per_second</th>
+      <th>band</th>
+      <th>album</th>
+      <th>genre</th>
+      <th>seconds</th>
+      <th>word_count</th>
+      <th>unique_word_count</th>
+      <th>words_per_second</th>
+      <th>unique_words_per_second</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>4144</th>
-      <td>Municipal Waste</td>
-      <td>Waste 'Em All</td>
-      <td>Thrash Metal/Crossover</td>
-      <td>1615</td>
-      <td>1043</td>
-      <td>848</td>
-      <td>1.904481</td>
-      <td>1.229953</td>
-    </tr>
-    <tr>
-      <th>4140</th>
-      <td>Municipal Waste</td>
-      <td>Hazardous Mutation</td>
-      <td>Thrash Metal/Crossover</td>
-      <td>2246</td>
-      <td>1453</td>
-      <td>1425</td>
-      <td>1.576140</td>
-      <td>1.019649</td>
-    </tr>
-    <tr>
-      <th>2702</th>
+      <th>1</th>
       <td>Haggard</td>
       <td>Tales of Ithiria</td>
       <td>Progressive Death Metal (early); Classical/Orc...</td>
-      <td>299</td>
-      <td>228</td>
       <td>240</td>
-      <td>1.245833</td>
-      <td>0.950000</td>
+      <td>299</td>
+      <td>195</td>
+      <td>1.25</td>
+      <td>0.81</td>
     </tr>
     <tr>
-      <th>645</th>
-      <td>Bal-Sagoth</td>
-      <td>The Chthonic Chronicles</td>
-      <td>Symphonic/Epic Black Metal</td>
-      <td>6979</td>
-      <td>3437</td>
-      <td>3639</td>
-      <td>1.917835</td>
-      <td>0.944490</td>
+      <th>2</th>
+      <td>Melvins</td>
+      <td>Prick</td>
+      <td>Sludge Metal, Various</td>
+      <td>257</td>
+      <td>504</td>
+      <td>193</td>
+      <td>1.96</td>
+      <td>0.75</td>
     </tr>
     <tr>
-      <th>4561</th>
-      <td>Origin</td>
-      <td>Informis Infinitas Inhumanitas</td>
-      <td>Technical Brutal Death Metal</td>
-      <td>3022</td>
-      <td>1605</td>
-      <td>1712</td>
-      <td>1.765187</td>
-      <td>0.937500</td>
+      <th>3</th>
+      <td>Municipal Waste</td>
+      <td>Waste 'Em All</td>
+      <td>Thrash Metal/Crossover</td>
+      <td>848</td>
+      <td>1615</td>
+      <td>630</td>
+      <td>1.9</td>
+      <td>0.74</td>
     </tr>
     <tr>
-      <th>644</th>
-      <td>Bal-Sagoth</td>
-      <td>Starfire Burning upon the Ice-Veiled Throne of...</td>
-      <td>Symphonic/Epic Black Metal</td>
-      <td>6500</td>
-      <td>2959</td>
-      <td>3157</td>
-      <td>2.058917</td>
-      <td>0.937282</td>
+      <th>4</th>
+      <td>Helrunar</td>
+      <td>Frostnacht</td>
+      <td>Pagan Black Metal</td>
+      <td>92</td>
+      <td>107</td>
+      <td>59</td>
+      <td>1.16</td>
+      <td>0.64</td>
     </tr>
     <tr>
-      <th>894</th>
-      <td>Blood Freak</td>
-      <td>Live Fast, Die Young... and Leave a Flesh-Eati...</td>
-      <td>Death Metal/Grindcore</td>
-      <td>3575</td>
-      <td>2353</td>
-      <td>2558</td>
-      <td>1.397576</td>
-      <td>0.919859</td>
+      <th>5</th>
+      <td>Absurd</td>
+      <td>Werwolfthron</td>
+      <td>Black Metal/RAC, Pagan Black Metal</td>
+      <td>122</td>
+      <td>145</td>
+      <td>76</td>
+      <td>1.19</td>
+      <td>0.62</td>
     </tr>
     <tr>
-      <th>5579</th>
+      <th>6</th>
+      <td>Despised Icon</td>
+      <td>Consumed by Your Poison</td>
+      <td>Deathcore</td>
+      <td>639</td>
+      <td>591</td>
+      <td>375</td>
+      <td>0.92</td>
+      <td>0.59</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Municipal Waste</td>
+      <td>Hazardous Mutation</td>
+      <td>Thrash Metal/Crossover</td>
+      <td>1425</td>
+      <td>2246</td>
+      <td>840</td>
+      <td>1.58</td>
+      <td>0.59</td>
+    </tr>
+    <tr>
+      <th>8</th>
       <td>Soilent Green</td>
       <td>Confrontation</td>
       <td>Sludge/Death Metal/Grindcore</td>
-      <td>2511</td>
-      <td>1584</td>
       <td>1730</td>
-      <td>1.451445</td>
-      <td>0.915607</td>
+      <td>2511</td>
+      <td>1006</td>
+      <td>1.45</td>
+      <td>0.58</td>
     </tr>
     <tr>
-      <th>3132</th>
-      <td>Intestinal Disgorge</td>
-      <td>Vagina</td>
-      <td>Noise/Grindcore (early), Brutal Death Metal/No...</td>
-      <td>1628</td>
-      <td>1274</td>
-      <td>1493</td>
-      <td>1.090422</td>
-      <td>0.853315</td>
+      <th>9</th>
+      <td>Archspire</td>
+      <td>The Lucid Collective</td>
+      <td>Technical Death Metal</td>
+      <td>1661</td>
+      <td>2495</td>
+      <td>961</td>
+      <td>1.5</td>
+      <td>0.58</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Bal-Sagoth</td>
+      <td>The Chthonic Chronicles</td>
+      <td>Symphonic/Epic Black Metal</td>
+      <td>3639</td>
+      <td>6979</td>
+      <td>2073</td>
+      <td>1.92</td>
+      <td>0.57</td>
     </tr>
   </tbody>
 </table>
@@ -1454,7 +1606,7 @@ setting them well above the rest in both total word count and total unique word 
 
 <details>
 <summary>Show table</summary>
-<div class="table-wrapper" markdown="block">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1472,105 +1624,115 @@ setting them well above the rest in both total word count and total unique word 
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>band_name</th>
-      <th>band_genre</th>
-      <th>band_word_count</th>
-      <th>band_unique_word_count</th>
-      <th>band_seconds</th>
-      <th>band_words_per_second</th>
-      <th>band_unique_words_per_second</th>
+      <th>band</th>
+      <th>genre</th>
+      <th>seconds</th>
+      <th>word_count</th>
+      <th>unique_word_count</th>
+      <th>words_per_second</th>
+      <th>unique_words_per_second</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>281</th>
+      <th>1</th>
       <td>Cradle of Filth</td>
       <td>Death Metal (early), Symphonic Black Metal (mi...</td>
-      <td>41815</td>
-      <td>24367</td>
       <td>44097</td>
-      <td>0.948250</td>
-      <td>0.552577</td>
+      <td>41815</td>
+      <td>6415</td>
+      <td>0.95</td>
+      <td>0.15</td>
     </tr>
     <tr>
-      <th>1040</th>
+      <th>2</th>
       <td>Saxon</td>
       <td>NWOBHM, Heavy Metal</td>
-      <td>36759</td>
-      <td>14778</td>
       <td>53755</td>
-      <td>0.683825</td>
-      <td>0.274914</td>
+      <td>36759</td>
+      <td>2665</td>
+      <td>0.68</td>
+      <td>0.05</td>
     </tr>
     <tr>
-      <th>650</th>
+      <th>3</th>
       <td>Iron Maiden</td>
       <td>Heavy Metal, NWOBHM</td>
-      <td>34843</td>
-      <td>15254</td>
       <td>52673</td>
-      <td>0.661496</td>
-      <td>0.289598</td>
+      <td>34843</td>
+      <td>3241</td>
+      <td>0.66</td>
+      <td>0.06</td>
     </tr>
     <tr>
-      <th>181</th>
+      <th>4</th>
       <td>Blind Guardian</td>
       <td>Speed Metal (early), Power Metal (later)</td>
-      <td>34836</td>
-      <td>15901</td>
       <td>38090</td>
-      <td>0.914571</td>
-      <td>0.417459</td>
+      <td>34836</td>
+      <td>2416</td>
+      <td>0.91</td>
+      <td>0.06</td>
     </tr>
     <tr>
-      <th>973</th>
+      <th>5</th>
       <td>Rage</td>
       <td>Heavy/Speed/Power Metal</td>
-      <td>34314</td>
-      <td>16389</td>
       <td>56064</td>
-      <td>0.612051</td>
-      <td>0.292327</td>
+      <td>34314</td>
+      <td>2874</td>
+      <td>0.61</td>
+      <td>0.05</td>
     </tr>
     <tr>
-      <th>915</th>
+      <th>6</th>
       <td>Overkill</td>
       <td>Thrash Metal; Thrash/Groove Metal</td>
-      <td>32485</td>
-      <td>14982</td>
       <td>47540</td>
-      <td>0.683319</td>
-      <td>0.315145</td>
+      <td>32485</td>
+      <td>3119</td>
+      <td>0.68</td>
+      <td>0.07</td>
     </tr>
     <tr>
-      <th>578</th>
+      <th>7</th>
       <td>Helloween</td>
       <td>Power/Speed Metal</td>
-      <td>32472</td>
-      <td>14181</td>
       <td>48991</td>
-      <td>0.662816</td>
-      <td>0.289461</td>
+      <td>32472</td>
+      <td>2769</td>
+      <td>0.66</td>
+      <td>0.06</td>
     </tr>
     <tr>
-      <th>1139</th>
+      <th>8</th>
       <td>Tankard</td>
       <td>Thrash Metal</td>
-      <td>30652</td>
-      <td>13472</td>
       <td>38493</td>
-      <td>0.796301</td>
-      <td>0.349986</td>
+      <td>30652</td>
+      <td>3710</td>
+      <td>0.8</td>
+      <td>0.1</td>
     </tr>
     <tr>
-      <th>225</th>
+      <th>9</th>
       <td>Cannibal Corpse</td>
       <td>Death Metal</td>
-      <td>30596</td>
-      <td>16355</td>
       <td>32398</td>
-      <td>0.944379</td>
-      <td>0.504815</td>
+      <td>30596</td>
+      <td>4377</td>
+      <td>0.94</td>
+      <td>0.14</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Judas Priest</td>
+      <td>Heavy Metal</td>
+      <td>51177</td>
+      <td>30143</td>
+      <td>3506</td>
+      <td>0.59</td>
+      <td>0.07</td>
     </tr>
   </tbody>
 </table>
@@ -1582,7 +1744,7 @@ setting them well above the rest in both total word count and total unique word 
 
 <details>
 <summary>Show table</summary>
-<div class="table-wrapper" markdown="block">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1600,105 +1762,115 @@ setting them well above the rest in both total word count and total unique word 
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>band_name</th>
-      <th>band_genre</th>
-      <th>band_word_count</th>
-      <th>band_unique_word_count</th>
-      <th>band_seconds</th>
-      <th>band_words_per_second</th>
-      <th>band_unique_words_per_second</th>
+      <th>band</th>
+      <th>genre</th>
+      <th>seconds</th>
+      <th>word_count</th>
+      <th>unique_word_count</th>
+      <th>words_per_second</th>
+      <th>unique_words_per_second</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>281</th>
+      <th>1</th>
       <td>Cradle of Filth</td>
       <td>Death Metal (early), Symphonic Black Metal (mi...</td>
-      <td>41815</td>
-      <td>24367</td>
       <td>44097</td>
-      <td>0.948250</td>
-      <td>0.552577</td>
+      <td>41815</td>
+      <td>6415</td>
+      <td>0.95</td>
+      <td>0.15</td>
     </tr>
     <tr>
-      <th>973</th>
-      <td>Rage</td>
-      <td>Heavy/Speed/Power Metal</td>
-      <td>34314</td>
-      <td>16389</td>
-      <td>56064</td>
-      <td>0.612051</td>
-      <td>0.292327</td>
+      <th>2</th>
+      <td>Napalm Death</td>
+      <td>Hardcore Punk (early), Grindcore/Death Metal (...</td>
+      <td>34363</td>
+      <td>20338</td>
+      <td>4833</td>
+      <td>0.59</td>
+      <td>0.14</td>
     </tr>
     <tr>
-      <th>225</th>
+      <th>3</th>
       <td>Cannibal Corpse</td>
       <td>Death Metal</td>
-      <td>30596</td>
-      <td>16355</td>
       <td>32398</td>
-      <td>0.944379</td>
-      <td>0.504815</td>
+      <td>30596</td>
+      <td>4377</td>
+      <td>0.94</td>
+      <td>0.14</td>
     </tr>
     <tr>
-      <th>181</th>
-      <td>Blind Guardian</td>
-      <td>Speed Metal (early), Power Metal (later)</td>
-      <td>34836</td>
-      <td>15901</td>
-      <td>38090</td>
-      <td>0.914571</td>
-      <td>0.417459</td>
+      <th>4</th>
+      <td>Skyclad</td>
+      <td>Folk Metal</td>
+      <td>25903</td>
+      <td>26651</td>
+      <td>4179</td>
+      <td>1.03</td>
+      <td>0.16</td>
     </tr>
     <tr>
-      <th>650</th>
-      <td>Iron Maiden</td>
-      <td>Heavy Metal, NWOBHM</td>
-      <td>34843</td>
-      <td>15254</td>
-      <td>52673</td>
-      <td>0.661496</td>
-      <td>0.289598</td>
+      <th>5</th>
+      <td>The Black Dahlia Murder</td>
+      <td>Melodic Death Metal</td>
+      <td>17441</td>
+      <td>20061</td>
+      <td>3945</td>
+      <td>1.15</td>
+      <td>0.23</td>
     </tr>
     <tr>
-      <th>664</th>
+      <th>6</th>
+      <td>Dying Fetus</td>
+      <td>Brutal Death Metal/Grindcore</td>
+      <td>16783</td>
+      <td>15110</td>
+      <td>3930</td>
+      <td>0.9</td>
+      <td>0.23</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Sodom</td>
+      <td>Black/Speed Metal (early), Thrash Metal (later)</td>
+      <td>34897</td>
+      <td>26202</td>
+      <td>3741</td>
+      <td>0.75</td>
+      <td>0.11</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Bal-Sagoth</td>
+      <td>Symphonic/Epic Black Metal</td>
+      <td>16021</td>
+      <td>21458</td>
+      <td>3730</td>
+      <td>1.34</td>
+      <td>0.23</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Tankard</td>
+      <td>Thrash Metal</td>
+      <td>38493</td>
+      <td>30652</td>
+      <td>3710</td>
+      <td>0.8</td>
+      <td>0.1</td>
+    </tr>
+    <tr>
+      <th>10</th>
       <td>Judas Priest</td>
       <td>Heavy Metal</td>
-      <td>30143</td>
-      <td>15078</td>
       <td>51177</td>
-      <td>0.588995</td>
-      <td>0.294625</td>
-    </tr>
-    <tr>
-      <th>915</th>
-      <td>Overkill</td>
-      <td>Thrash Metal; Thrash/Groove Metal</td>
-      <td>32485</td>
-      <td>14982</td>
-      <td>47540</td>
-      <td>0.683319</td>
-      <td>0.315145</td>
-    </tr>
-    <tr>
-      <th>1040</th>
-      <td>Saxon</td>
-      <td>NWOBHM, Heavy Metal</td>
-      <td>36759</td>
-      <td>14778</td>
-      <td>53755</td>
-      <td>0.683825</td>
-      <td>0.274914</td>
-    </tr>
-    <tr>
-      <th>578</th>
-      <td>Helloween</td>
-      <td>Power/Speed Metal</td>
-      <td>32472</td>
-      <td>14181</td>
-      <td>48991</td>
-      <td>0.662816</td>
-      <td>0.289461</td>
+      <td>30143</td>
+      <td>3506</td>
+      <td>0.59</td>
+      <td>0.07</td>
     </tr>
   </tbody>
 </table>
@@ -1714,7 +1886,7 @@ tops this list, with nearly one-and-a-half words per second throughout their dis
 
 <details>
 <summary>Show table</summary>
-<div class="table-wrapper" markdown="block">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1732,105 +1904,115 @@ tops this list, with nearly one-and-a-half words per second throughout their dis
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>band_name</th>
-      <th>band_genre</th>
-      <th>band_word_count</th>
-      <th>band_unique_word_count</th>
-      <th>band_seconds</th>
-      <th>band_words_per_second</th>
-      <th>band_unique_words_per_second</th>
+      <th>band</th>
+      <th>genre</th>
+      <th>seconds</th>
+      <th>word_count</th>
+      <th>unique_word_count</th>
+      <th>words_per_second</th>
+      <th>unique_words_per_second</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>89</th>
+      <th>1</th>
       <td>Archspire</td>
       <td>Technical Death Metal</td>
-      <td>7454</td>
-      <td>3948</td>
       <td>5189</td>
-      <td>1.436500</td>
-      <td>0.760840</td>
+      <td>7454</td>
+      <td>1970</td>
+      <td>1.44</td>
+      <td>0.38</td>
     </tr>
     <tr>
-      <th>829</th>
+      <th>2</th>
       <td>Municipal Waste</td>
       <td>Thrash Metal/Crossover</td>
-      <td>10587</td>
-      <td>6370</td>
       <td>7479</td>
-      <td>1.415564</td>
-      <td>0.851718</td>
+      <td>10587</td>
+      <td>2167</td>
+      <td>1.42</td>
+      <td>0.29</td>
     </tr>
     <tr>
-      <th>187</th>
+      <th>3</th>
       <td>Blood Freak</td>
       <td>Death Metal/Grindcore</td>
-      <td>6123</td>
-      <td>3899</td>
       <td>4447</td>
-      <td>1.376883</td>
-      <td>0.876771</td>
+      <td>6123</td>
+      <td>1778</td>
+      <td>1.38</td>
+      <td>0.4</td>
     </tr>
     <tr>
-      <th>28</th>
+      <th>4</th>
       <td>Acrania</td>
       <td>Brutal Deathcore</td>
-      <td>2282</td>
-      <td>1309</td>
       <td>1674</td>
-      <td>1.363202</td>
-      <td>0.781959</td>
+      <td>2282</td>
+      <td>902</td>
+      <td>1.36</td>
+      <td>0.54</td>
     </tr>
     <tr>
-      <th>132</th>
+      <th>5</th>
       <td>Bal-Sagoth</td>
       <td>Symphonic/Epic Black Metal</td>
-      <td>21458</td>
-      <td>10700</td>
       <td>16021</td>
-      <td>1.339367</td>
-      <td>0.667873</td>
+      <td>21458</td>
+      <td>3730</td>
+      <td>1.34</td>
+      <td>0.23</td>
     </tr>
     <tr>
-      <th>1154</th>
+      <th>6</th>
       <td>The Berzerker</td>
       <td>Industrial Death Metal/Grindcore</td>
-      <td>10562</td>
-      <td>4456</td>
       <td>8290</td>
-      <td>1.274065</td>
-      <td>0.537515</td>
+      <td>10562</td>
+      <td>1383</td>
+      <td>1.27</td>
+      <td>0.17</td>
     </tr>
     <tr>
-      <th>75</th>
+      <th>7</th>
       <td>Animosity</td>
       <td>Death Metal/Metalcore/Grindcore</td>
-      <td>5795</td>
-      <td>3261</td>
       <td>4677</td>
-      <td>1.239042</td>
-      <td>0.697242</td>
+      <td>5795</td>
+      <td>1302</td>
+      <td>1.24</td>
+      <td>0.28</td>
     </tr>
     <tr>
-      <th>17</th>
+      <th>8</th>
       <td>Absurd</td>
       <td>Black Metal/RAC, Pagan Black Metal</td>
+      <td>122</td>
       <td>145</td>
       <td>76</td>
-      <td>122</td>
-      <td>1.188525</td>
-      <td>0.622951</td>
+      <td>1.19</td>
+      <td>0.62</td>
     </tr>
     <tr>
-      <th>1155</th>
+      <th>9</th>
       <td>The Black Dahlia Murder</td>
       <td>Melodic Death Metal</td>
-      <td>20061</td>
-      <td>11010</td>
       <td>17441</td>
-      <td>1.150221</td>
-      <td>0.631271</td>
+      <td>20061</td>
+      <td>3945</td>
+      <td>1.15</td>
+      <td>0.23</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Exhumed</td>
+      <td>Death Metal/Grindcore</td>
+      <td>13765</td>
+      <td>15669</td>
+      <td>3492</td>
+      <td>1.14</td>
+      <td>0.25</td>
     </tr>
   </tbody>
 </table>
@@ -1842,7 +2024,7 @@ tops this list, with nearly one-and-a-half words per second throughout their dis
 
 <details>
 <summary>Show table</summary>
-<div class="table-wrapper" markdown="block">
+<div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1860,105 +2042,115 @@ tops this list, with nearly one-and-a-half words per second throughout their dis
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>band_name</th>
-      <th>band_genre</th>
-      <th>band_word_count</th>
-      <th>band_unique_word_count</th>
-      <th>band_seconds</th>
-      <th>band_words_per_second</th>
-      <th>band_unique_words_per_second</th>
+      <th>band</th>
+      <th>genre</th>
+      <th>seconds</th>
+      <th>word_count</th>
+      <th>unique_word_count</th>
+      <th>words_per_second</th>
+      <th>unique_words_per_second</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>187</th>
-      <td>Blood Freak</td>
-      <td>Death Metal/Grindcore</td>
-      <td>6123</td>
-      <td>3899</td>
-      <td>4447</td>
-      <td>1.376883</td>
-      <td>0.876771</td>
+      <th>1</th>
+      <td>Absurd</td>
+      <td>Black Metal/RAC, Pagan Black Metal</td>
+      <td>122</td>
+      <td>145</td>
+      <td>76</td>
+      <td>1.19</td>
+      <td>0.62</td>
     </tr>
     <tr>
-      <th>642</th>
-      <td>Intestinal Disgorge</td>
-      <td>Noise/Grindcore (early), Brutal Death Metal/No...</td>
-      <td>1628</td>
-      <td>1274</td>
-      <td>1493</td>
-      <td>1.090422</td>
-      <td>0.853315</td>
-    </tr>
-    <tr>
-      <th>829</th>
-      <td>Municipal Waste</td>
-      <td>Thrash Metal/Crossover</td>
-      <td>10587</td>
-      <td>6370</td>
-      <td>7479</td>
-      <td>1.415564</td>
-      <td>0.851718</td>
-    </tr>
-    <tr>
-      <th>28</th>
+      <th>2</th>
       <td>Acrania</td>
       <td>Brutal Deathcore</td>
-      <td>2282</td>
-      <td>1309</td>
       <td>1674</td>
-      <td>1.363202</td>
-      <td>0.781959</td>
+      <td>2282</td>
+      <td>902</td>
+      <td>1.36</td>
+      <td>0.54</td>
     </tr>
     <tr>
-      <th>89</th>
-      <td>Archspire</td>
-      <td>Technical Death Metal</td>
-      <td>7454</td>
-      <td>3948</td>
-      <td>5189</td>
-      <td>1.436500</td>
-      <td>0.760840</td>
+      <th>3</th>
+      <td>The County Medical Examiners</td>
+      <td>Goregrind</td>
+      <td>1794</td>
+      <td>1662</td>
+      <td>932</td>
+      <td>0.93</td>
+      <td>0.52</td>
     </tr>
     <tr>
-      <th>635</th>
+      <th>4</th>
+      <td>Peste Noire</td>
+      <td>Black Metal</td>
+      <td>389</td>
+      <td>345</td>
+      <td>186</td>
+      <td>0.89</td>
+      <td>0.48</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Regurgitate</td>
+      <td>Goregrind</td>
+      <td>739</td>
+      <td>575</td>
+      <td>349</td>
+      <td>0.78</td>
+      <td>0.47</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Glittertind</td>
+      <td>Viking/Folk Metal (early); Indie/Folk Rock (la...</td>
+      <td>394</td>
+      <td>413</td>
+      <td>173</td>
+      <td>1.05</td>
+      <td>0.44</td>
+    </tr>
+    <tr>
+      <th>7</th>
       <td>Insect Warfare</td>
       <td>Grindcore</td>
-      <td>1233</td>
-      <td>950</td>
       <td>1253</td>
-      <td>0.984038</td>
-      <td>0.758180</td>
+      <td>1233</td>
+      <td>539</td>
+      <td>0.98</td>
+      <td>0.43</td>
     </tr>
     <tr>
-      <th>1338</th>
-      <td>Wormrot</td>
-      <td>Grindcore</td>
-      <td>1638</td>
-      <td>1292</td>
-      <td>1709</td>
-      <td>0.958455</td>
-      <td>0.755998</td>
+      <th>8</th>
+      <td>Intestinal Disgorge</td>
+      <td>Noise/Grindcore (early), Brutal Death Metal/No...</td>
+      <td>1493</td>
+      <td>1628</td>
+      <td>616</td>
+      <td>1.09</td>
+      <td>0.41</td>
     </tr>
     <tr>
-      <th>1090</th>
-      <td>Soilent Green</td>
-      <td>Sludge/Death Metal/Grindcore</td>
-      <td>12320</td>
-      <td>7920</td>
-      <td>11229</td>
-      <td>1.097159</td>
-      <td>0.705317</td>
+      <th>9</th>
+      <td>Blood Freak</td>
+      <td>Death Metal/Grindcore</td>
+      <td>4447</td>
+      <td>6123</td>
+      <td>1778</td>
+      <td>1.38</td>
+      <td>0.4</td>
     </tr>
     <tr>
-      <th>75</th>
-      <td>Animosity</td>
-      <td>Death Metal/Metalcore/Grindcore</td>
-      <td>5795</td>
-      <td>3261</td>
-      <td>4677</td>
-      <td>1.239042</td>
-      <td>0.697242</td>
+      <th>10</th>
+      <td>Archspire</td>
+      <td>Technical Death Metal</td>
+      <td>5189</td>
+      <td>7454</td>
+      <td>1970</td>
+      <td>1.44</td>
+      <td>0.38</td>
     </tr>
   </tbody>
 </table>
@@ -2237,7 +2429,7 @@ plt.show()
 
 ![png](/assets/images/heavy-metal-lyrics/word_rate_genre.png)
     
-### Scatter plot
+#### Scatter plot
 
 <details>
 <summary>Show code</summary>
@@ -2263,3 +2455,4 @@ plt.show()
 <br>
 
 ![png](/assets/images/heavy-metal-lyrics/words_vs_length_genre.png)
+

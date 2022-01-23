@@ -1,6 +1,12 @@
 /* Scroll wheel for dataframes */
 .table-wrapper {
   overflow-x: scroll;
+  overflow-y: scroll;
+}
+
+.dataframe {
+  width: 100%;
+  font-size: 12px;
 }
 
 /* Transparent code output blocks */
