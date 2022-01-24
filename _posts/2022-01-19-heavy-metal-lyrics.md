@@ -24,7 +24,7 @@ lyrics (`/data/data.zip`).
 The analyses below provide insights on the history of heavy metal albums, and linguistic properties of metal lyrics.
 
 
-> [Exploration of artists and album reviews](https://nbviewer.org/github/pdqnguyen/metallyrics/blob/main/analyses/reviews/reviews1.ipynb)
+> [Exploration of artists and album reviews](./reviews-part-1.html)
 >
 > A data-driven discussion of the history and global demographics of the heavy metal music industry and its many
 > genres. This notebook also provides statistical insights on the sentiments of MA users as expressed through online
