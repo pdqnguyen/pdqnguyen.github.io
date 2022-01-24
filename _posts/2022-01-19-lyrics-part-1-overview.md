@@ -11,7 +11,7 @@ These often contain words and themes that some may find offensive/inappropriate.
 </pre>
 
 
-This article is a part of my [heavy metal lyrics project](/jekyll/update/2022/01/19/heavy-metal-lyrics.html).
+This article is a part of my [heavy metal lyrics project](./heavy-metal-lyrics.html).
 It provides a top-level overview of the song lyrics dataset.
 Below is a dashboard I've put together
 ([click here for full-size version](https://metal-lyrics-feature-plots.herokuapp.com/){:target="_blank"})
@@ -19,7 +19,7 @@ to visualize the complete dataset using the metrics discussed here and in the ot
 Since I did the analyses here before building the dashboard, some plots will look different.
 If you're interested in seeing the full code (a lot is omitted here), check out the
 [original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/lyrics/notebooks/lyrics-part-1-overview.ipynb).
-In the [next article](/jekyll/update/2022/01/19/lyrics-part-2-lexical-diversity.html)
+In the [next article](./lyrics-part-2-lexical-diversity.html)
 we'll dive much deeper into evaluating lyrical complexity using various lexical diversity measures.
 
 <span style="font-size: 14px">Note: Dashboard may take a minute to load</span>

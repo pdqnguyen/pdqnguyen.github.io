@@ -5,6 +5,12 @@ categories: jekyll update
 hidden: true
 ---
 
+This article is a part of my [heavy metal lyrics project](./heavy-metal-lyrics.html).
+If you're interested in seeing the full code (a lot is omitted here), check out the
+[original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/reviews/reviews1.ipynb).
+In the [next article](./reviews-part-2.html)
+we'll use machine learning to perform review score prediction from album review text.
+
 ## Module imports
 
 
@@ -193,23 +199,23 @@ Supposedly IMDb rates content using the following weighted averaging scheme:
 
 $$ W_i = \frac{R_iv_i + Cm}{v_i + m} $$
 
-where $R_i$ and $v_i$ are the average review score and number of reviews for album $i$,
-$C$ represents the a priori rating which I assume to be the population mean ($C = \sum_{i=1}^n R_i$),
-and $m$ is a tunable parameter representing the number of reviews for an album to be considered in a Top-X list.
-In this case I choose $m$ to be the $\alpha$-th percentile album review count, and instead tune $\alpha$.
+where $$R_i$$ and $$v_i$$ are the average review score and number of reviews for album $$i$$,
+$$C$$ represents the a priori rating which I assume to be the population mean ($$C = \sum_{i=1}^n R_i$$),
+and $$m$$ is a tunable parameter representing the number of reviews for an album to be considered in a Top-X list.
+In this case I choose $$m$$ to be the $$\alpha$$-th percentile album review count, and instead tune $$\alpha$$.
 
-If $\alpha = 0$, then $m = 0$, so and we recover the raw sample average: $W_i = R_i$.
-The larger $\alpha$ is, the more heavily we weigh the number of reviews.
-If $\alpha = 1$, then $m = \max(v_i)$. This means that an album with no reviews starts at $W_i = C$
-and is incrementally pulled away from $C$ in the direction of new reviews,
+If $$\alpha = 0$$, then $$m = 0$$, so and we recover the raw sample average: $$W_i = R_i$$.
+The larger $$\alpha$$ is, the more heavily we weigh the number of reviews.
+If $$\alpha = 1$$, then $$m = \max(v_i)$$. This means that an album with no reviews starts at $$W_i = C$$
+and is incrementally pulled away from $$C$$ in the direction of new reviews,
 each review having a weaker pull that the last.
 
 This method is a more Bayesian-like approach to quantifying album scores (as opposed to the
-purely frequentist method of just using $R_i$). A more sophisticated approach could further weigh samples
+purely frequentist method of just using $$R_i$$). A more sophisticated approach could further weigh samples
 by the standard deviation of their review scores, such that a sample with a low standard deviation is
-given a stronger pull from $C$.
+given a stronger pull from $$C$$.
 
-The choice of $\alpha$ is up to us. Since I'm really interested in seeing the most popular/infamous albums,
+The choice of $$\alpha$$ is up to us. Since I'm really interested in seeing the most popular/infamous albums,
 I'll set it to max value of 1. For bands, since the number of reviews per band is much higher,
 I'll set it to a lower value, say 0.75.
 
@@ -221,14 +227,16 @@ def weighted_scores(R, v, alpha=1):
     return W
 {% endhighlight %}
 
+<!--
 {% highlight python %}
 df_albums['review_weighted'] = weighted_scores(df_albums['review_avg'], df_albums['review_num'], alpha=1)
 df_bands['review_weighted'] = weighted_scores(df_bands['review_avg'], df_bands['review_num'], alpha=1)
 {% endhighlight %}
+-->
 
 #### Weighted score distribution
 
-Using a high $\alpha$ results in a very sharp distribution relative to the original distribution,
+Using a high $$\alpha$$ results in a very sharp distribution relative to the original distribution,
 since it weighs the population mean maximally.
 
 ![png](/assets/images/heavy-metal-lyrics/reviews/weighted_hist.png)
