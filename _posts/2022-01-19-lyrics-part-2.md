@@ -1,8 +1,10 @@
 ---
 layout: post
-title: "Analysis of heavy metal lyrics - Part 2: Lexical diversity"
+title: "Analysis of Heavy Metal Lyrics - Part 2: Lexical Diversity"
 categories: jekyll update
-hidden: true
+permalink: /projects/heavy-metal-analysis/lyrics-part-2
+summary: |
+  Comparison of lexical diversity measures and what they tell us about artists and genres.
 ---
 
 <pre style="margin-left: 50px; margin-right: 50px; font-size: 13px">
@@ -10,13 +12,13 @@ Explicit/NSFW content warning: this project features examples of heavy metal lyr
 These often contain words and themes that some may find offensive/inappropriate.
 </pre>
 
-This article is the second part of the lyrical analysis [heavy metal lyrics](./heavy-metal-lyrics.html).
+This article is the second part of the lyrical analysis [heavy metal lyrics](/projects/heavy-metal-analysis.html).
 Below is the same dashboard presented in [Part 1](./lyrics-part-1-overview.html)
 ([click here for full-size version](https://metal-lyrics-feature-plots.herokuapp.com/){:target="_blank"}).
 Here we will look at the lexical diversity measures included among the plot options (e.g. TTR, MTLD, and vocd-D).
 If you're interested in seeing the full code (a lot is omitted here), check out the
 [original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/lyrics/notebooks/lyrics-part-2-lexical-diversity.ipynb).
-In the [next article](./lyrics-part-3-word-clouds.html) we'll use word clouds to describe the different genres.
+In the [next article](./lyrics-part-3.html) we'll use word clouds to describe the different genres.
 
 <span style="font-size: 14px">Note: Dashboard may take a minute to load</span>
 

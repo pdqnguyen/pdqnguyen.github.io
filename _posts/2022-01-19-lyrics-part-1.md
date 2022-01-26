@@ -1,8 +1,10 @@
 ---
 layout: post
-title: "Analysis of heavy metal lyrics - Part 1: Overview"
+title: "Analysis of Heavy Metal Lyrics - Part 1: Overview"
 categories: jekyll update
-hidden: true
+permalink: /projects/heavy-metal-analysis/lyrics-part-1
+summary: |
+  A quantitative overview of the vocabulary of heavy metal lyrics extracted from DarkLyrics.
 ---
 
 <pre style="margin-left: 50px; margin-right: 50px; font-size: 13px">
@@ -11,7 +13,7 @@ These often contain words and themes that some may find offensive/inappropriate.
 </pre>
 
 
-This article is a part of my [heavy metal lyrics project](./heavy-metal-lyrics.html).
+This article is a part of my [heavy metal lyrics project](/projects/heavy-metal-analysis.html).
 It provides a top-level overview of the song lyrics dataset.
 Below is a dashboard I've put together
 ([click here for full-size version](https://metal-lyrics-feature-plots.herokuapp.com/){:target="_blank"})
@@ -19,7 +21,7 @@ to visualize the complete dataset using the metrics discussed here and in the ot
 Since I did the analyses here before building the dashboard, some plots will look different.
 If you're interested in seeing the full code (a lot is omitted here), check out the
 [original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/lyrics/notebooks/lyrics-part-1-overview.ipynb).
-In the [next article](./lyrics-part-2-lexical-diversity.html)
+In the [next article](./lyrics-part-2.html)
 we'll dive much deeper into evaluating lyrical complexity using various lexical diversity measures.
 
 <span style="font-size: 14px">Note: Dashboard may take a minute to load</span>

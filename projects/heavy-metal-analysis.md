@@ -1,6 +1,6 @@
 ---
-layout: post
-title:  "Heavy metal lyrics"
+layout: page
+title: "Analysis of Heavy Metal Lyrics and Reviews"
 date:   2022-01-19
 categories: jekyll update
 ---
@@ -24,17 +24,17 @@ lyrics (`/data/data.zip`).
 The analyses below provide insights on the history of heavy metal albums, and linguistic properties of metal lyrics.
 
 
-> [Exploration of artists and album reviews](./reviews-part-1.html)
+> [Exploration of artists and album reviews](/projects/heavy-metal-analysis/reviews-part-1.html)
 >
 > A data-driven discussion of the history and global demographics of the heavy metal music industry and its many
 > genres. This notebook also provides statistical insights on the sentiments of MA users as expressed through online
 > album reviews.
 
-> [Lyrics data exploration](./lyrics-part-1-overview.html)
+> [Lyrics data exploration](/projects/heavy-metal-analysis/lyrics-part-1.html)
 > 
 > Brief overview of the lyrics data set.
 
-> [Lexical diversity measures](./lyrics-part-2-lexical-diversity.html)
+> [Lexical diversity measures](/projects/heavy-metal-analysis/lyrics-part-2.html)
 > 
 > Comparison of lexical diversity measures and what they tell us about artists and genres.
 

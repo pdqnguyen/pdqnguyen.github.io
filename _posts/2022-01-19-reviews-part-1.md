@@ -1,62 +1,48 @@
 ---
 layout: post
-title: "Metal-Archives reviews - Part 1: Exploratory analysis"
+title: "Reviews of Heavy Metal Albums - Part 1: Exploratory Analysis"
 categories: jekyll update
-hidden: true
+permalink: /projects/heavy-metal-analysis/reviews-part-1
+summary: |
+  A data-driven discussion of the history and global demographics of the heavy metal music industry
+  and its many genres, leveraging statistical information extracted from album reviews on Metal-Archives.
 ---
 
-This article is a part of my [heavy metal lyrics project](./heavy-metal-lyrics.html).
-If you're interested in seeing the full code (a lot is omitted here), check out the
+This article is a part of my [heavy metal lyrics project](/projects/heavy-metal-analysis.html).
+If you're interested in seeing the code, check out the
 [original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/reviews/reviews1.ipynb).
 In the [next article](./reviews-part-2.html)
 we'll use machine learning to perform review score prediction from album review text.
 
-## Module imports
-
-
-```python
-import re
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-plt.style.use('seaborn')
-import seaborn as sns
-sns.set(font_scale=2)
-```
-
 ## Dataset
 
-<details>
-<summary>Show code</summary>
-{% highlight python %}
-pd.options.display.float_format = "{:.2f}".format
-df = pd.read_csv("reviews.csv")
-df['review_score'] = df['review_title'].str.extract('(\d+)\%$', expand=False).astype(int)
-print(f"average album review: {df['album_review_avg'].mean():.1f}")
-print(f"average number of reviews: {df['album_review_num'].mean():.1f}")
-print(f"highest number of reviews: {df['album_review_num'].max():}")
-{% endhighlight %}
-<pre class="code-output">
-    average album review: 79.1
-    average number of reviews: 9.4
-    highest number of reviews: 40
-</pre>
-{% highlight python %}
-df['review_score'].hist(bins=20)
-plt.title("")
-plt.xlabel("Review score")
-plt.ylabel("Albums")
-{% endhighlight %}
-</details>
-<br>
+The dataset consists of nearly 50,000 album reviews extracted from Metal-Archives (MA from here on).
+Each review is comprised of a block of text and a score ranging from 0 to 100.
+The reviews cover 10,100 albums produced by 1,787 bands.
+I collected the data awhile ago, so keep in mind it's a little out-of-date.
+The distribution of scores, shown below, is very top-heavy, with an average 79% and median of 85%.
+There are peaks in the distribution at multiples of ten and five due to the propensity of reviewers to round out their scores.
+Over a fifth of the reviews gave scores of at least 95%, and nearly a tenth of reviews gave a full 100%.
 
 ![png](/assets/images/heavy-metal-lyrics/reviews/reviews_hist.png)
 
-## Popularity-weighted album score
+## Weighted-average album score
 
-I could analyze the quality of these albums by simply looking at average review ratings, but doing so fails to weigh in each album's popularity (or infamy). There are two reasons why this matters:
-* As you can see below, there are countless albums on MA with only a single, 100% review. To say these albums are all better than Megadeth's "Rust in Peace" is disingenuous. Although I could apply a minimum number of reviews required, this shrinks down the dataset considerably. A weighted score should be distinguish good albums based on them having many positive reviews, not just a handful.
-* Using a score weighted by the number of reviews would help emphasize the "badness" of albums that are notoriously bad. Take Metallica's infamous "St. Anger": to simply look at its average review of 45% doesn't take into account the gravity of its rating. The fact that 29 reviewers all agree that the album is a steaming pile of trash should be taken into account.
+Compare albums by simply looking at average review ratings fails to consider each album's popularity (or infamy).
+This is important when the number of reviews per album vary dramatically.
+Just like looking at product reviews, we naturally assign more weight to album review scores
+that are averaged from the experiences of many people.
+
+As you can see below, there are countless albums on MA with only a single, 100% review.
+It doesn't make much sense to say these albums are all better than the most popular albums.
+I could apply a minimum number of reviews required to consider an album's review score legitimate,
+but this shrinks down the dataset considerably and still weighs albums near the cutoff number and
+near the maximum equally.
+
+Instead, I will use a weighted-average score that treats individual reviews for an album as "evidence"
+that the album ought to deviate from the population mean (of 79%).
+Ideally, this method would distinguish good albums based on them having many positive reviews, not just a handful.
+Likewise, it should help us reveal which albums draw a consensus of disdain from the MA community.
 
 <details>
 <summary>Show top average reviews</summary>
@@ -219,20 +205,6 @@ The choice of $$\alpha$$ is up to us. Since I'm really interested in seeing the 
 I'll set it to max value of 1. For bands, since the number of reviews per band is much higher,
 I'll set it to a lower value, say 0.75.
 
-{% highlight python %}
-def weighted_scores(R, v, alpha=1):
-    C = R.mean()
-    m = v.quantile(alpha)
-    W = (R * v + C * m) / (v + m)
-    return W
-{% endhighlight %}
-
-<!--
-{% highlight python %}
-df_albums['review_weighted'] = weighted_scores(df_albums['review_avg'], df_albums['review_num'], alpha=1)
-df_bands['review_weighted'] = weighted_scores(df_bands['review_avg'], df_bands['review_num'], alpha=1)
-{% endhighlight %}
--->
 
 #### Weighted score distribution
 
