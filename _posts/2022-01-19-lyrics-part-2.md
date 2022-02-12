@@ -1,5 +1,6 @@
 ---
 layout: post
+date: 2022-01-21
 title: "Analysis of Heavy Metal Lyrics - Part 2: Lexical Diversity"
 categories: jekyll update
 permalink: /projects/heavy-metal-analysis/lyrics-part-2

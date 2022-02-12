@@ -1,5 +1,6 @@
 ---
 layout: post
+date: 2022-01-20
 title: "Analysis of Heavy Metal Lyrics - Part 1: Overview"
 categories: jekyll update
 permalink: /projects/heavy-metal-analysis/lyrics-part-1
