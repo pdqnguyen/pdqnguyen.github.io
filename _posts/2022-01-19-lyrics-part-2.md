@@ -42,6 +42,18 @@ style="width: 1600px; height: 1200px; border: 0px"></iframe>
 * We will compare lexical diversity across songs, bands, and genres.
 
 
+## Table of Contents
+1. [Module imports](#module-imports)
+2. [Preprocessing data](#preprocessing-data)
+3. [Lexical diversity measures](#lexical-diversity-measures)
+   1. [MTLD](#mtld)
+   2. [vocd-D](#vocd-d)
+   3. [HD-D](#hd-d)
+   4. [vocd-D or HD-D](#vocd-d-or-hd-d)
+4. [Histograms](#histograms)
+5. [Ranking songs](#ranking-songs)
+5. [Ranking bands](#ranking-bands)
+
 
 ## Module imports
 
@@ -157,9 +169,9 @@ plt.ylabel('Cumulative TTR')
 plt.show()
 {% endhighlight %}
 
-Here is the implementation of MTLD:
-
 ![mtld](/assets/images/heavy-metal-lyrics/mtld.png)
+
+Here is the implementation of MTLD:
 
 {% highlight python %}
 def MTLD_forward(words, threshold):
@@ -1084,6 +1096,8 @@ Apart from this, The song with the highest MTLD is a 6-minute track by the Hunga
   </tbody>
 </table>
 </div>
+
+## Ranking bands
 
 #### Highest MTLD bands
 

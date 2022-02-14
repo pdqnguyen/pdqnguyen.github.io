@@ -64,6 +64,18 @@ Cryptopsy, Napalm Death, Cattle Decapitation, Cradle of Filth, Deeds of Flesh, D
 * <span style="color:#ebc634; font-weight:bold">Word count distributions are correlated with genres in the way you'd expect, but the stylistic diversity in each
 genre blurs that correlation, suggesting that attempts at lyrics-based genre classification are going to be a challenge.</span>
 
+## Table of Contents
+1. [Module imports](#module-imports)
+2. [Dataset](#dataset)
+3. [Cleanup song lyrics](#cleanup-song-lyrics)
+4. [Reduced dataset](#reduced-dataset)
+5. [Word counts by song](#word-counts-by-song)
+6. [Word counts by album](#word-counts-by-album)
+7. [Word counts by band](#word-counts-by-band)
+8. [Word counts among the most popular bands](#word-counts-among-the-most-popular-bands)
+9. [Ranking artists by the number of unique words in their first 15,000 words](#ranking-artists-by-the-number-of-unique-words-in-their-first-15000-words)
+10. [Word counts by genre](#word-counts-by-genre)
+
 
 ## Module imports
 

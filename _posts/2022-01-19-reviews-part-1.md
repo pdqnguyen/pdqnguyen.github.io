@@ -15,6 +15,23 @@ If you're interested in seeing the code, check out the
 In the [next article](./reviews-part-2.html)
 we'll use machine learning to perform review score prediction from album review text.
 
+## Summary
+
+**Things we'll do:**
+
+* Implement a _Bayesian-weighted-average_ scoring metric for comparing albums with differing numbers of reviews.
+* Look at what the [Metal-Archives](https://www.metal-archives.com/) community considers the
+best and worst albums, bands, genres, and countries based on weighted-average album scores.
+* Visualize the popularity of different metal genres around the world.
+* Follow the history of heavy metal as told through album statistics and review scores.
+
+## Table of Contents
+1. [Dataset](#dataset)
+1. [Weighted-average album score](#weighted-average-album-score)
+1. [Geographic distribution of albums and genres](#geographic-distribution-of-albums-and-genres)
+1. [Global album trends](#global-album-trends)
+1. [Geographic trends](#geographic-trends)
+
 ## Dataset
 
 The dataset consists of nearly 50,000 album reviews extracted from Metal-Archives (MA from here on).
@@ -2235,10 +2252,10 @@ while thrash surprisingly is most proportionately popular in Japan.
     
 
 
-## Decline of top-rated bands
+[comment]: <> (## Decline of top-rated bands)
 
     
-![png](/assets/images/heavy-metal-lyrics/reviews/decline.png)
+[comment]: <> (![png]&#40;/assets/images/heavy-metal-lyrics/reviews/decline.png&#41;)
     
 
 
