@@ -27,9 +27,414 @@ Over a fifth of the reviews gave scores of at least 95%, and nearly a tenth of r
 
 ![png](/assets/images/heavy-metal-lyrics/reviews/reviews_hist.png)
 
+
+#### Most-reviewed albums
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>band_name</th>
+      <th>name</th>
+      <th>band_genre</th>
+      <th>year</th>
+      <th>review_avg</th>
+      <th>review_num</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Metallica</td>
+      <td>Master of Puppets</td>
+      <td>Thrash Metal (early); Hard Rock (mid); Heavy/T...</td>
+      <td>1986</td>
+      <td>77.20</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Slayer</td>
+      <td>Reign in Blood</td>
+      <td>Thrash Metal</td>
+      <td>1986</td>
+      <td>86.42</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Wintersun</td>
+      <td>Time I</td>
+      <td>Symphonic Melodic Death Metal</td>
+      <td>2012</td>
+      <td>69.24</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Metallica</td>
+      <td>Hardwired... to Self-Destruct</td>
+      <td>Thrash Metal (early); Hard Rock (mid); Heavy/T...</td>
+      <td>2016</td>
+      <td>62.64</td>
+      <td>36</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Black Sabbath</td>
+      <td>13</td>
+      <td>Heavy/Doom Metal</td>
+      <td>2013</td>
+      <td>66.58</td>
+      <td>36</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Waking the Cadaver</td>
+      <td>Perverse Recollections of a Necromangler</td>
+      <td>Slam/Brutal Death Metal/Deathcore (early), Dea...</td>
+      <td>2007</td>
+      <td>24.23</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Metallica</td>
+      <td>Kill 'Em All</td>
+      <td>Thrash Metal (early); Hard Rock (mid); Heavy/T...</td>
+      <td>1983</td>
+      <td>87.63</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Megadeth</td>
+      <td>Countdown to Extinction</td>
+      <td>Speed/Thrash Metal (early/later); Heavy Metal/...</td>
+      <td>1992</td>
+      <td>77.53</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Pantera</td>
+      <td>Vulgar Display of Power</td>
+      <td>Glam/Heavy Metal (early), Groove Metal (later)</td>
+      <td>1992</td>
+      <td>61.39</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Iron Maiden</td>
+      <td>The Number of the Beast</td>
+      <td>Heavy Metal, NWOBHM</td>
+      <td>1982</td>
+      <td>85.06</td>
+      <td>33</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+#### Bands with most reviews
+
+<div style="width:80%">
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>genre</th>
+      <th>review_avg</th>
+      <th>review_num</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Iron Maiden</td>
+      <td>Heavy Metal, NWOBHM</td>
+      <td>79.80</td>
+      <td>394</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Black Sabbath</td>
+      <td>Heavy/Doom Metal</td>
+      <td>82.17</td>
+      <td>351</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Megadeth</td>
+      <td>Speed/Thrash Metal (early/later); Heavy Metal/...</td>
+      <td>74.42</td>
+      <td>344</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Metallica</td>
+      <td>Thrash Metal (early); Hard Rock (mid); Heavy/T...</td>
+      <td>72.42</td>
+      <td>313</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Judas Priest</td>
+      <td>Heavy Metal</td>
+      <td>79.80</td>
+      <td>307</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Darkthrone</td>
+      <td>Death Metal (early); Black Metal (mid); Black/...</td>
+      <td>78.95</td>
+      <td>274</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Slayer</td>
+      <td>Thrash Metal</td>
+      <td>73.99</td>
+      <td>255</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Opeth</td>
+      <td>Progressive Death Metal, Progressive Rock</td>
+      <td>78.23</td>
+      <td>240</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Dimmu Borgir</td>
+      <td>Symphonic Black Metal</td>
+      <td>66.33</td>
+      <td>218</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Overkill</td>
+      <td>Thrash Metal; Thrash/Groove Metal</td>
+      <td>79.77</td>
+      <td>216</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+#### Genres with most reviews
+
+<div style="width:40%">
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>genre</th>
+      <th>review_avg</th>
+      <th>review_num</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>death</td>
+      <td>79.06</td>
+      <td>15231</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>black</td>
+      <td>80.32</td>
+      <td>11619</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>thrash</td>
+      <td>77.95</td>
+      <td>8754</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>heavy</td>
+      <td>79.07</td>
+      <td>8334</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>power</td>
+      <td>78.76</td>
+      <td>7645</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>progressive</td>
+      <td>81.71</td>
+      <td>5637</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>melodic</td>
+      <td>77.42</td>
+      <td>5052</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>rock</td>
+      <td>77.69</td>
+      <td>5012</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>doom</td>
+      <td>83.26</td>
+      <td>4710</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>speed</td>
+      <td>79.77</td>
+      <td>3563</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+#### Countries with most reviews
+
+<div style="width:40%">
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country_of_origin</th>
+      <th>review_avg</th>
+      <th>review_num</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>United States</td>
+      <td>77.51</td>
+      <td>16069</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Sweden</td>
+      <td>79.33</td>
+      <td>5505</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>United Kingdom</td>
+      <td>80.30</td>
+      <td>4804</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Germany</td>
+      <td>79.82</td>
+      <td>4445</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Norway</td>
+      <td>79.45</td>
+      <td>3167</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Finland</td>
+      <td>78.77</td>
+      <td>2847</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Canada</td>
+      <td>78.85</td>
+      <td>1884</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Italy</td>
+      <td>76.50</td>
+      <td>988</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>France</td>
+      <td>79.52</td>
+      <td>985</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Netherlands</td>
+      <td>80.06</td>
+      <td>928</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
 ## Weighted-average album score
 
-Compare albums by simply looking at average review ratings fails to consider each album's popularity (or infamy).
+Comparing albums by simply looking at average review ratings fails to consider each album's popularity (or infamy).
 This is important when the number of reviews per album vary dramatically.
 Just like looking at product reviews, we naturally assign more weight to album review scores
 that are averaged from the experiences of many people.
@@ -1161,8 +1566,12 @@ with many different genres and nationalities being represented.
 </table>
 </div>
 
-Among the lowest-rated bands, with Six Feet Under earning the worst weighted score.
-At least Waking the Cadaver manage to dodge last place this time.
+Yet again [Waking the Cadaver](https://en.wikipedia.org/wiki/Waking_the_Cadaver)
+take up their position at the bottom of this ranking.
+It's mostly due to that horrid debut album of theirs;
+it makes up 33 of their 48 overall reviews.
+Their newest album, released just last year,
+at least managed to get a single 80% review...
 
 <div>
 <style scoped>
@@ -1806,7 +2215,7 @@ with nearly 24 albums per million people.
 
 #### Top countries in each genre
 
-The U.S. is still the top produces of albums in most genres,
+The U.S. is still the top producer of albums in most genres,
 but when it comes to the "melodic" genre tag, which most often
 is associated with death metal, the Swedes rise to the top.
 The Germans take up an impressively large plurality of speed metal albums.
