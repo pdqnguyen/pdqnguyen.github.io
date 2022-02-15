@@ -19,9 +19,9 @@ Finally, the data set is split by `create_dataframes.py` into a csv table of alb
 lyrics (`/data/data.zip`).
 
 
-## Notebooks & analyses
+## Analyses
 
-The analyses below provide insights on the history of heavy metal albums, and linguistic properties of metal lyrics.
+The articles below provide insights on the history of heavy metal albums, and linguistic properties of metal lyrics.
 
 
 > [Exploration of artists and album reviews](/projects/heavy-metal-analysis/reviews-part-1.html)
@@ -29,6 +29,10 @@ The analyses below provide insights on the history of heavy metal albums, and li
 > A data-driven discussion of the history and global demographics of the heavy metal music industry and its many
 > genres. This notebook also provides statistical insights on the sentiments of MA users as expressed through online
 > album reviews.
+
+> [Album review score prediction](/projects/heavy-metal-analysis/reviews-part-2.html)
+> 
+> Predicting review scores from text using a convolution neural network and GloVe word embeddings.
 
 > [Lyrics data exploration](/projects/heavy-metal-analysis/lyrics-part-1.html)
 > 
