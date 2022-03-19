@@ -38,6 +38,8 @@ input_file = args.input_file
 input_name = os.path.basename(input_file).replace('.ipynb', '')
 output_dir = os.path.abspath(args.output_dir)
 
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
 with open(os.path.join(output_dir, 'run.txt'), 'w') as f:
     f.write(" ".join(sys.argv))
 
