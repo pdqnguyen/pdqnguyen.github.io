@@ -12,6 +12,26 @@ This article is a part of my [heavy metal lyrics project](/projects/heavy-metal-
 If you're interested in seeing the code, check out the
 [original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/reviews/reviews2.ipynb).
 
+## Summary
+
+**Things we'll do:**
+
+* Convert album review text into machine-learning-ready token sequences
+* Use a word embedding from GloVe to convert tokens into word vectors
+* Train a convolutional neural network to predict scores of album reviews.
+* Visualize neural network training/performance and compare results to that of random guessing. 
+
+## Table of Contents
+1. [Dataset](#dataset)
+2. [Review score prediction using Glove word embeddings](#review-score-prediction-using-glove-word-embeddings)
+   1. [Convert text to padded sequences of tokens](#convert-text-to-padded-sequences-of-tokens)
+   2. [Benchmark model](#benchmark-model)
+   3. [Load word vectors and create an embedding layer](#load-word-vectors-and-create-an-embedding-layer)
+   4. [Convolutional Neural Network](#convolutional-neural-network)
+   5. [Model Assessment](#model-assessment)
+
+## Module imports
+
 
 ```python
 import re
@@ -335,10 +355,10 @@ print("Converted %d words (%d misses)" % (hits, misses))
 
 <pre class="code-output">
 Converted 84032 words (172753 misses)
+</pre>
 
 
 As an example, we can see look at the 10 nearest words to "fire", based on cosine distance.
-</pre>
 ```python
 vector = embedding_vectors['fire']
 cos_dist = np.dot(embedding_matrix, vector) / (np.linalg.norm(embedding_matrix, axis=1) * np.linalg.norm(vector))
@@ -401,9 +421,7 @@ print(cnn_model.summary())
 <pre class="code-output">
 Model: "sequential"
 _________________________________________________________________
- Layer (type)                Output Shape              Param 
-</pre>
-#   <pre class="code-output">
+ Layer (type)                Output Shape              Param #   
 =================================================================
  embedding (Embedding)       (None, None, 100)         25678600  
                                                                  
@@ -583,6 +601,8 @@ Epoch 61/64
 Epoch 62/64
 173/173 [==============================] - 90s 520ms/step - loss: 1.1181e-06 - mae: 0.0956 - val_loss: 1.6631e-06 - val_mae: 0.1233
 </pre>
+
+#### Model assessment
 ```python
 train_metrics = cnn_model.evaluate(padded_train, y_train, verbose=0)
 test_metrics = cnn_model.evaluate(padded_test, y_test, verbose=0)
@@ -657,255 +677,3 @@ plt.show()
 
     
 ![png](/assets/images/heavy-metal-lyrics/reviews2/reviews2_37_0.png)
-
-    
-
-
-### LSTM
-
-
-```python
-lstm_model = Sequential()
-lstm_model.add(embedding_layer)
-lstm_model.add(layers.SpatialDropout1D(0.2))
-lstm_model.add(layers.Bidirectional(layers.LSTM(64, return_sequences=False)))
-lstm_model.add(layers.Dropout(0.2))
-lstm_model.add(layers.BatchNormalization())
-lstm_model.add(layers.Dense(1, activation='linear'))
-opt = keras.optimizers.Adam(learning_rate=0.01)
-lstm_model.compile(optimizer=opt, loss='mean_absolute_error', metrics=['mae'])
-print(lstm_model.summary())
-```
-
-<pre class="code-output">
-Model: "sequential_1"
-_________________________________________________________________
- Layer (type)                Output Shape              Param 
-</pre>
-#   <pre class="code-output">
-=================================================================
- embedding (Embedding)       (None, None, 100)         25678600  
-                                                                 
- spatial_dropout1d (SpatialD  (None, None, 100)        0         
- ropout1D)                                                       
-                                                                 
- bidirectional (Bidirectiona  (None, 128)              84480     
- l)                                                              
-                                                                 
- dropout_1 (Dropout)         (None, 128)               0         
-                                                                 
- batch_normalization_1 (Batc  (None, 128)              512       
- hNormalization)                                                 
-                                                                 
- dense_2 (Dense)             (None, 1)                 129       
-                                                                 
-=================================================================
-Total params: 25,763,721
-Trainable params: 84,865
-Non-trainable params: 25,678,856
-_________________________________________________________________
-None
-</pre>
-```python
-lstm_history = lstm_model.fit(
-    padded_train[::10],
-    y_train[::10],
-    batch_size=32,
-    callbacks=[early_stopping],
-    epochs=64,
-    sample_weight=sample_weights,
-    validation_split=0.2,
-    verbose=1
-)
-```
-
-<pre class="code-output">
-Epoch 1/64
-173/173 [==============================] - 1176s 7s/step - loss: 5.4464e-06 - mae: 0.3862 - val_loss: 2.1095e-06 - val_mae: 0.1524
-Epoch 2/64
-173/173 [==============================] - 1220s 7s/step - loss: 3.0194e-06 - mae: 0.2050 - val_loss: 2.2214e-06 - val_mae: 0.1577
-Epoch 3/64
-110/173 [==================>...........] - ETA: 7:27 - loss: 2.7089e-06 - mae: 0.1912
-
-
----------------------------------------------------------------------------
-
-KeyboardInterrupt                         Traceback (most recent call last)
-
-Input In [30], in <module>
-----> 1 lstm_history = lstm_model.fit(
-      2     padded_train[::10],
-      3     y_train[::10],
-      4     batch_size=32,
-      5     callbacks=[early_stopping],
-      6     epochs=64,
-      7     sample_weight=sample_weights,
-      8     validation_split=0.2,
-      9     verbose=1
-     10 )
-
-
-File E:\anaconda3\envs\metallyrics\lib\site-packages\keras\utils\traceback_utils.py:64, in filter_traceback.<locals>.error_handler(*args, **kwargs)
-     62 filtered_tb = None
-     63 try:
----> 64   return fn(*args, **kwargs)
-     65 except Exception as e:  
-</pre>
-# pylint: disable=broad-except<pre class="code-output">
-     66   filtered_tb = _process_traceback_frames(e.__traceback__)
-
-
-File E:\anaconda3\envs\metallyrics\lib\site-packages\keras\engine\training.py:1216, in Model.fit(self, x, y, batch_size, epochs, verbose, callbacks, validation_split, validation_data, shuffle, class_weight, sample_weight, initial_epoch, steps_per_epoch, validation_steps, validation_batch_size, validation_freq, max_queue_size, workers, use_multiprocessing)
-   1209 with tf.profiler.experimental.Trace(
-   1210     'train',
-   1211     epoch_num=epoch,
-   1212     step_num=step,
-   1213     batch_size=batch_size,
-   1214     _r=1):
-   1215   callbacks.on_train_batch_begin(step)
--> 1216   tmp_logs = self.train_function(iterator)
-   1217   if data_handler.should_sync:
-   1218     context.async_wait()
-
-
-File E:\anaconda3\envs\metallyrics\lib\site-packages\tensorflow\python\util\traceback_utils.py:150, in filter_traceback.<locals>.error_handler(*args, **kwargs)
-    148 filtered_tb = None
-    149 try:
---> 150   return fn(*args, **kwargs)
-    151 except Exception as e:
-    152   filtered_tb = _process_traceback_frames(e.__traceback__)
-
-
-File E:\anaconda3\envs\metallyrics\lib\site-packages\tensorflow\python\eager\def_function.py:910, in Function.__call__(self, *args, **kwds)
-    907 compiler = "xla" if self._jit_compile else "nonXla"
-    909 with OptionalXlaContext(self._jit_compile):
---> 910   result = self._call(*args, **kwds)
-    912 new_tracing_count = self.experimental_get_tracing_count()
-    913 without_tracing = (tracing_count == new_tracing_count)
-
-
-File E:\anaconda3\envs\metallyrics\lib\site-packages\tensorflow\python\eager\def_function.py:942, in Function._call(self, *args, **kwds)
-    939   self._lock.release()
-    940   
-</pre>
-# In this case we have created variables on the first call, so we run the<pre class="code-output">
-    941   
-</pre>
-# defunned version which is guaranteed to never create variables.<pre class="code-output">
---> 942   return self._stateless_fn(*args, **kwds)  
-</pre>
-# pylint: disable=not-callable<pre class="code-output">
-    943 elif self._stateful_fn is not None:
-    944   
-</pre>
-# Release the lock early so that multiple threads can perform the call<pre class="code-output">
-    945   
-</pre>
-# in parallel.<pre class="code-output">
-    946   self._lock.release()
-
-
-File E:\anaconda3\envs\metallyrics\lib\site-packages\tensorflow\python\eager\function.py:3130, in Function.__call__(self, *args, **kwargs)
-   3127 with self._lock:
-   3128   (graph_function,
-   3129    filtered_flat_args) = self._maybe_define_function(args, kwargs)
--> 3130 return graph_function._call_flat(
-   3131     filtered_flat_args, captured_inputs=graph_function.captured_inputs)
-
-
-File E:\anaconda3\envs\metallyrics\lib\site-packages\tensorflow\python\eager\function.py:1959, in ConcreteFunction._call_flat(self, args, captured_inputs, cancellation_manager)
-   1955 possible_gradient_type = gradients_util.PossibleTapeGradientTypes(args)
-   1956 if (possible_gradient_type == gradients_util.POSSIBLE_GRADIENT_TYPES_NONE
-   1957     and executing_eagerly):
-   1958   
-</pre>
-# No tape is watching; skip to running the function.<pre class="code-output">
--> 1959   return self._build_call_outputs(self._inference_function.call(
-   1960       ctx, args, cancellation_manager=cancellation_manager))
-   1961 forward_backward = self._select_forward_and_backward_functions(
-   1962     args,
-   1963     possible_gradient_type,
-   1964     executing_eagerly)
-   1965 forward_function, args_with_tangents = forward_backward.forward()
-
-
-File E:\anaconda3\envs\metallyrics\lib\site-packages\tensorflow\python\eager\function.py:598, in _EagerDefinedFunction.call(self, ctx, args, cancellation_manager)
-    596 with _InterpolateFunctionError(self):
-    597   if cancellation_manager is None:
---> 598     outputs = execute.execute(
-    599         str(self.signature.name),
-    600         num_outputs=self._num_outputs,
-    601         inputs=args,
-    602         attrs=attrs,
-    603         ctx=ctx)
-    604   else:
-    605     outputs = execute.execute_with_cancellation(
-    606         str(self.signature.name),
-    607         num_outputs=self._num_outputs,
-   (...)
-    610         ctx=ctx,
-    611         cancellation_manager=cancellation_manager)
-
-
-File E:\anaconda3\envs\metallyrics\lib\site-packages\tensorflow\python\eager\execute.py:58, in quick_execute(op_name, num_outputs, inputs, attrs, ctx, name)
-     56 try:
-     57   ctx.ensure_initialized()
----> 58   tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
-     59                                       inputs, attrs, num_outputs)
-     60 except core._NotOkStatusException as e:
-     61   if name is not None:
-
-
-KeyboardInterrupt: 
-</pre>
-```python
-train_metrics = lstm_model.evaluate(padded_train, y_train, verbose=0)
-test_metrics = lstm_model.evaluate(padded_test, y_test, verbose=0)
-train_metrics = {lstm_model.metrics_names[i]: value for i, value in enumerate(train_metrics)}
-test_metrics = {lstm_model.metrics_names[i]: value for i, value in enumerate(test_metrics)}
-```
-
-
-
-```python
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8))
-fig.subplots_adjust(hspace=0.4)
-ax1.set_title('Loss')
-ax1.plot(lstm_history.history['loss'], label='train')
-ax1.plot(lstm_history.history['val_loss'], label='test')
-ax1.set_yscale('log')
-ax1.legend()
-ax2.set_title('Mean Absolute Error')
-ax2.plot(lstm_history.history['mae'], label='train')
-ax2.plot(lstm_history.history['val_mae'], label='test')
-ax2.set_yscale('log')
-ax2.legend()
-plt.show()
-for metric in lstm_model.metrics_names:
-    print(f"Train {metric}: {train_metrics[metric]:.2f}")
-    print(f"Test  {metric}: {test_metrics[metric]:.2f}")
-```
-
-
-
-```python
-y_pred = lstm_model.predict(padded_test)[:, 0]
-y_pred = np.maximum(0, np.minimum(1, y_pred))
-```
-
-
-
-```python
-evaluate_prediction(y_pred, y_test, benchmark=True)
-```
-
-
-
-```python
-texts = ["This album is bad", "This album is okay", "This album is good", "This album is awesome"]
-pred = lstm_model.predict(texts_to_padded(texts, maxlen=padded_train.shape[0]))[:, 0]
-plt.barh(range(len(pred)), pred[::-1])
-plt.yticks(range(len(pred)), texts[::-1])
-plt.xlabel("Predicted score")
-plt.show()
-```
