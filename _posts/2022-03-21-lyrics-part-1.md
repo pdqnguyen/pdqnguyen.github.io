@@ -2343,18 +2343,21 @@ A few years ago, Matt Daniels of The Pudding wrote up [an article](https://puddi
 comparing the number of unique words used by several famous rappers in their first 35,000 words.
 A similar comparison can be done with the metal lyrics here,
 although since heavy metal tends to have more instrumentals and metal musicians don't put out as many songs as rappers do,
-I chose to look at each artist's first 10,000 words.
-Here, for clarity only the top 100 bands by number of album reviews are shown
-but the full plot at the top of the page shows the top 200.
+I chose to look at each artist's last 2,500 words,
+since the median word count per band is just above that number,
+and looking at the most recent lyrics will better represent the current style of each artist.
+For clarity only the top 100 bands by number of album reviews are shown here
+but the full plot in the interactive version shows the top 350.
 Interestingly, there's a gap between the cluster of highest unique words and the main field of artists.
 Every band in the outlier cluster is associated with death metal, hinting at a correlation in genre.
-On the dashboard you can filter by genres to see where on the swarm plot those bands lie.
+On the [dashboard](https://metal-lyrics-feature-plots.herokuapp.com)
+you can filter by genres to see where on the swarm plot those bands lie.
 
 
 <details>
 <summary>Show code</summary>
 {% highlight python %}
-,"""Copied from https://stackoverflow.com/questions/55005272/get-bounding-boxes-of-individual-elements-of-a-pathcollection-from-plt-scatter
+"""Copied from https://stackoverflow.com/questions/55005272/get-bounding-boxes-of-individual-elements-of-a-pathcollection-from-plt-scatter
 """
 
 from matplotlib.path import get_path_collection_extents
@@ -2450,14 +2453,15 @@ band_words.columns = ['name', 'reviews', 'words']
 <summary>Show code</summary>
 {% highlight python %}
 num_bands = 100
-num_words = 10000
+num_words = 2500
 
 band_filt_words = band_words[band_words['words'].apply(len) >= num_words].sort_values('reviews')[-num_bands:]
-band_filt_words['unique_first_words'] = band_filt_words['words'].apply(lambda x: len(set(x[:num_words])))
-band_filt_words = band_filt_words.sort_values('unique_first_words')
+band_filt_words['unique_last_words'] = band_filt_words['words'].apply(lambda x: len(set(x[-num_words:])))
+band_filt_words = band_filt_words.sort_values('unique_last_words')
+print(len(band_filt_words))
 
-fig = plot_swarm(band_filt_words['unique_first_words'], band_filt_words['name'])
-fig.suptitle(f"# of unique words in first {num_words:,.0f} of artist's lyrics", color='white', fontsize=25)
+fig = plot_swarm(band_filt_words['unique_last_words'], band_filt_words['name'])
+fig.suptitle(f"# of unique words in last {num_words:,.0f} of artist's lyrics", color='white', fontsize=25)
 plt.show()
 {% endhighlight %}
 </details><br>
