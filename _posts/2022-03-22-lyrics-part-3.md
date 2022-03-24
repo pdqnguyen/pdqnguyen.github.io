@@ -31,7 +31,7 @@ black metal lyrics deal with topics like the occult, religion, and nature;
 death metal focuses on the obscene and horrifying;
 heavy metal revolves around themes more familiar to rock and pop;
 power metal adopts the vocabulary of fantasies and histories;
-and thrash metal sings of violence, war, and... beer?
+and thrash metal sings of violence and war.
 The full corpus word cloud shows themes common to all heavy metal genres.
 
 ## Imports
