@@ -10,6 +10,12 @@
   text-align: end;
 }
 
+/* Yellow bold text highlighting */
+.strong-text {
+  color: #ebc634;
+  font-weight: bold;
+}
+
 /* Transparent code output blocks */
 .code-output {
   background-color: $background-color;

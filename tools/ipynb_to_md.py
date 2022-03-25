@@ -91,21 +91,20 @@ while len(text) > 0:
         if args.hide_code:
             # Switch to jekyll formatting when putting python code inside a collapsible
             group = re.sub(r"```python((.|\n)*)```", r"{% highlight python %}\1{% endhighlight %}", group)
-            # group = group.replace("```python", "{% highlight python %}").replace("```", "{% endhighlight %}")
-            group = "<details>\n<summary>Show code</summary>\n" + group.strip('\n') + "\n</details><br>"
+            group = "<details>\n<summary>Show code</summary>\n" + group.strip('\n') + "\n</details><br>\n"
         elif args.omit_code:
             group = ""
     elif first == 'output':
         # Un-indent and put it in a code-output class
         group = re.sub("    (.*)", r"\1", group)
-        group = '<pre class="code-output">\n' + group.strip('\n') + '\n</pre>'
+        group = '<pre class="code-output">\n' + group.strip('\n') + '\n</pre>\n'
         if args.hide_output:
-            group = "<details>\n<summary>Show output</summary>\n" + group.strip('\n') + "\n</details><br>"
+            group = "<details>\n<summary>Show output</summary>\n" + group.strip('\n') + "\n</details><br>\n"
         elif args.omit_output:
             group = ""
     elif first == 'table':
         if args.hide_tables:
-            group = "<details>\n<summary>Show table</summary>\n" + group.strip('\n') + "\n</details><br>"
+            group = "<details>\n<summary>Show table</summary>\n" + group.strip('\n') + "\n</details><br>\n"
         elif args.omit_tables:
             group = ""
     elif first == 'image':
