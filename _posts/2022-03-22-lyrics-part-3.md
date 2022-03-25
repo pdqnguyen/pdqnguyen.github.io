@@ -9,9 +9,10 @@ summary: |
 ---
 
 This article is the third part of the lyrical analysis [heavy metal lyrics](/projects/heavy-metal-analysis.html).
-If you're interested in seeing the full code (a lot is omitted here), check out the
-[original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/lyrics/notebooks/lyrics-part-3-word-clouds.ipynb).
-In the [next article](./lyrics-part-4.html) we'll prototype machine learning models for lyric-based genre classification.
+If you're interested in seeing the full code, check out the
+[original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/lyrics/notebooks/lyrics-part-3-word-clouds.ipynb){:target="_blank"}.
+In the [next article](./lyrics-part-4.html) we'll use clustering and graph methods to visualize
+the genre and lyrical data as a network.
 
 Word clouds are a fun and oftentimes helpful technique for visualizing natural language data.
 They can show words scaled by any metric, although term frequency (TF) and

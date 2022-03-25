@@ -8,9 +8,29 @@ summary: |
   Designing and testing machine learning models for lyrics-based multi-label genre classification
 ---
 
+This article is a part of my [heavy metal lyrics project](/projects/heavy-metal-analysis.html).
+Below is a lyrics-based genre classifier demonstrating a few different machine learning models
+([click here for full-size version](https://metal-lyrics-feature-plots.herokuapp.com/){:target="_blank"}).
+If you're interested in seeing the full code (a lot is omitted here), check out the
+[original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/lyrics/notebooks/genre-classification-bag-of-words.ipynb){:target="_blank"}.
+
+<span style="font-size: 14px">Note: Dashboard may take a minute to load</span>
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+  }
+</script>
+
+<div style="overflow: scroll; width:100%; height:800px">
+<iframe src="https://metal-lyrics-genre-classifier.herokuapp.com" title="Dataset dashboard" scrolling="no" 
+style="width: 1600px; height: 1200px; border: 0px"></iframe>
+</div>
+
 ## Summary
 
-The aim of this notebook is to demonstrate a machine learning approach to tagging heavy metal songs with genre labels
+
+The aim of this post is to demonstrate a machine learning approach to tagging heavy metal songs with genre labels
 based on their lyrics alone. The task is to develop a model which will predict for a given piece of text which genre(s)
 describe the text well.
 

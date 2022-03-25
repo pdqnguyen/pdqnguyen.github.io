@@ -8,7 +8,11 @@ summary: |
   Clustering and graphing based on genre association and lyrical similarity.
 ---
 
-[Click here for full-size version of the window below](https://metal-lyrics-network-graph.herokuapp.com){:target="_blank"}
+[Click here for full-size version of the window below](https://metal-lyrics-network-graph.herokuapp.com){:target="_blank"}.
+If you're interested in seeing the full code, check out the
+[original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/lyrics/notebooks/lyrics-part-4-network-graphs.ipynb){:target="_blank"}.
+In the [next article](./lyrics-part-5.html) we'll prototype machine learning models for lyric-based genre classification.
+
 
 <span style="font-size: 14px">Note: Dashboard may take a minute to load</span>
 

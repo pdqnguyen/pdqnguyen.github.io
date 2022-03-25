@@ -13,7 +13,7 @@ Below is the same dashboard presented in [Part 1](./lyrics-part-1-overview.html)
 ([click here for full-size version](https://metal-lyrics-feature-plots.herokuapp.com/){:target="_blank"}).
 Here we will look at the lexical diversity measures included among the plot options (e.g. TTR, MTLD, and vocd-D).
 If you're interested in seeing the full code (a lot is omitted here), check out the
-[original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/lyrics/notebooks/lyrics-part-2-lexical-diversity.ipynb).
+[original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/lyrics/notebooks/lyrics-part-2-lexical-diversity.ipynb){:target="_blank"}.
 In the [next article](./lyrics-part-3.html) we'll use word clouds to describe the different genres.
 
 <span style="font-size: 14px">Note: Dashboard may take a minute to load</span>

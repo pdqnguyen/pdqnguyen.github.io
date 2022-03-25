@@ -19,9 +19,8 @@ It provides a top-level overview of the song lyrics dataset.
 Below is a dashboard I've put together
 ([click here for full-size version](https://metal-lyrics-feature-plots.herokuapp.com/){:target="_blank"})
 to visualize the complete dataset using the metrics discussed here and in the other articles.
-Since I did the analyses here before building the dashboard, some plots will look different.
 If you're interested in seeing the full code (a lot is omitted here), check out the
-[original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/lyrics/notebooks/lyrics-part-1-overview.ipynb).
+[original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/lyrics/notebooks/lyrics-part-1-overview.ipynb){:target="_blank"}.
 In the [next article](./lyrics-part-2.html)
 we'll dive much deeper into evaluating lyrical complexity using various lexical diversity measures.
 
