@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Analysis of Heavy Metal Lyrics and Reviews"
-date:   2022-01-19
+date:   2022-04-05
 categories: jekyll update
 ---
 
@@ -30,7 +30,7 @@ The articles below provide insights on the history of heavy metal albums, and li
 > genres. This notebook also provides statistical insights on the sentiments of MA users as expressed through online
 > album reviews.
 
-> [Album review score prediction](/projects/heavy-metal-analysis/reviews-part-2.html)
+> [Neural network album review score prediction](/projects/heavy-metal-analysis/reviews-part-2.html)
 > 
 > Predicting review scores from text using a convolution neural network and GloVe word embeddings.
 
@@ -42,11 +42,15 @@ The articles below provide insights on the history of heavy metal albums, and li
 > 
 > Comparison of lexical diversity measures and what they tell us about artists and genres.
 
-> [Word clouds](https://nbviewer.org/github/pdqnguyen/metallyrics/blob/main/analyses/lyrics/notebooks/lyrics-part-3-word-clouds.ipynb)
+> [Word clouds](/projects/heavy-metal-analysis/lyrics-part-3.html)
 > 
 > Concise visualizations of song lyrics from different genres.
 
-> [Machine learning notebook](https://nbviewer.org/github/pdqnguyen/metallyrics/blob/master/analyses/lyrics/notebooks/genre-classification-bag-of-words.ipynb)
+> [Network Graphs](/projects/heavy-metal-analysis/lyrics-part-4.html)
+> 
+> Processing data for generating network graphs with Gephi.
+
+> [Machine learning notebook](/projects/heavy-metal-analysis/lyrics-part-5.html)
 > 
 > This notebook presents the multi-label problem of genre classification based on lyrics. Different approaches
 > and preprocessing steps are discussed, and various machine learning models are compared via cross-validation
@@ -74,6 +78,10 @@ Source code for these webpages can be found in the [pdqnguyen/metallyrics-web](h
 > [Network graph of heavy metal bands](https://metal-lyrics-network-graph.herokuapp.com/)
 > 
 > See how genre associations and lyrical similarity connect the disparate world of heavy metal artists.
+
+> [Global and U.S. maps of heavy metal bands](https://metal-lyrics-maps.herokuapp.com/)
+> 
+> Explore the world of heavy metal through choropleth maps.
 
 > [Interactive genre classifier tool](https://metal-lyrics-genre-classifier.herokuapp.com/)
 > 
