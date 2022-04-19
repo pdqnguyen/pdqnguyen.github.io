@@ -10,7 +10,7 @@ summary: |
 
 This article is a part of my [heavy metal lyrics project](/projects/heavy-metal-analysis.html).
 Below is a lyrics-based genre classifier demonstrating a few different machine learning models
-([click here for full-size version](https://metal-lyrics-feature-plots.herokuapp.com/){:target="_blank"}).
+([click here for full-size version](https://metal-lyrics-genre-classifier.herokuapp.com/){:target="_blank"}).
 If you're interested in seeing the full code (a lot is omitted here), check out the
 [original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/lyrics/notebooks/genre-classification-bag-of-words.ipynb){:target="_blank"}.
 
@@ -35,10 +35,10 @@ based on their lyrics alone. The task is to develop a model which will predict f
 describe the text well.
 
 This notebook will implement and discuss the usage of:
-* **Binary relevance as a multi-label classification framework**
-* **Multi-label classification cross-validation** and evaluation metrics
-* Bag-of-words text representation (and why it is favorable over word embeddings for this task)
-* **Oversampling** methods to curb the effects of **imbalanced datasets**
+* <span class="strong-text">Binary relevance as a multi-label classification framework</span>
+* <span class="strong-text">Multi-label classification cross-validation and evaluation metrics</span>
+* <span class="strong-text">Bag-of-words text representation (and why it is favorable over word embeddings for this task!)</span>
+* <span class="strong-text">Oversampling methods to curb the effects of imbalanced datasets</span>
 * A wide range of different classification models including:
   * Logistic regression
   * Bayesian methods
@@ -167,14 +167,16 @@ The data set is formatted as an array comprised of one independent variable (lyr
 [Dark Lyrics](http://darklyrics.com)) and five dependent variable labels (genres, retrieved from
 [Metal-Archives](https://www.metal-archives.com)), for each row (song).
 Here are some things to keep in mind about the data:
-* Each song can belong to any one or more, or none, of the genres.
+* <span class="strong-text">Each song can belong to any one or more, or none, of the genres</span>.
   For example, a song can be labeled as thrash metal, or both thrash and power metal, and so on, or it can be unlabeled;
   it can therefore be predicted to be any combination of labels, or unlabeled, as well.
   This makes the task of tagging song lyrics with the appropriate genre labels a multi-label classification problem.
-* The dataset is multi-lingual, since heavy metal spans many languages around the world.
+* <span class="strong-text">The dataset is multi-lingual</span>, since heavy metal spans many languages around the world.
   This will affect classification since there are correlations between genres and country of origin,
   as show in the previous chapter.
-* The length of song lyrics can vary wildly, but this won't be a big issue in a bag-of-words representation.
+  <span class="strong-text">Some filtering of non-English lyrics was done in the pre-processing, but it's not perfect.</span>
+* <span class="strong-text">The length of song lyrics can vary wildly,
+  but this won't be a big issue in a bag-of-words representation.</span>
 
 
 <details>
@@ -230,8 +232,8 @@ This issue inspired the **RAndom k-labELsets (RAKEL)** method, which uses an ens
 each trained on a random subset of labels
 ([Rokach, L., Schclar, A., Itach, E. 2013](https://arxiv.org/ftp/arxiv/papers/1307/1307.1769.pdf)).
 
-For this analysis I'll simply use **Binary Relevance**, as implemented by the
-[scikit-multilearn](http://scikit.ml/api/skmultilearn.problem_transform.br.html) library.
+<span class="strong-text">For this analysis I'll simply use binary relevance, as implemented by the
+[scikit-multilearn](http://scikit.ml/api/skmultilearn.problem_transform.br.html) library.</span>
 
 
 ## Evaluation metrics
@@ -544,24 +546,26 @@ class MultiLabelClassification:
 Two pre-processing steps must be performed before a model can be trained on this dataset:
 
 1. **Vectorization**: To transform the data from raw song lyrics to an array of values ready for training,
-   the lyrics must be vectorized. In this notebook this will be done using a bag-of-words representation,
-   which simply transforms the corpus into a matrix whose rows represent documents (songs) and columns represent words.
+   the lyrics must be vectorized. <span class="strong-text">In this notebook this will be done using
+   a bag-of-words representation, which simply transforms the corpus into a matrix
+   whose rows represent documents (songs) and columns represent words</span>.
    The value of each word in a document is determined by the vectorization method. 
    The `CountVectorizer` will populate this matrix with raw word counts; the `TfidfVectorizer` takes this
    an extra step by computing the term-frequency inverse-document-frequency (TF-IDF) value for each term in a document.
-   TF-IDF measures the frequency of a term in a document relative to its frequency in all documents,
-   thus providing a better measure of how unique the term is to that document.
+   <span class="strong-text">TF-IDF measures the frequency of a term in a document relative to its frequency in all documents,
+   thus providing a better measure of how unique the term is to that document.</span>
 
-   A shortcoming of the bag-of-words representation is that it fails to capture any syntactical structure in the lyrics.
+   <span class="strong-text">A shortcoming of the bag-of-words representation is that 
+   it fails to capture any syntactical structure in the lyrics.</span>
    A popular alternative is to implement a [word embedding](https://en.wikipedia.org/wiki/Word_embedding),
    which generates a vector space representation of all the words in the data set,
    Since this method allows a document to be transformed into series of word-vectors,
    it opens up the possibility of training models that is sensitive to the word ordering.
-   That said, in the case of song lyrics, syntax is usually unimportant, if it even exists.
+   That said, <span class="strong-text">in the case of song lyrics, syntax is usually unimportant, if it even exists</span>.
    Lyrics are often comprised of broken phrases that combine words in unusual ways and may not necessarily
    convey meaning in the way that prose sentences do. Punctuation is scarce,
    its usage often a stylistic decision of the transcriber. For these reasons,
-   a bag-of-words representation should suffice, and may even outperform word embeddings.
+   <span class="strong-text">a bag-of-words representation should suffice, and may even outperform word embeddings</span>.
 
 2. **Oversampling**: To remedy the class imbalance in each single-genre binary classification,
    the data can be either oversampled or undersampled to have an equal number of positive
@@ -578,6 +582,8 @@ Two pre-processing steps must be performed before a model can be trained on this
    This is somewhat like producing from randomly selected parent observations a child whose traits
    are somewhere between those of its parents. In the context of song lyrics SMOTE would generate
    new songs with word frequencies (or TF-IDF values) similar to the genre being classified by the binary classifier.
+   <span class="strong-text">In this analysis I use a multi-label version of SMOTE, called
+   [MLSOL](https://github.com/diliadis/mlsol)</span>.
 
 <details>
 <summary>Show code</summary>
@@ -792,8 +798,8 @@ which assumes a linear relationship between the feature variables (word counts)
 and the log-odds of the target variables (genre).
 Logistic regression is a very common tool for tackling classification problems in a variety of applications,
 sometimes under the names logit regression or maximum-entropy (MaxEnt) classification.
-After training, we can also visualize what the model has learned by accessing its feature importances.
-This is applicable to other models later on as well.
+<span class="strong-text">After training, we can also visualize what the model has learned by accessing its feature importances.
+This is applicable to other models later on as well.</span>
 
 #### Pipeline
 
@@ -1781,7 +1787,10 @@ for i, clf in enumerate(multinomial_pipeline.classifier.classifiers_):
 
 ## Random forest classifier
 
-The random forest classifier is a popular choice in classification problems, especially when overfitting is a concern. As an ensemble model, the random forest does a good job of minimizing bias by averaging out the contributions of many hundreds or thousands of predictors.
+The random forest classifier is a popular choice in classification problems,
+especially when overfitting is a concern.
+<span class="strong-text">As an ensemble model, the random forest does a good job of minimizing bias
+by averaging out the contributions of many hundreds or thousands of predictors.</span>
 
 
 <details>
@@ -2259,7 +2268,7 @@ for genre, clf in zip(genres, rf_pipeline.classifier.classifiers_):
 ## Gradient boosting model
 
 Going beyond random forests, gradient boosting models (GBMs) expand on the
-idea of ensembling in a way that typically outperforms random forests.
+idea of ensembling in a way that <span class="strong-text">typically outperforms random forests</span>.
 The idea is to ensemble many weak estimators, in this case decision trees,
 sequentially by fitting each one to the residual of the previous.
 There are a few good GBM libraries out there: I'm using LightGBM here,

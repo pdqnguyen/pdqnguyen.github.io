@@ -13,16 +13,33 @@ If you're interested in seeing the code, check out the
 [original notebook](https://github.com/pdqnguyen/metallyrics/blob/main/analyses/reviews/reviews1.ipynb).
 In the [next article](./reviews-part-2.html)
 we'll use machine learning to perform review score prediction from album review text.
+Below is an interactive historical map of metal artists and albums
+reflecting the analyses shown here
+([click here for full-size version](https://metal-lyrics-maps.herokuapp.com/){:target="_blank"}).
+
+<script>
+  function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+  }
+</script>
+
+<div style="overflow: scroll; width:100%; height:800px">
+<iframe src="https://metal-lyrics-maps.herokuapp.com" title="Interactive maps" scrolling="no" 
+style="width: 1600px; height: 1200px; border: 0px"></iframe>
+</div>
 
 ## Summary
 
 **Things we'll do:**
 
-* Implement a _Bayesian-weighted-average_ scoring metric for comparing albums with differing numbers of reviews.
+* <span class="strong-text">Implement a Bayesian-weighted-average scoring metric</span>
+  for comparing albums with differing numbers of reviews.
 * Look at what the [Metal-Archives](https://www.metal-archives.com/) community considers the
-best and worst albums, bands, genres, and countries based on weighted-average album scores.
-* Visualize the popularity of different metal genres around the world.
-* Follow the history of heavy metal as told through album statistics and review scores.
+  <span class="strong-text">best and worst albums, bands, genres, and countries</span>
+  based on weighted-average album scores.
+* Compare the popularity of different metal genres around the world.
+* <span class="strong-text">Identify historical trends in heavy metal</span>
+  as told through album statistics and review scores.
 
 ## Table of Contents
 1. [Dataset](#dataset)
@@ -30,8 +47,6 @@ best and worst albums, bands, genres, and countries based on weighted-average al
 1. [Geographic distribution of albums and genres](#geographic-distribution-of-albums-and-genres)
 1. [Global album trends](#global-album-trends)
 1. [Geographic trends](#geographic-trends)
-
-## Module imports
 
 
 
@@ -43,9 +58,10 @@ best and worst albums, bands, genres, and countries based on weighted-average al
 
 
 
-The dataset consists of nearly 86,000 album reviews extracted from Metal-Archives (MA).
+The dataset consists of nearly <span class="strong-text">86,000 album reviews</span> extracted from Metal-Archives (MA).
 Each review is comprised of a block of text and a score ranging from 0 to 100.
-The reviews cover about 35,000 albums produced by over 18,000 bands.
+The reviews cover about <span class="strong-text">35,000 albums</span> produced by over
+<span class="strong-text">18,000 bands</span>.
 
 
 
@@ -61,8 +77,8 @@ The reviews cover about 35,000 albums produced by over 18,000 bands.
     
 
 
-Review traffic peaked around 2010 after a healthy rise throughout MA's early years.
-Although the monthly rate has dropped since then, it's held rather steadily since.
+<span class="strong-text">Review traffic peaked around 2010 after a healthy rise throughout MA's early years.
+Although the monthly rate has dropped since then, it's held rather steadily since.</span>
 
 
 
@@ -84,33 +100,19 @@ Although the monthly rate has dropped since then, it's held rather steadily sinc
     
 
 
-The distribution of scores is very top-heavy, with an average of 78.5% and median of 81%.
-There are peaks in the distribution at multiples of ten and five because reviewers often round out their scores.
-Over a fifth of the reviews gave scores of at least 95%, and nearly a tenth of reviews gave a full 100%.
+A few things to note about the distribution of scores:
+* <span class="strong-text">The distribution is very top-heavy, with an average of 78.5% and median of 81%.</span>
+* There are peaks at multiples of ten and five because reviewers often round out their scores.
+* <span class="strong-text">Over a fifth of the reviews gave scores of at least 95%,</span>
+  and <span class="strong-text">nearly a tenth gave a full 100%.</span>
 
 ## Split dataset by album, band, genre, and country
 
-
+For the upcoming analyses, I split the data in various ways.
 
 
 
 #### By album
-
-
-
-
-
-
-
-
-
-
-
-#### Most-reviewed albums
-
-
-
-
 
 
 
@@ -239,19 +241,23 @@ Over a fifth of the reviews gave scores of at least 95%, and nearly a tenth of r
 
 
 
+
+
+
+<span class="strong-text">Slayer's Reign in Blood is the most-reviewed album</span>, having been reviewed 44 times,
+with plenty of other famous classics making the top-ten.
+
+
+
+
+
+
+
+
+
 #### By band
 
 
-
-
-
-
-
-
-
-
-
-#### Bands with most reviews
 
 
 
@@ -360,22 +366,13 @@ Over a fifth of the reviews gave scores of at least 95%, and nearly a tenth of r
 </div>
 
 
+Aggregating over discographies, <span class="strong-text">Iron Maiden is the most-reviewed artist</span>.
+With 480 album reviews submitted, they stand well above the others.
 
 
 #### By genre
 
-This split is a little different from the rest because there can be multiple genres per row.
-
-
-
-
-
-#### Genres with most reviews
-
-
-
-
-
+This split in genres is a little different from the rest because there can be multiple genres per row.
 
 
 
@@ -467,22 +464,11 @@ This split is a little different from the rest because there can be multiple gen
 </table>
 </div>
 
-
+<span class="strong-text">Death metal and black metal albums receive the most reviews,
+not surprisingly since they are the most popular genres in the dataset.</span>
 
 
 #### By country of origin
-
-
-
-
-
-#### Countries with most reviews
-
-
-
-
-
-
 
 
 <div>
@@ -573,26 +559,28 @@ This split is a little different from the rest because there can be multiple gen
 </table>
 </div>
 
-
+<span class="strong-text">The U.S. clearly leads the world in album production and reviews.</span>
+There may be a slight U.S. bias in the data because it's an English-speaking website,
+but the coverage of countries around the world is actually very comprehensive on Metal-Archives.
 
 
 ## Weighted-average album score
 
-Comparing albums by simply looking at average review ratings fails to consider each album's popularity (or infamy).
+Comparing albums by simply looking at average review ratings may not be the best way to gauge an album's popularity (or infamy).
 This is important when the number of reviews per album vary dramatically.
-Just like looking at product reviews, we naturally assign more weight to album review scores
+Just like looking at product reviews, when judging albums we naturally assign more weight to album review scores
 that are averaged from the experiences of many people.
 
-As you can see below, there are plenty of albums on MA with only a single, 100% review.
+As you can see below, <span class="strong-text">there are plenty of albums on MA with only a single, 100% review.</span>
 It doesn't make much sense to say these albums are all better than the most popular albums.
-Likewise, there are plenty of albums with only a single 0% review.
+Likewise, <span class="strong-text">there are plenty of albums with only a single 0% review.</span>
 The same can be seen when splitting the data by band.
 I could apply a minimum number of reviews required to consider an album's review score legitimate,
 but this shrinks down the dataset considerably and still weighs albums near the cutoff number and
 near the maximum equally.
 
-Instead, I will use a weighted-average score that treats individual reviews for an album as "evidence"
-that the album ought to deviate from the population mean (of 79%).
+<span class="strong-text">Instead, I will use a weighted-average score that treats individual reviews for an album as "evidence"
+that the album ought to deviate from the population mean (of 79%).</span>
 Ideally, this method would distinguish good albums based on them having many positive reviews, not just a handful.
 Likewise, it should help us reveal which albums draw a consensus of disdain from the MA community.
 
@@ -952,10 +940,10 @@ Doing the same thing for the prior mean $$\mu_0$$ in terms of $$\alpha_0$$ and $
 
 $$\mu = \frac{R_i n_i + \mu_0 (\alpha_0 + \beta_0)}{n_i + (\alpha_0 + \beta_0)}$$
 
-Look familiar? The prior mean is the same as the $$C$$ parameter in the IMDb average,
-so the only difference between this formula and the other is that we now have a clear definition
-for the $$m$$ parameter now: it's the sum of the Beta priors,
-which are directly derived from the population mean and variance!
+Look familiar? <span class="strong-text">The prior mean is the same as the $$C$$ parameter in the IMDb average</span>,
+so the only difference between this formula and the other is that
+<span class="strong-text">we now have a clear definition for the $$m$$ parameter: it's the sum of the Beta priors,
+which are directly derived from the population mean and variance!</span>
 
 $$\alpha_0 + \beta_0 = \frac{1}{\sigma_0^2} \left(\mu_0 - \mu_0^2 - \sigma_0^2\right)$$
 
@@ -963,8 +951,8 @@ To be fair it's not obvious how this parameter behaves,
 but generally speaking a more narrow distribution of reviews in the broad population would
 yield a smaller variance $$\sigma_0^2$$, which has a similar effect to using a larger $$m$$ in the IMDb method.
 This is the expected behavior; a small prior variance represents a more confident prior belief about the mean.
-The key is that now we are allowing the prior variance to be based on the actual variance of the data,
-rather than simply picking a number.
+<span class="strong-text">The key is that now we are allowing the prior variance to be based on the actual variance of the data,
+rather than simply picking a number.</span>
 
 Implementing this is straightforward: we just have to compute the prior parameters from the full dataset,
 then for each album use its average score and number of reviews to compute the parameters of the posterior distribution.
@@ -1033,7 +1021,7 @@ but the weighted average puts St. Anger at 49%, worse than Warpath's 67%.
 
 
 Looking at the histograms of the weighted average scores and raw average scores,
-we can see that the weighted scores push most samples towards the population mean.
+we can see that <span class="strong-text">the weighted scores push most samples towards the population mean</span>.
 This is stronger when looking at albums since the sample sizes are generally smaller.
 In the case of genres and countries, the effect is quite weak and probably
 won't affect rankings too heavily.
@@ -1290,8 +1278,8 @@ won't affect rankings too heavily.
 
 
 
-The best album by weighted-average score is the 1990 death metal record
-[Left Hand Path](https://en.wikipedia.org/wiki/Left_Hand_Path_(album)) by Entombed.
+<span class="strong-text">The best album by weighted-average score is the 1990 death metal record
+[Left Hand Path](https://en.wikipedia.org/wiki/Left_Hand_Path_(album)) by Entombed</span>.
 Most of the top-20 albums hail from the 80s and 90s, a testament to their reputations as heavy metal classics.
 Primordial's [To the Nameless Dead](https://en.wikipedia.org/wiki/To_the_Nameless_Dead) and
 Ahab's [The Call of the Wretched Sea](https://en.wikipedia.org/wiki/The_Call_of_the_Wretched_Sea)
@@ -1539,16 +1527,17 @@ are the only post-2000 albums that make the top twenty.
 
 
 
-At the other end of the rankings,
+<span class="strong-text">At the other end of the rankings,
 [Poser Holocaust](https://www.metal-archives.com/albums/Thrash_or_Die/Poser_Holocaust/307982)
-by Thrash or Die earn the worst weighted score,
+by Thrash or Die earns the worst weighted score</span>,
 but Waking the Cadaver's debut album
 [Perverse Recollections of a Necromangler](https://en.wikipedia.org/wiki/Perverse_Recollections_of_a_Necromangler)
 deserves a mention for having a whopping 33 reviews:
 it's amusing that more people have reviewed this record than have reviewed Ride the Lightning.
 Maybe this just reflects on the sort of opinions album reviewers enjoy sharing...
 
-Many of the bottom twenty albums actually come from otherwise highly respected artists whose fans simply expected better.
+<span class="strong-text">Many of the bottom twenty albums actually come from fairly well-respected artists
+whose fans simply expected better.</span>
 It almost seems like a rite of passage to disappoint your fans after a decade or two of consistent performance.
 Next we'll look at which bands have done the best or worst over the full course of their careers.
 
@@ -1764,9 +1753,9 @@ Many of the most popular bands in metal do poorly in this sense,
 as they set very high standards for themselves and almost always have one or two albums
 that far underperform compared to the rest of their discography.
 This leaves us with some surprise appearances at the top of the weighted-average rankings:
-[Evoken](https://en.wikipedia.org/wiki/Evoken)
+<span class="strong-text">[Evoken](https://en.wikipedia.org/wiki/Evoken)
 takes the crown for highest weighted score.
-Over a six-album discography, they boast a minimum album rating of 91%.
+Over a six-album discography, they boast a minimum album rating of 91%.</span>
 There's quite a lot of variety among the top few bands,
 with many different genres and nationalities being represented.
 
@@ -1970,8 +1959,8 @@ with many different genres and nationalities being represented.
 
 
 
-Yet again [Thrash or Die](https://en.wikipedia.org/wiki/Thrash_or_Die)
-take up their position at the bottom of this ranking.
+<span class="strong-text">Yet again [Thrash or Die](https://en.wikipedia.org/wiki/Thrash_or_Die)
+take up their position at the bottom of this ranking.</span>
 It's mostly due to that horrid debut album of theirs;
 it makes up 14 of their 16 overall reviews.
 Their 2015 follow-up album at least managed to get a couple of reviews over 40%...
@@ -2087,12 +2076,12 @@ Their 2015 follow-up album at least managed to get a couple of reviews over 40%.
 
 
 
-Interestingly, Middle-Eastern metal (which gets split up into middle and eastern because of the genre tag parsing)
-is rated very highly.
+Interestingly, <span class="strong-text">Middle-Eastern metal is rated very highly</span>
+(it gets split up into "middle" and "eastern" because of the genre tag parsing).
 This chart has a lot of unexpected appearances,
 and I'm not sure there's much to read into here.
 When grouping by genres there are far more reviews per sample,
-so the weighted averaging doesn't stray far from the raw average.
+<span class="strong-text">so the weighted averaging doesn't stray far from the raw average.</span>
 
 
 
@@ -2203,7 +2192,7 @@ so the weighted averaging doesn't stray far from the raw average.
 
 
 
-At the bottom, no-one can be surprised to see pop taking the spot of loweset weighted reviews.
+At the bottom, no-one can be surprised to see <span class="strong-text">pop music having lowest weighted reviews</span>.
 Metal purists are known for the dislike of most deathcore, metalcore, and nu-metal, and it shows here as well.
 
 #### Best and worse countries
@@ -2452,9 +2441,11 @@ Now we'll look at some geographic numbers describing the popularity of metal aro
     
 
 
-The U.S. clearly dominates in album production (or at least the production of albums that are cataloged on MA;
-although I'm quite confident the selection bias is not too strong considering how active the MA community is).
-Most of the top countries in the scene are of course European.
+* <span class="strong-text">The U.S. clearly dominates in album production
+(or at least the production of albums that are cataloged on MA;
+although I'm quite confident the selection bias is not too strong considering how active the MA community is).</span>
+
+* <span class="strong-text">Most of the top countries in the scene are European.</span>
 
 #### U.S. states of origin
 
@@ -2469,10 +2460,10 @@ Most of the top countries in the scene are of course European.
     
 
 
-Within the U.S. itself, California produces the most metal albums,
+* Within the U.S. itself, <span class="strong-text">California produces the most metal albums</span>,
 followed by a few other high-population states.
-Per capita, however, Oregon and Washington come out on top;
-The Pacific Northwest weather is perfect for heavy metal after all.
+* <span class="strong-text">Normalized by population, Oregon and Washington produce the most;</span>
+Pacific Northwest weather is perfect for heavy metal after all.
 
 #### Top countries in each genre
 
@@ -2487,11 +2478,13 @@ The Pacific Northwest weather is perfect for heavy metal after all.
     
 
 
-The U.S. is still the top producer of albums in most genres,
-but when it comes to the "melodic" genre tag,
+* <span class="strong-text">The U.S. is still the top producer of albums in most genres.</span>
+* <span class="strong-text">Italy is the only country to overtake the U.S. in any genre, outproducing the Americans in
+symphonic metal albums.</span>
+* When it comes to the "melodic" genre tag,
 which most often refers to melodic death metal in particular,
 the Swedes and Finns contribute a large portion.
-The Germans produce an notably large portion of power metal albums.
+* Germany produces a notably large portion of power metal albums.
 
 #### Top genres in each country
 
@@ -2509,22 +2502,7 @@ The Germans produce an notably large portion of power metal albums.
 For most countries, death and black metal are the most common genres.
 The Ukranians seem to hold the strongest preference for a single genre,
 with nearly a third of Ukranian albums coming from bands identified as black metal.
-The largest stake power metal takes is in Germany,
-while thrash surprisingly is most proportionately popular in Japan.
-
-#### Export yearly national trends
-
-
-
-
-
-
-
-
-
-
-
-
+The largest stake power metal takes is in Germany.
 
 
 
@@ -2540,31 +2518,14 @@ while thrash surprisingly is most proportionately popular in Japan.
     
 ![png](/assets/images/heavy-metal-lyrics/reviews/reviews1_100_0.png)
 
-    
+As mentioned before, popular artists who have been around for a while often struggle to meet fan expectations as years pass.
+<span class="strong-text">Here we see that eight of the ten bands that produced a top-ten album (based on weighted score)
+have seen overall declines in reviewer perception after a decade or two from their debuts.</span>
 
 
 ## Global album trends
 
 Now for a more comprehensive look at the history of metal, as told by the MA community.
-We can see that the number of metal albums grew up until the late 2000's,
-and has been in a gradual decline since.
-The annual average of weighted-average scores (fourth plot)
-peaks towards the end of the 80s, about the same time that many of those top bands
-from above were releasing their most iconic albums.
-As the metal scene saturated, the quality dropped,
-with scores hitting a low point that coincides with the peak in number of albums.
-
-An alternative explanation could be that nostalgia inflates reviewers' opinions of earlier albums,
-especially in those bands above whose quality floundered over the years.
-There's little that can be done to test this hypothesis since all of the reviews of early albums here are written with hindsight,
-but maybe in a few more years we can take another look and see if review sentiment shifts upward
-as 2000s bands become the new nostalgia.
-
-Although album production has been in a bit of a Dark Age in the last few years,
-and review rates for newer albums still trail behind those that have
-been around for a while, records from the last few years are performing much better
-than those from the 2000s and early 2010s.
-The annual weighted average is almost back to matching that of albums from the 70s.
 
 
 
@@ -2581,20 +2542,20 @@ The annual weighted average is almost back to matching that of albums from the 7
     
 
 
-The number of metal albums released per year grew up until the late 2000's,
-but has since plateaued.
-The annual average of weighted-average scores (fourth plot)
-stays quite high throughout the 70s and 80s,
+* <span class="strong-text">The number of metal albums released per year grew up until the late 2000's,
+but has since plateaued.</span>
+* The annual average of weighted-average scores (fourth plot)
+stays <span class="strong-text">quite high throughout the 70s and 80s</span>,
 about the same time that many of the all-time top bands
 were releasing their most iconic albums.
-As the metal scene saturated, quality dropped,
+* <span class="strong-text">As the metal scene saturated, quality dropped</span>,
 with scores hitting a low point coinciding with the peak in number of albums.
-Albums from the past decade, however, have performed better,
-with average just about returning to pre-90s levels,
+* Albums from the past decade, however, have performed better,
+with <span class="strong-text">the average just about returning to pre-90s levels last year</span>,
 giving fans reason to be optimistic about the direction that heavy metal is going.
-Even the slump in album production in 2020-21 due to the pandemic has not
-manifested in a drop in album quality, certainly a positive sign for the industry!
-The number of reviews per album is still in decline,
+* Even the slump in album production in 2020-21 has not manifested in a drop in scores,
+indicating that <span class="strong-text">the COVID-19 pandemic has not adversely affected the quality of metal albums!</span>
+* The number of reviews per album is still in decline,
 but at least for albums of the past few years this is likely just due to recency bias.
 We saw at the beginning that the rate of reviews submitted to MA hasn't actually dropped in recent years.
 
@@ -2616,18 +2577,18 @@ We saw at the beginning that the rate of reviews submitted to MA hasn't actually
 
 
 Although most genres contributed to the rise of metal in the 2000s,
-black and death metal dominated the trend.
+<span class="strong-text">black and death metal dominated the upward trend</span>.
 Before then, it was heavy metal and thrash metal that ruled supreme,
 spearheading the 80s upswing that brought heavy metal into the public spotlight.
 
-Early doom metal (led by Black Sabbath) is very highly rated, and even more recent doom metal albums
-continue to outperform material from other genres rather consistently.
+<span class="strong-text">Early doom metal (led by Black Sabbath) is very highly rated</span>,
+and even more recent doom metal albums continue to outperform material from other genres rather consistently.
 Early black metal albums likewise had a high-scoring start, but have mostly converged towards
 the overal average since then.
-Death metal enjoyed its peak in the early nineties, followed by a long brutal decline throughout the 2000s.
+Death metal did well in the early nineties, followed by a long brutal decline throughout the 2000s.
 Progressive rock/metal peaked twice, once in the late-80s wave (perhaps thanks to Rush),
 and again the early 2000s as progressive metal started to take shape.
-Recently it's been the most highly-rated genre after doom metal.
+<span class="strong-text">Recently progressive rock/metal been the most highly-rated genre after doom metal.<span>
 
 ## Geographic trends
 

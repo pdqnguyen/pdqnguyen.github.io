@@ -20,14 +20,15 @@ term-frequency-inverse-document-frequency
 ([TF-IDF](https://scikit-learn.org/stable/modules/feature_extraction.html#tfidf-term-weighting))
 are the most common metrics.
 For a multi-class or multi-label classification problem,
-word clouds can highlight the similarities and differences between separate classes by treating each class as its own document to compare with all others.
+<span class="strong-text">word clouds can highlight the similarities and differences
+between separate classes by treating each class as its own document to compare with all others.</span>
 The word clouds seen here were made with the `WordCloud` generator by
 [amueller](https://github.com/amueller/word_cloud),
 with pre-processing done via `gensim` and `nltk`.
 
 In the case of heavy metal genre classification, term frequency alone would not be very illuminating:
 the genres visualized here share a lot of common themes.
-TF-IDF does much better at picking out the words that are unique to a genre:
+<span class="strong-text">TF-IDF does much better at picking out the words that are unique to a genre</span>:
 black metal lyrics deal with topics like the occult, religion, and nature;
 death metal focuses on the obscene and horrifying;
 heavy metal revolves around themes more familiar to rock and pop;

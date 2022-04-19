@@ -35,20 +35,22 @@ In this case, they can be used to show heavy metal bands with similar lyrics or 
 This gives us another way to see if there are correlations between lyrical content and genre affiliation.
 
 We can treat bands as nodes in a graph and define edges according to what we're interested in:
-* When visualizing genre association, connect two nodes with an edge if they share a genre tag in common.
-* When visualizing lyrical similarity, connect two nodes with an edge if their vocabularies share many words in common.
+* <span class="strong-text">When visualizing genre association,
+  connect two nodes with an edge if they share a genre tag in common.</span>
+* <span class="strong-text">When visualizing lyrical similarity,
+  connect two nodes with an edge if their vocabularies share many words in common.
   Similiarity can be quantified by cosine similarity between TF-IDF vectors,
-  so we set a minimum cosine similarity for two nodes to be connected.
+  so we set a minimum cosine similarity for two nodes to be connected.</span>
 
 To distinguish between nodes, we can likewise cluster them by attribute,
 using [K-means clustering](https://en.wikipedia.org/wiki/K-means_clustering).
 The idea will be to label each node according to a group whose centroid it is nearest to.
-* For genre clustering, we create a feature vector for each genre, and perform K-means over this genre space.
-* For vocabulary clustering, we create a Tf-Idf vectorization as before.
+* <span class="strong-text">For genre clustering, we create a feature vector for each genre,
+  and perform K-means over this genre space.</span>
+* <span class="strong-text">For vocabulary clustering, we create a Tf-Idf vectorization as before.</span>
 
-In both cases, since the parameter space is rather large (a thousand words for lyrical clustering
-and some tens of genres for genre clustering),
-dimensionality reduction is required for efficient clustering.
+<span class="strong-text">Dimensionality reduction is required for efficient clustering</span> in both cases,
+since the parameter space is rather large (a thousand words for lyrical clustering and some tens of genres for genre clustering).
 [Truncated single-value decomposition](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.TruncatedSVD.html)
 (SVD) is preferred over [principal component analysis](https://en.wikipedia.org/wiki/Principal_component_analysis)
 (PCA) here due to the sparsity of the feature matrices.
@@ -177,14 +179,14 @@ plt.show()
 At this point it's hard to see if this has been effective at all.
 Thankfully we can use [Gephi](https://gephi.org/) to better visualize the clustered data,
 complete with the edges and color-coding.
-All of the cluster labels node connections generated in this notebook are exported for processing in Gephi,
-resulting in the final network graphs.
+<span class="strong-text">All of the cluster labels and node connections generated in this notebook
+are exported for processing in Gephi, resulting in the final network graphs.</span>
 
 #### Choosing 'k' for K-means
 
 Deciding on $$k$$, the number of clusters, is up to us and can depend on the task at hand.
 Here I combine two possible ways of choosing $$k$$:
-* Compute the sum of squared errors (SSE),
+* Compute the sum of squared errors ($$SSE$$),
   which is simply the Euclidean distance between each point and its corresponding cluster center.
   You can't simply look for a minimum here, since the higher $$k$$ is, the lower WSS becomes.
   However, you can look for an "elbow" in the curve, beyond which further improvement is small.
@@ -194,8 +196,9 @@ Here I combine two possible ways of choosing $$k$$:
   A higher silhouette score is better, but it may not be useful if the maximum score corresponds
   to a trivially small $$k$$, as is the case here.
 
-I combine these two by dividing the silhouette score by the SSE, and look for the earliest (smallest $$k$$)
-local maximum in the metric. Since SSE drops of roughly exponentially, I divide specifically by $$log(SSE)$$.
+<span class="strong-text">I combine these two by dividing the silhouette score by the log of $$SSE$$,
+and look for the earliest (smallest $$k$$) local maximum in the metric.</span>
+Since $$SSE$$ drops of roughly exponentially, dividing by $$log(SSE)$$ makes more sense than just $$SSE$$.
 This gives a curve that reaches its first local maximum at $$k=5$$.
 Really it's $$k=2$$ but I want to skip that trivial option.
 
@@ -467,8 +470,8 @@ nodes
 
 #### Vocabulary similary
 
-We can quantify similarity between two bands' lyrics by measuring the cosine similarity
-between their respective Tf-Idf vectors.
+<span class="strong-text">We can quantify similarity between two bands' lyrics by measuring the cosine similarity
+between their respective Tf-Idf vectors.</span>
 This is a pretty efficient calculation given the large vector space being used.
 The threshold for drawing an edge between two nodes depends on the cosine similarities
 of each node to all other nodes.
@@ -610,7 +613,7 @@ plt.show()
 
 #### Genre similarity
 
-This is simple: draw an edge between two nodes if they share a genre tag in common.
+This is simple: <span class="strong-text">draw an edge between two nodes if they share a genre tag in common.</span>
 
 
 ```python

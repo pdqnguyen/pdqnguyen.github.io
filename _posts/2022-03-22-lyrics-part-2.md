@@ -127,9 +127,31 @@ $$
 
 #### MTLD
 
-More sophisticated approaches look at how types are distributed in the text. The bluntly named Measure of Textual Lexical Diversity (MTLD), described by [McCarthy and Jarvis (2010)](https://doi.org/10.3758/BRM.42.2.381), is based on the mean length of token sequences in the text that exceed a certain TTR threshold. The algorithm begins with a sequence consisting of the first token in the text, and iteratively adds the following token, each time recomputing the TTR of the sequence so far. Once the sequence TTR drops below the pre-determined threshold, the sequence ends and a new sequence begins at the next token. This continues until the end of the text is reached, at which point the mean sequence length is computed. The process is repeated from the last token, going backwards, to produce another mean sequence length. The mean of these two results is the final MTLD figure.
+More sophisticated approaches look at how types are distributed in the text.
+The bluntly named Measure of Textual Lexical Diversity (MTLD),
+described by [McCarthy and Jarvis (2010)](https://doi.org/10.3758/BRM.42.2.381),
+is based on the <span class="strong-text">mean length of token sequences in the text that exceed a certain TTR threshold</span>.
+The algorithm begins with a sequence consisting of the first token in the text,
+and iteratively adds the following token, each time recomputing the TTR of the sequence so far.
+Once the sequence TTR drops below the pre-determined threshold,
+the sequence ends and a new sequence begins at the next token.
+This continues until the end of the text is reached, at which point the mean sequence length is computed.
+The process is repeated from the last token, going backwards, to produce another mean sequence length.
+The mean of these two results is the final MTLD figure.
 
-Unlike the simpler methods, MTLD has a tunable parameter. The TTR threshold is chosen by the authors to be 0.720, which is approximately where the cumulative TTR curves for texts in the Project Gutenburg Text Archives reached a point of stabilization. The same can be done with the DarkLyrics data by plotting cumulative TTR values for a large number of bands and identifying the point of stabilization. This cannot be done with single-song lyrics since refrains in the lyrics heavily warp the cumulative TTR curves, such that most never stabilize. Unfortunately even when looking at band lyrics, the cumulative TTR does not stabilize very well, as the curves seem to continue decaying well into the thousands of tokens. However one can roughly identify a point of stabilization somewhere around a TTR of 0.5, occuring at about 200 tokens, so this is used as the threshold for MTLD.
+Unlike the simpler methods, MTLD has a tunable parameter.
+The TTR threshold is chosen by the authors to be 0.720,
+which is approximately where the cumulative TTR curves for texts in the
+Project Gutenburg Text Archives reached a point of stabilization.
+The same can be done with the DarkLyrics data by plotting cumulative
+TTR values for a large number of bands and identifying the point of stabilization.
+This cannot be done with single-song lyrics since refrains in the lyrics heavily warp the cumulative TTR curves,
+such that most never stabilize.
+Unfortunately even when looking at band lyrics,
+the cumulative TTR does not stabilize very well,
+as the curves seem to continue decaying well into the thousands of tokens.
+<span class="strong-text">However one can roughly identify a point of stabilization somewhere around a TTR of 0.5,
+occuring at about 200 tokens, so this is used as the threshold for MTLD.</span>
 
 
 <details>
@@ -192,7 +214,14 @@ def MTLD(words, threshold=0.720):
 
 #### vocd-D
 
-The *vocd-D* method devised by [Malvern *et al.* (2004)](https://www.palgrave.com/gp/book/9781403902313) computes the mean TTR across 100 samples of lengths 35, 36, ... 49, 50. A function is fit to the resulting TTR vs. sample size data and the extracted best fit parameter $$D$$ is the lexical diversity index. Since this is a sampling-based method, the routine is done three times and the average of the $$D$$ values is output. I did not have access to Malvern *et al.* (2004) but did find the relevant function to fit from a [publicly viewable implementation](https://metacpan.org/release/Lingua-Diversity/source/lib/Lingua/Diversity/VOCD.pm) that is cited on a [Text Inspector page](https://textinspector.com/help/lexical-diversity).
+The *vocd-D* method devised by [Malvern *et al.* (2004)](https://www.palgrave.com/gp/book/9781403902313)
+computes the mean TTR across 100 samples of lengths 35, 36, ... 49, 50.
+<span class="strong-text">A function is fit to the resulting TTR vs. sample size data and the extracted best fit parameter
+$$D$$ is the lexical diversity index</span>. Since this is a sampling-based method,
+the routine is done three times and the average of the $$D$$ values is output.
+I did not have access to Malvern *et al.* (2004) but did find the relevant function to fit from a
+[publicly viewable implementation](https://metacpan.org/release/Lingua-Diversity/source/lib/Lingua/Diversity/VOCD.pm)
+that is cited on a [Text Inspector page](https://textinspector.com/help/lexical-diversity).
 
 $$f_{vocd}(N_s) = \frac{D}{N_s} \left( \sqrt{1 + 2 \frac{N_s}{D}} - 1 \right) \label{vocd-D}\tag{1}$$
 
@@ -200,20 +229,42 @@ where $$N_s$$ is the sample size. The higher the value of $$D$$, the more divers
 
 #### HD-D
 
-[McCarthy and Jarvis (2007)](https://doi.org/10.1177%2F0265532207080767) showed that *vocd-D* was merely approximating a result that could directly be computed from the [hypergeometric distribution](https://en.wikipedia.org/wiki/Hypergeometric_distribution). They developed an alternate implementation *HD-D* that computes the mean TTR for each sample size by summing the contribution of each type in the text to the overall mean TTR. The contribution of a type $$t$$ for a given sample size $$N_s$$ is equal to the product of that type's TTR contribution ($$1/N_s$$) and the probability of finding at least one instance of type $$t$$ in any sample. This probability is one minus the probability of finding exactly zero instances of $$t$$ in any sample, which can be computed by the hypergeometric distribution $$P_t(k_t=0, N, n_t, N_s)$$, where $$k_t$$ is the number of instances of type $$t$$, $$N$$ is still the number of tokens in the text, and $$n_t$$ is the number of occurences of $$t$$ in the full text (the order of arguments here is chosen to match the input of [`scipy.stats.hypergeom`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.hypergeom.html) rather than the example in McCarthy and Jarvis (2007)). Thus, in summary, the goal is to compute
+[McCarthy and Jarvis (2007)](https://doi.org/10.1177%2F0265532207080767)
+showed that *vocd-D* was merely approximating a result that could <span class="strong-text">directly be computed from the
+[hypergeometric distribution](https://en.wikipedia.org/wiki/Hypergeometric_distribution)</span>.
+They developed an alternate implementation *HD-D* that computes the mean TTR for each sample size
+by summing the contribution of each type in the text to the overall mean TTR.
+The contribution of a type $$t$$ for a given sample size $$N_s$$ is equal to the product of that type's TTR contribution
+($$1/N_s$$) and the probability of finding at least one instance of type $$t$$ in any sample.
+This probability is one minus the probability of finding exactly zero instances of $$t$$ in any sample,
+which can be computed by the hypergeometric distribution $$P_t(k_t=0, N, n_t, N_s)$$,
+where $$k_t$$ is the number of instances of type $$t$$, $$N$$ is still the number of tokens in the text,
+and $$n_t$$ is the number of occurences of $$t$$ in the full text
+(the order of arguments here is chosen to match the input of
+[`scipy.stats.hypergeom`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.hypergeom.html)
+rather than the example in McCarthy and Jarvis (2007)).
+Thus, in summary, the goal is to compute
 
 $$ f_{HD}(N_s) = \frac{1}{N_s} \sum_{t=1}^{V} 1 - P_t(0, N, n_t, N_s) \label{HD-D}\tag{2}$$
 
-and either equate this to the Eq. \ref{vocd-D} above and [solve](https://www.symbolab.com/solver/function-inverse-calculator/inverse%20f%5Cleft(x%5Cright)%3Dx%5Cleft(%5Csqrt%7B%5Cleft(1%2B%5Cfrac%7B2%7D%7Bx%7D%5Cright)%7D-1%5Cright)) for $$D$$:
+and either equate this to the Eq. \ref{vocd-D} above and
+[solve](https://www.symbolab.com/solver/function-inverse-calculator/inverse%20f%5Cleft(x%5Cright)%3Dx%5Cleft(%5Csqrt%7B%5Cleft(1%2B%5Cfrac%7B2%7D%7Bx%7D%5Cright)%7D-1%5Cright))
+for $$D$$:
 
 $$ D(N_s) = -\frac{\left[f_{HD}(N_s)\right]^2}{2\left[f_{HD}(N_s)-1\right]} $$
 
-where $$x$$ is the output of Eq. \ref{HD-D}. The average across all sample sizes gives the value of $$D$$ for the *HD-D* method. Alternatively one can instead fit Eq. \ref{vocd-D} to the output of Eq. \ref{HD-D} to determine $$D$$.
+where $$x$$ is the output of Eq. \ref{HD-D}.
+The average across all sample sizes gives the value of $$D$$ for the *HD-D* method.
+Alternatively one can instead fit Eq. \ref{vocd-D} to the output of Eq. \ref{HD-D} to determine $$D$$.
 
 
 #### *vocd-D* or *HD-D*?
 
-Although *vocd-D* merely approximates the result of *HD-D*, the latter is much slower, taking several seconds to produce *D* for a single artist's lyrics. The approximate method is still fairly accurate (within <1% away from the *HD-D* result in the example case) with just three trials, so it is the preferred method used in the rest of the notebook.
+<span class="strong-text">Although *vocd-D* merely approximates the result of *HD-D*,
+the latter is much slower, taking several seconds to produce *D* for a single artist's lyrics.
+The approximate method is still fairly accurate
+(within <1% away from the *HD-D* result in the example case)
+with just three trials, so it is the preferred method used in the rest of the notebook.</span>
 
 
 <details>
@@ -427,8 +478,8 @@ The top band, Ásmegin, also has their MTLD inflated,
 in their case due to the fact that both Norwegian and English lyrics are posted to DarkLyrics for each song.
 Bilingual lyrics and unsung commentary likewise inflate the lyrics of Cripple Bastards' songs,
 and likewise that of Dalriada's Zách Klára.
-These exceptions aside, the highest MTLD song is Divina Enema's avant-garde metal track
-[Gargoyles Ye Rose Aloft](https://youtu.be/scJqkAokDus).
+<span class="strong-text">These exceptions aside, the highest MTLD song is Divina Enema's avant-garde metal track
+[Gargoyles Ye Rose Aloft](https://youtu.be/scJqkAokDus).</span>
 
 There's a pretty big difference between the MTLD and vocd-D charts,
 with no bands shared in common among the top-ten of each metric.
@@ -436,9 +487,9 @@ MTLD seems to weigh longer lyrics more heavily,
 while vocd-D almost seems to be reflecting TTR,
 but at least not with the bias towards extremely short ($$N<10$$) songs.
 
-The bottom of the chart is mostly populated by very short, usually one-word, songs.
+<span class="strong-text">The bottom of the chart is mostly populated by very short, usually one-word, songs.
 Of songs with at least ten words, the honor of least lyrically diverse song goes to
-none other than the magnificent "Thunderhorse" by Dethklok,
+none other than the magnificent ["Thunderhorse" by Dethklok](https://www.youtube.com/watch?v=8CvlBFR4gKs)</span>,
 which consists of the words "ride", "thunder", "horse", "revenge", and of course "thunderhorse",
 uttered a total of 33 times altogether.
 At such low word counts, vocd-D often can't yield a score, hence the missing values.

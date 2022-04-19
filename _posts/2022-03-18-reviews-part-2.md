@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2022-03-18
-title: "Reviews of Heavy Metal Albums - Part 2: Review Score Predition"
+title: "Reviews of Heavy Metal Albums - Part 2: Review Score Prediction"
 categories: jekyll update
 permalink: /projects/heavy-metal-analysis/reviews-part-2
 summary: |

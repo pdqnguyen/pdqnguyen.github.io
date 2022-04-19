@@ -49,31 +49,30 @@ style="width: 1600px; height: 1200px; border: 0px"></iframe>
 * Compare lyrical statistics between different heavy metal genres.
 
 **Conclusions:**
-* <span style="color:#ebc634; font-weight:bold">Lyrical datasets can be much more varied in structure than typical text datasets!</span>
+* <span class="strong-text">Lyrical datasets can be much more varied in structure than typical text datasets!</span>
 Different lyrical styles make conventional methods of text comparison difficult.
 Heavy metal lyrics can range from no words at all, to spoken word passages over a thousand words long.  
-* Due to the stylistic diversity in the data, small changes in the methods used to quantify vocabulary can lead
-to noticeably different outcomes.
-* Bands with the highest overall word counts typically belong to the less "extreme" genres like (traditional) heavy metal and power metal.
+* Due to the stylistic diversity in the data,
+<span class="strong-text">small changes in the methods used to quantify vocabulary
+can lead to noticeably different outcomes</span>.
+* Bands with the <span class="strong-text">highest overall word counts typically belong to the less "extreme" genres</span>
+like (traditional) heavy metal and power metal.
 This is due to having long, word-dense songs, often with a focus on narrative, coupled with higher album output.
-* Short pieces by grindcore and death metal bands often provide the highest density of unique words.
-* Using Matt Daniels' metric (unique words in first X words), we see a cluster of outliers at the top end of the distribution:
-Cryptopsy, Napalm Death, Cattle Decapitation, Cradle of Filth, Deeds of Flesh, Dying Fetus, and Exhumed.
-(The plot here has fewer bands shown than in the dashboard, in order to fit all the names on the figure.)
-* <span style="color:#ebc634; font-weight:bold">Word count distributions are correlated with genres in the way you'd expect, but the stylistic diversity in each
-genre blurs that correlation, suggesting that attempts at lyrics-based genre classification are going to be a challenge.</span>
+* <span class="strong-text">Short pieces by grindcore and death metal bands often provide the highest density of unique words.</span>
+* Word count distributions are correlated with genres in the way you'd expect,
+but the stylistic diversity in each genre blurs that correlation, suggesting that
+<span class="strong-text">attempts at lyrics-based genre classification are going to be a challenge.</span>
 
 ## Table of Contents
-1. [Module imports](#module-imports)
-2. [Dataset](#dataset)
-3. [Cleanup song lyrics](#cleanup-song-lyrics)
-4. [Reduced dataset](#reduced-dataset)
-5. [Word counts by song](#word-counts-by-song)
-6. [Word counts by album](#word-counts-by-album)
-7. [Word counts by band](#word-counts-by-band)
-8. [Word counts among the most popular bands](#word-counts-among-the-most-popular-bands)
-9. [Ranking artists by the number of unique words in their first 10,000 words](#ranking-artists-by-the-number-of-unique-words-in-their-first-10000-words)
-10. [Word counts by genre](#word-counts-by-genre)
+1. [Dataset](#dataset)
+2. [Cleanup song lyrics](#cleanup-song-lyrics)
+3. [Reduced dataset](#reduced-dataset)
+4. [Word counts by song](#word-counts-by-song)
+5. [Word counts by album](#word-counts-by-album)
+6. [Word counts by band](#word-counts-by-band)
+7. [Word counts among the most popular bands](#word-counts-among-the-most-popular-bands)
+8. [Ranking artists by the number of unique words in their first 10,000 words](#ranking-artists-by-the-number-of-unique-words-in-their-first-10000-words)
+9. [Word counts by genre](#word-counts-by-genre)
 
 ## Imports
 
@@ -331,11 +330,22 @@ plt.show()
 
 #### Songs with highest word counts
 
-The honor of highest word count in a single song goes to the [Bal-Sagoth's "The Obsidian Crown Unbound"](https://youtu.be/xizMG4nI2dk) at over two thousand words. However, most of those words are not sung in the actual song: Bal-Sagoth lyrics typically include the massive collection of narrative text that accompanies their songs. Although the lyrics they sing are still plentiful, there are nowhere near two thousand words spoken in the six-minute symphonic black metal track.
+The honor of <span class="strong-text">highest word count in a single song goes to
+[Bal-Sagoth's "The Obsidian Crown Unbound"](https://youtu.be/xizMG4nI2dk)</span> at over two thousand words.
+However, most of those words are not sung in the actual song:
+Bal-Sagoth lyrics typically include the massive collection of narrative text that accompanies their songs.
+Although the lyrics they sing are still plentiful,
+there are nowhere near two thousand words spoken in the six-minute symphonic black metal track.
 
-This makes the forty-minute prog metal epic [Crimson by Edge of Sanity](https://youtu.be/St6lJaiHYIc) a better contender for most verbose song. Still, such a claim might be challenged by the fact that the digital edition of the album, which a listener would find on Spotify for instance, divides the single-track album into eight parts. That said, DarkLyrics keeps the original one-track format.
+This makes the forty-minute prog metal epic
+[Crimson by Edge of Sanity](https://youtu.be/St6lJaiHYIc) a better contender for most verbose song.
+Still, such a claim might be challenged by the fact that the digital edition of the album,
+which a listener would find on Spotify for instance, divides the single-track album into eight parts.
+That said, DarkLyrics keeps the original one-track format.
 
-At third place is another multi-part song, [Mirror of Souls](https://youtu.be/y6n1kMsLbc8) by the Christian progressive/power metal group Theocracy. This is less contentious since the official track listing considers this a single track.
+At third place is another multi-part song,
+[Mirror of Souls](https://youtu.be/y6n1kMsLbc8) by the Christian progressive/power metal group Theocracy.
+This is less contentious since the official track listing considers this a single track.
 
 
 
@@ -987,8 +997,14 @@ Unfortunately songs by number of words per seconds or unique words per second yi
 
 ## Word counts by album
 
-Grouping song lyrics by album shows Blind Guardian's 75-minute [Twilight Orchestra: Legacy of the Dark Lands](https://en.wikipedia.org/wiki/Legacy_of_the_Dark_Lands) coming out on top as the album with the highest word count, even outstripping all of Bal-Sagoth's albums. Not counting Bal-Sagoth, Cradle of Filth's [Darkly, Darkly, Venus Aversa](https://en.wikipedia.org/wiki/Darkly,_Darkly,_Venus_Aversa)
-has the highest number of unique words. Unfortunately most of the highest-ranking albums by words per second are albums with unsung lyrics as well.
+Grouping song lyrics by album shows <span class="strong-text">Blind Guardian's 75-minute
+[Twilight Orchestra: Legacy of the Dark Lands](https://en.wikipedia.org/wiki/Legacy_of_the_Dark_Lands)
+coming out on top as the album with the highest word count</span>,
+even outstripping all of Bal-Sagoth's albums.
+Not counting Bal-Sagoth, Cradle of Filth's
+[Darkly, Darkly, Venus Aversa](https://en.wikipedia.org/wiki/Darkly,_Darkly,_Venus_Aversa)
+has the highest number of unique words.
+Unfortunately most of the highest-ranking albums by words per second are albums with unsung lyrics as well.
 
 
 <details>
@@ -1639,7 +1655,14 @@ plt.show()
 
 ## Word counts by band
 
-Surprisingly, Bal-Sagoth’s inflated lyric counts do not matter much when comparing entire bands, perhaps due to how short their discography is. The bands with the highest word counts typically have massive discographies, and are usually power metal or heavy metal bands. [Saxon](https://en.wikipedia.org/wiki/Saxon_(band)) rank highest in raw word counts, with nearly over 39,000 words spanning nearly sixteen hours of music, while [Cradle of Filth](https://en.wikipedia.org/wiki/Cradle_of_Filth) throughout their eleven-hour-long discography have used the greatest number of unique words.
+Surprisingly, Bal-Sagoth’s inflated lyric counts do not matter much when comparing entire bands,
+perhaps due to how short their discography is.
+<span class="strong-text">The bands with the highest word counts typically have massive discographies,
+and are usually power metal or heavy metal bands.</span> [Saxon](https://en.wikipedia.org/wiki/Saxon_(band))
+rank highest in raw word counts, with nearly over 39,000 words spanning nearly sixteen hours of music,
+while [Cradle of Filth](https://en.wikipedia.org/wiki/Cradle_of_Filth)
+throughout their eleven-hour-long discography have used the greatest number of unique words.
+<span class="strong-text">Death metal bands make up the majority of the top-ten bands by unique word count.</span> 
 
 
 <details>
@@ -2336,19 +2359,19 @@ plt.show()
     
 
 
-## Ranking artists by the number of unique words in their first 10,000 words
+## Ranking artists by the number of unique words in their first 2,500 words
 
 A few years ago, Matt Daniels of The Pudding wrote up [an article](https://pudding.cool/projects/vocabulary/index.html)
 comparing the number of unique words used by several famous rappers in their first 35,000 words.
 A similar comparison can be done with the metal lyrics here,
 although since heavy metal tends to have more instrumentals and metal musicians don't put out as many songs as rappers do,
-I chose to look at each artist's last 2,500 words,
+<span class="strong-text">I chose to look at each artist's last 2,500 words,
 since the median word count per band is just above that number,
-and looking at the most recent lyrics will better represent the current style of each artist.
+and looking at the most recent lyrics will better represent the current style of each artist</span>.
 For clarity only the top 100 bands by number of album reviews are shown here
 but the full plot in the interactive version shows the top 350.
 Interestingly, there's a gap between the cluster of highest unique words and the main field of artists.
-Every band in the outlier cluster is associated with death metal, hinting at a correlation in genre.
+Every band in the outlier cluster is associated with Death or Black Metal, hinting at a potential correlation in genre.
 On the [dashboard](https://metal-lyrics-feature-plots.herokuapp.com)
 you can filter by genres to see where on the swarm plot those bands lie.
 
@@ -2474,8 +2497,9 @@ plt.show()
 # Word counts by genre
 
 Although there are some noticeable trends in the word counts of genres,
-overall the distributions of word counts and song lengths per genre are quite broad.
-The overlap means lyrical complexity is likely not a sufficient means of distinguishing between genres.
+overall <span class="strong-text">the distributions of word counts and song lengths per genre are quite broad.</span>
+The overlap means <span class="strong-text">lyrical complexity is likely not a sufficient means
+of distinguishing between genres</span>.
 In the next article we'll expand on this, using more sophisticated lexical diversity measures
 to quantify the complexity of different genres.
 
